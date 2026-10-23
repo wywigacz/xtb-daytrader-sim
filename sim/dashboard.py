@@ -15,10 +15,10 @@ from datetime import datetime
 
 if __package__ in (None, ""):
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from sim import insights, market, news, plain, store, ui
+    from sim import insights, market, news, plain, session as ses, store, ui
     from sim.ui import esc, num, pct, pln, usd
 else:
-    from . import insights, market, news, plain, store, ui
+    from . import insights, market, news, plain, session as ses, store, ui
     from .ui import esc, num, pct, pln, usd
 
 # ------------------------------------------------------------------ style
@@ -205,7 +205,7 @@ def _et_hhmm(iso) -> str:
     """ISO UTC z feedu -> godzina w Nowym Jorku (tak jak reszta panelu)."""
     try:
         from datetime import timezone
-        from . import session as ses
+
         dt = datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
@@ -223,18 +223,14 @@ def _price(sym: str) -> float | None:
 
 # ------------------------------------------------------------------ sekcje
 def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
-    now = datetime.now()
-    is_open = False
-    try:
-        from . import session as ses
-        is_open = ses.is_open()
-    except Exception:  # noqa: BLE001
-        pass
+    now = ses.now_ny()
+    is_open = ses.is_open(now)
     day = int(sim.get("day_count") or 0)
     total = int(cfg["simulation"]["days"])
     pill = ('<span class="pill open">rynek otwarty</span>' if is_open
             else '<span class="pill shut">rynek zamkniety</span>')
     last = (_today_row(equity) or {}).get("date") or "—"
+    upd = now.strftime("%d.%m.%Y %H:%M")
     return f'''<div class="mast">
   <div>
     <div class="kicker">Dziennik symulacji &middot; rachunek XTB w zlotowkach</div>
@@ -242,8 +238,8 @@ def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
   </div>
   <div class="right">
     {pill}<br>
-    dzien <b>{day}</b> z {total}<br>
-    dane na: {esc(last)}
+    dzien <b>{day}</b> z {total} &middot; dane na {esc(last[8:10] + "." + last[5:7] if len(str(last)) >= 10 else last)}<br>
+    zaktualizowano {esc(upd)} (czas Nowego Jorku)
   </div>
 </div>'''
 
