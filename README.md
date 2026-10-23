@@ -1,5 +1,7 @@
 # XTB Day Trader Sim — symulacja inwestowania 10 000 zł + 10 000 zł/mies.
 
+**[▶ Zobacz wyniki na żywo](https://wywigacz.github.io/xtb-daytrader-sim/)**
+
 Automatyczna symulacja day-tradingu na akcjach USA, oparta na metodyce
 skilla **[day-trader-skill](https://github.com/Jakeschincariol/day-trader-skill)**,
 z kosztami i podatkami jak na rachunku **XTB w PLN**.
@@ -20,7 +22,7 @@ z kosztami i podatkami jak na rachunku **XTB w PLN**.
 
 | Co | Gdzie |
 | --- | --- |
-| **Wynik, wykres, transakcje, decyzje** | GitHub Pages → `https://TWOJ-LOGIN.github.io/xtb-daytrader-sim/` |
+| **Wynik, wykres, transakcje, decyzje** | **[wywigacz.github.io/xtb-daytrader-sim](https://wywigacz.github.io/xtb-daytrader-sim/)** |
 | **Surowe pliki** | `sim/state/` (historia kapitału, transakcje, dziennik decyzji) |
 
 ---

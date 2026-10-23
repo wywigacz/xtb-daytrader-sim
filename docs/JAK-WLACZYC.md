@@ -6,7 +6,8 @@ Wszystko klikasz w przeglądarce na GitHubie. Nic nie instalujesz.
 
 ## 1. Włącz stronę z wynikami (GitHub Pages) — raz, na 30 sekund
 
-1. Wejdź na swoje repo: `https://github.com/TWOJ-LOGIN/xtb-daytrader-sim`
+1. Wejdź na swoje repo: `https://github.com/wywigacz/xtb-daytrader-sim`
+   (strona z wynikami jest już włączona: https://wywigacz.github.io/xtb-daytrader-sim/ )
 2. Kliknij **Settings** (koło zębate, prawy górny róg).
 3. W lewej kolumnie przewiń do **Pages**.
 4. W sekcji **Build and deployment**:
@@ -14,7 +15,7 @@ Wszystko klikasz w przeglądarce na GitHubie. Nic nie instalujesz.
    * **Branch**: `main`, folder: **`/docs`**
 5. Kliknij **Save**.
 6. Poczekaj 1–2 minuty, odśwież stronę Pages — pojawi się link:
-   `https://TWOJ-LOGIN.github.io/xtb-daytrader-sim/`
+   `https://wywigacz.github.io/xtb-daytrader-sim/`
 
 To jest Twoja strona z wykresem i transakcjami. Odświeża się sama po każdym
 rozliczeniu dnia.
