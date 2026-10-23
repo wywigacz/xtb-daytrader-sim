@@ -1,0 +1,37 @@
+{
+  "simulation": {
+    "name": "XTB Day Trader Sim",
+    "description": "Autonomiczna symulacja day-tradingu na US stocks wg metodyki day-trader-skill, z kosztami XTB.",
+    "start_date": "2026-10-26",
+    "days": 300,
+    "start_capital_pln": 10000,
+    "monthly_deposit_pln": 10000,
+    "max_concurrent_positions": 3
+  },
+  "costs": {
+    "fx_cost_pct": 0.5,
+    "commission_pct": 0.0,
+    "commission_min_usd": 0.0,
+    "slippage_bps": 5,
+    "tax_on_gains_pct": 19
+  },
+  "risk_from_equity": {
+    "max_loss_per_trade_pct": 1.0,
+    "max_daily_loss_pct": 3.0,
+    "max_position_pct": 30,
+    "cash_buffer_pct": 20,
+    "min_reward_risk": 1.0,
+    "max_trades_per_day": 3
+  },
+  "benchmark": {
+    "symbol": "^GSPC",
+    "label": "S&P 500"
+  },
+  "fx_fallback": 3.65,
+  "scan": {
+    "min_price": 5,
+    "min_volume": 1000000,
+    "or_minutes": 15,
+    "max_confirm": 60
+  }
+}

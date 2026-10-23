@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+# Stan symulacji i dashboard CELOWO sa w repo - to one sie commituja codziennie.

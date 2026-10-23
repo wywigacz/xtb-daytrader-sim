@@ -1,0 +1,49 @@
+name: tick (sesja USA)
+
+# Uruchamia sie co 15 minut w okolicach sesji USA (UTC) i sam sprawdza,
+# czy gielda jest naprawde otwarta (czas Nowego Jorku, swieta, DST).
+# Poza sesja konczy sie w kilka sekund, nic nie robiac.
+
+on:
+  schedule:
+    - cron: "*/15 13-21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sim-state
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sprawdz srodowisko
+        run: python -c "import sys,zoneinfo;print(sys.version)"
+
+      - name: Tick symulacji
+        env:
+          SIM_NOW: ""
+        run: python sim/tick.py
+
+      - name: Zapisz stan w repo
+        run: |
+          git config user.name  "xtb-sim-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "Bez zmian - nie ma czego commitowac."
+          else
+            git commit -m "tick $(date -u '+%Y-%m-%d %H:%MZ')"
+            git pull --rebase --autostash || true
+            git push
+          fi

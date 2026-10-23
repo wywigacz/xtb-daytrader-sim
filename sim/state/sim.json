@@ -1,0 +1,13 @@
+{
+  "start_date": "2026-10-26",
+  "end_date": "2027-08-22",
+  "open": {},
+  "deposits": [],
+  "realized_pnl_usd": 0.0,
+  "tax_reserve_pln": 0.0,
+  "fx": {
+    "rate": 3.65,
+    "as_of": "2026-10-23 15:46"
+  },
+  "day_count": 0
+}
