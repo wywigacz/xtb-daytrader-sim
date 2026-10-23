@@ -318,9 +318,8 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         return None
 
     # 7. Dopisz pozycje do wlasnego stanu symulacji (stop/target/flat-by).
-    from . import book as _book  # lokalny import, unikamy cyklu
-    _book.open_position(sim, sym, qty, round(fill, 4), plan, notional, fee,
-                        reason="ORB: %s" % (plan.get("setup") or "orb"), now=now_dt)
+    book.record_open(sim, sym, qty, round(fill, 4), plan, notional, fee,
+                     reason="ORB: %s" % (plan.get("setup") or "orb"), now=now_dt)
     book.decide(
         sim, "open", symbol=sym, qty=qty, fill_usd=round(fill, 4),
         plan_entry=plan.get("entry"), stop=plan.get("stop"), target=plan.get("target"),

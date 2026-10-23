@@ -124,16 +124,14 @@ def month_needs_deposit(sim: dict, today) -> bool:
 
 
 # --------------------------------------------------------------- transakcje
-def open_position(sim: dict, symbol: str, qty: float, price: float, plan: dict,
-                  notional: float, fee: float, reason: str, now=None) -> None:
-    rc, out, err = skilltools.run(
-        "ticket",
-        ["fill", "--symbol", symbol, "--side", "buy", "--qty", qty,
-         "--price", price, "--date", ses.iso_day(ses.now_ny(now)),
-         "--now", store.ny_stamp(now)],
-    )
-    if rc != 0:
-        raise BookError("ticket.py fill (kupno) nieudane: %s" % (err or out).strip())
+def record_open(sim: dict, symbol: str, qty: float, price: float, plan: dict,
+                notional: float, fee: float, reason: str, now=None) -> None:
+    """Zapisz otwarcie pozycji w stanie symulacji.
+
+    Uwaga: portfolio.json (konto USD) jest juz zaktualizowane przez
+    `ticket.py result --status placed --filled-qty ...`. Tutaj NIE wolno
+    powtarzac fillu - inaczej kupno policzy sie dwa razy.
+    """
     sim.setdefault("open", {})[symbol.upper()] = {
         "symbol": symbol.upper(),
         "qty": qty,
