@@ -7,7 +7,8 @@ z kosztami i podatkami jak na rachunku **XTB w PLN**.
 * Start: **10 000 zł**, potem **+10 000 zł co miesiąc**.
 * Horyzont: **300 dni**.
 * Handel **tylko w ciągu dnia** — wszystko zamknięte przed końcem sesji.
-* Działa **samo** (GitHub Actions), bez Twojego komputera.
+* Działa **samo** (GitHub Actions), bez Twojego komputera — co 10 minut w oknie
+  porannym, co 30 minut w pozostałej części sesji.
 * Repo jest **prywatne** — widzisz je tylko Ty.
 
 > **To nie jest prawdziwe konto i nie jest to porada inwestycyjna.**

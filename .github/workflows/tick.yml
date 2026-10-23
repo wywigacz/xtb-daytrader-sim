@@ -1,12 +1,16 @@
 name: tick (sesja USA)
 
-# Co 20 minut w okolicach sesji USA (UTC). Skrypt sam sprawdza, czy gielda
-# jest naprawde otwarta (czas Nowego Jorku, swieta, DST) - poza sesja konczy
-# sie w kilkanascie sekund, nic nie robiac.
-
+# Skrypt sam sprawdza, czy gielda jest naprawde otwarta (czas Nowego Jorku,
+# swieta, DST) - poza sesja konczy sie w kilkanascie sekund, nic nie robiac.
+#
+# Dwa harmonogramy, bo metoda dziala najswiezej zaraz po otwarciu:
+#   * 13:00-16:50 UTC co 10 minut - to okno 9:45-11:30 czasu Nowego Jorku
+#     (w obu wariantach czasu letniego/zimowego),
+#   * 17:00-21:50 UTC co 30 minut - reszta sesji.
 on:
   schedule:
-    - cron: "*/20 13-21 * * 1-5"
+    - cron: "*/10 13-16 * * 1-5"
+    - cron: "*/30 17-21 * * 1-5"
   workflow_dispatch:
 
 permissions:

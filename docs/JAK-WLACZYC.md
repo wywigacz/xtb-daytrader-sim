@@ -9,7 +9,8 @@ Repo jest **prywatne** — widzisz je tylko Ty.
 
 1. Wejdź na `https://github.com/wywigacz/xtb-daytrader-sim` → zakładka **Actions**.
 2. Są dwa automaty:
-   * **tick (sesja USA)** — uruchamia się co 20 minut w okolicach sesji USA,
+   * **tick (sesja USA)** — uruchamia się co 10 minut w oknie porannym
+     (9:45–11:30 czasu Nowego Jorku) i co 30 minut w pozostałej części sesji,
    * **daily (rozliczenie po sesji)** — raz dziennie po zamknięciu.
 3. Kliknij któryś → **Run workflow** → zielony przycisk. To uruchomienie na żądanie.
 4. Po ~1 minucie wpis zmieni kolor: zielony = sukces, czerwony = błąd.
