@@ -11,7 +11,12 @@ from datetime import datetime
 
 # Kody powodow odrzucenia -> krotki polski + "co to znaczy" (jedno zdanie).
 BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
-    (("max loss per trade", "loss:"), "strata",
+    # kolejnosc ma znaczenie: najpierw wezsze reguly (dzienny limit strat),
+    # potem ogolne - inaczej "daily loss:" zostalby rozpoznany jako zwykla strata
+    (("daily loss", "daily limit"), "limit-strat",
+     "Dzienny limit strat osiagniety",
+     "Dzisiejsze straty wyczerpaly limit - koniec handlu na dzis."),
+    (("max loss per trade",), "strata",
      "Za duza strata na jedna transakcje",
      "Gdyby cena spadla do stopu, stracilbym wiecej niz moj limit na jedna transakcje."),
     (("reward:risk", "reward : risk"), "cel",
@@ -35,9 +40,6 @@ BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
     (("blocked",), "zakaz",
      "Spolka na liscie wykluczonych",
      "Ta spolka jest recznie zablokowana w ustawieniach."),
-    (("daily loss", "daily limit"), "limit-strat",
-     "Dzienny limit strat osiagniety",
-     "Dzisiejsze straty wyczerpaly limit - koniec handlu na dzis."),
     (("stop",), "stop",
      "Brak zabezpieczenia (stop-loss)",
      "Nie kupuje bez z gory ustalonego poziomu wyjscia ze straty."),
