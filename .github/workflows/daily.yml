@@ -48,6 +48,10 @@ jobs:
             echo "Bez zmian - nie ma czego commitowac."
           else
             git commit -m "dzien $(date -u '+%Y-%m-%d')"
-            git pull --rebase --autostash || true
-            git push
+            # -X theirs: przy konflikcie (np. plik obrazka zmieniony po obu
+            # stronach) wygrywa swiezo wygenerowana wersja z tego przebiegu
+            for i in 1 2 3; do
+              git pull --rebase --autostash -X theirs && git push && break
+              sleep 3
+            done
           fi
