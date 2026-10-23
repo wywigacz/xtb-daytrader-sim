@@ -13,7 +13,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from sim import book, engine, market, session as ses, store, strategy  # noqa: E402
+from sim import book, dashboard, engine, market, session as ses, store, strategy  # noqa: E402
 
 
 def _cli_now():
@@ -75,6 +75,10 @@ def main() -> int:
 
     m = engine.snapshot(sim, cfg)
     book.save_sim(sim)
+    try:
+        dashboard.build(sim, cfg)
+    except Exception as e:  # noqa: BLE001 - panel nie moze wywalic symulacji
+        print("  (panel sie nie zbudowal: %s)" % e)
     print("Wycena: %.2f USD = %.2f PLN (netto po podatku %.2f PLN)" % (
         m["equity_usd"], m["equity_pln"], m["equity_pln_net"]))
     print(engine.day_line(sim))

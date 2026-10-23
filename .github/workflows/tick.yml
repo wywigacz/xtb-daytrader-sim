@@ -1,12 +1,12 @@
 name: tick (sesja USA)
 
-# Uruchamia sie co 15 minut w okolicach sesji USA (UTC) i sam sprawdza,
-# czy gielda jest naprawde otwarta (czas Nowego Jorku, swieta, DST).
-# Poza sesja konczy sie w kilka sekund, nic nie robiac.
+# Co 20 minut w okolicach sesji USA (UTC). Skrypt sam sprawdza, czy gielda
+# jest naprawde otwarta (czas Nowego Jorku, swieta, DST) - poza sesja konczy
+# sie w kilkanascie sekund, nic nie robiac.
 
 on:
   schedule:
-    - cron: "*/15 13-21 * * 1-5"
+    - cron: "*/20 13-21 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -26,9 +26,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Sprawdz srodowisko
-        run: python -c "import sys,zoneinfo;print(sys.version)"
 
       - name: Tick symulacji
         env:

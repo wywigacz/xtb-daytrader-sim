@@ -55,6 +55,9 @@ def main() -> int:
         print("  ZAMKNIETE (koniec dnia) %s %s @ %s | P&L %.2f USD (%s)" % (
             t["symbol"], t["qty"], t["exit_usd"], t["pnl_usd"], t["exit_reason"]))
 
+    # 1b. Podsumowanie lektury dnia (ile naglowkow, czy cofnely decyzje)
+    strategy.log_daily_news_summary(sim)
+
     # 2. Wycena
     m = engine.snapshot(sim, cfg)
     book.save_sim(sim)

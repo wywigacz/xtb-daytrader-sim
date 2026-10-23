@@ -1,81 +1,110 @@
-# Jak włączyć, sprawdzić i wyłączyć automat
+# Jak włączyć, wyłączyć i zmienić ustawienia
 
-Wszystko klikasz w przeglądarce na GitHubie. Nic nie instalujesz.
-
----
-
-## 1. Włącz stronę z wynikami (GitHub Pages) — raz, na 30 sekund
-
-1. Wejdź na swoje repo: `https://github.com/wywigacz/xtb-daytrader-sim`
-   (strona z wynikami jest już włączona: https://wywigacz.github.io/xtb-daytrader-sim/ )
-2. Kliknij **Settings** (koło zębate, prawy górny róg).
-3. W lewej kolumnie przewiń do **Pages**.
-4. W sekcji **Build and deployment**:
-   * **Source**: wybierz `Deploy from a branch`
-   * **Branch**: `main`, folder: **`/docs`**
-5. Kliknij **Save**.
-6. Poczekaj 1–2 minuty, odśwież stronę Pages — pojawi się link:
-   `https://wywigacz.github.io/xtb-daytrader-sim/`
-
-To jest Twoja strona z wykresem i transakcjami. Odświeża się sama po każdym
-rozliczeniu dnia.
+Wszystko klikasz w przeglądarce lub w aplikacji GitHub. Nic nie instalujesz.
+Repo jest **prywatne** — widzisz je tylko Ty.
 
 ---
 
-## 2. Sprawdź, czy automat działa
+## 1. Sprawdź, czy automat działa
 
-1. W repo kliknij zakładkę **Actions** (u góry).
-2. Zobaczysz dwa automaty: **tick (sesja USA)** i **daily (rozliczenie po sesji)**.
+1. Wejdź na `https://github.com/wywigacz/xtb-daytrader-sim` → zakładka **Actions**.
+2. Są dwa automaty:
+   * **tick (sesja USA)** — uruchamia się co 20 minut w okolicach sesji USA,
+   * **daily (rozliczenie po sesji)** — raz dziennie po zamknięciu.
 3. Kliknij któryś → **Run workflow** → zielony przycisk. To uruchomienie na żądanie.
-4. Po ~1 minucie wpis zmieni kolor na zielony (sukces) albo czerwony (błąd).
-5. Kliknij wpis → kliknij krok **Tick symulacji** / **Rozliczenie dzienne** →
-   zobaczysz cały tekst, co bot policzył i dlaczego.
+4. Po ~1 minucie wpis zmieni kolor: zielony = sukces, czerwony = błąd.
+5. Kliknij wpis → kliknij krok, np. **Tick symulacji** → zobaczysz pełny tekst:
+   co bot policzył i dlaczego.
 
-Czerwony wpis nie psuje symulacji — stan jest zapisany, następne uruchomienie
-spróbuje ponownie.
+Czerwony wpis niczego nie psuje. Stan jest zapisany w repo, następne
+uruchomienie spróbuje ponownie.
+
+---
+
+## 2. Obejrzyj panel
+
+* **Obrazek:** `docs/panel.png` — otwórz i powiększ. To codzienny zrzut panelu.
+* **Wersja pełna:** `docs/index.html` → przycisk **Raw** → pobierz → otwórz
+  dwuklikiem w przeglądarce.
+
+Szczegóły: [`JAK-PATRZEC.md`](JAK-PATRZEC.md).
 
 ---
 
 ## 3. Wyłącz automat (wakacje, koniec testu)
 
-1. **Actions** → wybierz **tick (sesja USA)** → przycisk **⋯** po prawej →
+1. **Actions** → wybierz **tick (sesja USA)** → menu **⋯** po prawej →
    **Disable workflow**.
 2. To samo dla **daily (rozliczenie po sesji)**.
 
 Włączasz z powrotem tym samym przyciskiem (**Enable workflow**).
-Historia i kapitał zostają nietknięte.
+Historia, kapitał i panel zostają nietknięte.
 
 ---
 
-## 4. Zmień ustawienia (wpłata, limity, spółki)
+## 4. Zmień ustawienia
 
-1. Otwórz plik `sim/config.json` w repo.
-2. Kliknij ołówek (Edit).
-3. Zmień liczbę, np. `"monthly_deposit_pln": 10000` → `5000`.
-4. Na dole **Commit changes**.
+1. Otwórz `sim/config.json` w repo → ołówek **Edit**.
+2. Zmień liczbę i kliknij **Commit changes** na dole.
 
-Zmiana działa od następnego uruchomienia. Nic nie trzeba restartować.
+| Pole | Znaczenie |
+| --- | --- |
+| `start_capital_pln` | wpłata startowa |
+| `monthly_deposit_pln` | wpłata miesięczna |
+| `days` | długość symulacji |
+| `max_concurrent_positions` | ile pozycji naraz (domyślnie 3) |
+| `risk_from_equity.max_loss_per_trade_pct` | ile % kapitału można stracić na jednej transakcji |
+| `risk_from_equity.max_position_pct` | maks. udział jednej spółki |
+| `risk_from_equity.max_trades_per_day` | maks. transakcji dziennie |
+| `costs.slippage_bps` | poślizg w punktach bazowych |
+| `costs.fx_cost_pct` | koszt przewalutowania PLN→USD |
 
-Lista spółek: plik `universe.txt` — jedna spółka w linii, wielkimi literami.
+Lista spółek: `universe.txt` — jedna spółka w linii, wielkimi literami.
+
+Zmiany działają od następnego uruchomienia. Nic nie trzeba restartować.
 
 ---
 
-## 5. Co zrobić, jeśli coś wygląda dziwnie
+## 5. Jak zatrzymać hałas w historii (opcjonalnie)
+
+Historia zmian w repo rośnie z każdym commitem (panel + zrzut PNG).
+Jeśli kiedyś zrobi się tego za dużo, mogę przestawić zrzut PNG na
+cotygodniowy — powiedz, to zmienię.
+
+---
+
+## 6. Reset symulacji od zera
+
+Usuń z repo (przez interfejs GitHub, plik po pliku):
+
+* `sim/state/` (cały folder),
+* `trader/portfolio.json`, `trader/config.json`, `trader/plan.json`,
+  `trader/entry.json`, `trader/orders.json`, `trader/prices.json`,
+  `trader/state/`,
+* `docs/index.html`, `docs/panel.png`.
+
+Przy następnym uruchomieniu wszystko powstanie na nowo, z wpłatą startową.
+
+---
+
+## 7. Co zrobić, jeśli coś wygląda dziwnie
 
 | Objaw | Co to znaczy | Co zrobić |
 | --- | --- | --- |
-| Brak nowych transakcji przez kilka dni | Normalne. Sygnał jest wybiórczy. | Nic. |
-| Wartość spadła | Strata na transakcji albo kurs USD/PLN. | Zajrzyj w `sim/state/trades.csv`. |
-| Wpis w Actions czerwony, „rate limit” | Yahoo ograniczyło darmowe dane. | Poczekaj — następny tick spróbuje sam. |
-| Dashboard się nie zmienia | Pages nie są włączone albo brak commita. | Punkt 1 powyżej + sprawdź Actions. |
-| „Symulacja zakonczona” | Minęło 300 dni. | Zmień `days` w `sim/config.json`. |
+| Kilka dni bez transakcji | Normalne — sygnał jest wybiórczy. | Nic. Panel pokaże, ile okazji odrzucono. |
+| Wartość spadła | Strata na transakcji albo kurs USD/PLN. | Sekcja 03 i 04 panelu. |
+| Czerwony wpis, „rate limit” | Yahoo ograniczyło darmowe dane. | Poczekaj — następny tick spróbuje sam. |
+| Brak nowego `panel.png` | Zrzut się nie udał (nie jest krytyczny). | Zobacz `docs/index.html`; następny dzień spróbuje znowu. |
+| „Symulacja zakonczona” | Minęło 300 dni. | Zwiększ `days` w `sim/config.json`. |
 
 ---
 
-## 6. Gdzie szukać szczegółów
+## 8. Gdzie są szczegóły
 
-* `sim/state/decisions.jsonl` — **każda** decyzja bota z uzasadnieniem
-  (dlaczego kupił, dlaczego odpuścił, jaki limit zadziałał).
-* `sim/state/trades.csv` — wszystkie zamknięte transakcje.
-* `sim/state/ledger.csv` — każdy ruch pieniędzy.
-* `sim/state/equity.csv` — wartość portfela dzień po dniu.
+| Plik | Zawartość |
+| --- | --- |
+| `sim/state/decisions.jsonl` | Każda decyzja bota z powodem |
+| `sim/state/trades.csv` | Zamknięte transakcje |
+| `sim/state/equity.csv` | Wartość portfela dzień po dniu |
+| `sim/state/news.json` | Nagłówki przeczytane każdego dnia |
+| `sim/state/ledger.csv` | Każdy ruch pieniędzy |

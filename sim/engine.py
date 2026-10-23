@@ -39,8 +39,12 @@ def refresh_fx(sim: dict, cfg: dict) -> float:
         rate = market.fx_usdpln()
     except Exception:  # noqa: BLE001
         rate = float(sim.get("fx", {}).get("rate") or cfg.get("fx_fallback", 3.65))
-    if not sim.get("fx") or abs(rate - float(sim["fx"]["rate"])) > 1e-6:
-        book.decide(sim, "fx", rate=round(rate, 4), was=sim.get("fx", {}).get("rate"))
+    prev = float((sim.get("fx") or {}).get("rate") or 0)
+    if prev and abs(rate - prev) / prev > 0.0015:
+        book.decide(sim, "fx", title="Kurs USD/PLN sie zmienil",
+                    why="Przelicznik walutowy zmienil sie o %.2f%%, wiec wartosc portfela w zlotowkach tez."
+                        % ((rate / prev - 1) * 100),
+                    numbers={"rate": round(rate, 4), "was": round(prev, 4)})
     sim["fx"] = {"rate": round(rate, 4), "as_of": store.ny_stamp()}
     return rate
 
@@ -60,8 +64,14 @@ def maybe_deposit(sim: dict, cfg: dict, today) -> bool:
     pln = float(sc["start_capital_pln"] if first else sc["monthly_deposit_pln"])
     rate = float(sim.get("fx", {}).get("rate") or cfg.get("fx_fallback", 3.65))
     rec = book.deposit(sim, pln, rate, ses.iso_day(today))
-    book.decide(sim, "deposit", pln=pln, rate=rate, usd=rec["usd"],
-                fx_fee_usd=rec.get("fx_fee_usd"), first=first)
+    book.decide(
+        sim, "deposit",
+        title="Wplata %s zl" % ("{:,.0f}".format(pln).replace(",", " ")),
+        why=("Pierwsza wplata startowa, przewalutowana na dolary po kursie %.4f." % rate) if first
+            else ("Kolejna wplata miesieczna, przewalutowana na dolary po kursie %.4f." % rate),
+        numbers={"pln": pln, "rate": round(rate, 4), "usd": rec["usd"],
+                 "fee": rec.get("fx_fee_usd"), "first": first},
+    )
     return True
 
 

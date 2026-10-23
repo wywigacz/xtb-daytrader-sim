@@ -75,6 +75,35 @@ uczciwe założenie dla płynnych large-capów.
   zamknięciem sesji.
 * **Okno wejść:** 9:45–15:30 ET (na skróconym dniu proporcjonalnie wcześniej).
 
+## 6a. Warstwa wiadomości (żeby bot nie kupował w środku wstrząsu)
+
+Przed każdym zakupem bot czyta nagłówki Yahoo Finance dla kandydata (ostatnie
+24 h). Są trzy możliwe skutki:
+
+| Sytuacja | Co robi |
+| --- | --- |
+| Nagłówek o **realnym wstrząsie** (wstrzymanie handlu, upadłość, dochodzenie SEC, fraud, krach, gwałtowny zjazd, rezygnacja zarządu) | **odpuszcza zakup** i zapisuje to w panelu jako decyzję |
+| Zwykła wzmianka o **wynikach** („raportuje w tym tygodniu”, „analityk podniósł cenę”) | **nie blokuje** — inaczej w sezonie wyników nie byłoby ani jednej transakcji (sprawdzone: dało 0 transakcji) |
+| Brak nagłówków / feed nie odpowiada | nie blokuje; informacja zapisana jako „brak wpływu” |
+
+Liczba przeczytanych nagłówków i każdy z nich ląduje w panelu (sekcja
+*Co czytał*) oraz w `sim/state/news.json`. **Nie streszczam artykułów, których
+nie mogę przeczytać** — pokazuję tytuł, źródło i godzinę.
+
+## 6b. Kontrola sensu ceny przed wejściem
+
+Między sygnałem (zamknięcie świecy) a wykonaniem mija kilkadziesiąt sekund,
+czasem minut. Jeśli w tym czasie:
+
+* cena spadła **poniżej poziomu stopu** — setup się zepsuł, bot **nie wchodzi**
+  (wcześniej bez tej kontroli powstawały absurdy: wyjście na stopie z zyskiem,
+  bo stop był wyżej niż cena wejścia),
+* cena poszła **powyżej celu** — ruch już się wydarzył, do celu nie ma miejsca,
+  bot **nie wchodzi** (R byłby bliski zeru).
+
+Ryzyko na akcję liczone jest od **faktycznej** ceny wejścia do stopu, nie od
+ceny z planu. Dzięki temu „R” w panelu pokazuje prawdę.
+
 ## 7. Limity ryzyka (domyślne)
 
 | Limit | Wartość | Znaczenie |

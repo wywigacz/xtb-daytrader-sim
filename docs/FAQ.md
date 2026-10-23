@@ -40,6 +40,24 @@ dostępne w XTB jako akcje realne i płynne (duży obrót, wąski spread).
 ### Jak zmienić wpłatę miesięczną?
 `sim/config.json` → `monthly_deposit_pln`.
 
+### Gdzie dokładnie jest panel? Dlaczego nie ma adresu www?
+Nie ma adresu www i to nie jest błąd. GitHub Pages na darmowym planie zawsze
+publikuje stronę **publicznie** — każdy mógłby ją otworzyć. Ponieważ repo ma
+być prywatne, panel jest **obrazkiem w repo** (`docs/panel.png`), widocznym
+tylko dla Ciebie. Jeśli kiedyś zechcesz normalny prywatny adres, da się to
+zrobić na Cloudflare Access — daj znać.
+
+### Dlaczego czasem bot nic nie robi przez kilka dni?
+Bo szuka jednego, rzadkiego sygnału i sam się hamuje. Panel w sekcji
+*Lejek decyzji* pokazuje, ile okazji odrzucił i z jakiego powodu.
+Zero transakcji to też decyzja — i bywa tą właściwszą.
+
+### Skąd bot wie, że coś się dzieje w spółce?
+Czyta nagłówki z Yahoo Finance (darmowe) dla kandydatów do kupna. Sekcja
+*Co czytał* pokazuje, co widział i czy któryś nagłówek wstrzymał zakup.
+Blokuje tylko przy realnym wstrząsie (wstrzymanie handlu, upadłość,
+dochodzenie, krach) — nie przy zwykłej wzmiance o wynikach.
+
 ### Jak zatrzymać symulację?
 GitHub → zakładka **Actions** → wybierz workflow → **Disable**.
 Albo usuń pliki `.github/workflows/tick.yml` i `daily.yml`.
