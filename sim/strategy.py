@@ -305,9 +305,10 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         )
         return None
 
-    # 1. Swieza cena (do pomiaru ryzyka i do fillu).
+    # 1. Ceny: zamknieta swieca do pomiaru ryzyka, cena wykonania do fillu.
     try:
-        px, _t = market.last_price(sym)
+        px, _t = market.last_price(sym)          # ostatnia zamknieta swieca 5m
+        px_fill, t_fill = market.live_price(sym)  # to, co zobaczylby trader
     except Exception as e:  # noqa: BLE001
         book.decide(sim, "skip", symbol=sym, code="dane",
                     title="Brak swiezej ceny %s" % sym,
@@ -380,7 +381,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     #     w zla strone. Jesli juz jest pod stopem (setup sie zepsul) albo nad
     #     celem (ruch sie wydarzyl) - nie wchodze. Bez tego wychodzily
     #     absurdalne transakcje: "stop" z zyskiem, bo stop byl nad wejsciem.
-    fill = xtb.slippage_price(px, "buy", slip)
+    fill = xtb.slippage_price(px_fill, "buy", slip)
     stop_lvl = float(plan.get("stop") or 0)
     target_lvl = float(plan.get("target") or 0)
     if stop_lvl and fill <= stop_lvl:
@@ -426,19 +427,20 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
                      reason="ORB", now=now_dt)
 
     rng = entry_doc.get("opening_range") or {}
-    pct_over = ""
+    pct_over = "poranny szczyt"
     try:
         if rng.get("high"):
-            pct_over = "%+.2f%% nad szczytem" % ((float(entry_doc.get("price") or 0) / float(rng["high"]) - 1) * 100)
+            delta = (float(entry_doc.get("price") or 0) / float(rng["high"]) - 1) * 100
+            pct_over = ("o wlos nad szczytem" if abs(delta) < 0.03
+                        else "%+.2f%% nad szczytem" % delta)
     except (TypeError, ValueError, ZeroDivisionError):
-        pct_over = ""
+        pass
     book.decide(
         sim, "open", symbol=sym,
         title="Kupilem %s %s" % (int(qty), sym),
-        why=("Cena przebila poranny szczyt (%s) i zamknela sie nad nim. "
-             "Stop chroni mnie %.0f%% nizej, cel jest tak samo daleko jak stop."
-             % (pct_over or "zakres 15 min",
-                (1 - float(plan.get("stop") or 0) / max(fill, 0.01)) * 100)),
+        why=("Cena przebila szczyt pierwszych 15 minut (%s) i zamknela sie nad nim. "
+             "Stop chroni mnie %.1f%% nizej, a cel jest tak samo daleko jak stop."
+             % (pct_over, (1 - float(plan.get("stop") or 0) / max(fill, 0.01)) * 100)),
         numbers={
             "qty": int(qty), "entry": round(fill, 2), "stop": plan.get("stop"),
             "target": plan.get("target"), "risk_share": plan.get("risk_per_share"),

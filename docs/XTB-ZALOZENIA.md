@@ -104,6 +104,20 @@ czasem minut. Jeśli w tym czasie:
 Ryzyko na akcję liczone jest od **faktycznej** ceny wejścia do stopu, nie od
 ceny z planu. Dzięki temu „R” w panelu pokazuje prawdę.
 
+**Dwie ceny, celowo różne.** Do pomiaru ryzyka i do wyceny portfela używana
+jest cena z **ostatniej zamkniętej** świecy 5-minutowej — to fakt, a nie
+drgnięcie w trakcie formowania świecy. Do symulowanego wykonania zlecenia
+używana jest cena **bieżąca** (ostatni tick z Yahoo), bo taką cenę widzi
+trader klikający „kup” i po takiej realizuje się zlecenie rynkowe. Różnica
+między nimi bywa kilkuminutowa i jest wliczona w wynik — nie zakładam, że
+kupuję po cenie, którą widziałem kilka minut wcześniej.
+
+Przy odtwarzaniu przeszłego dnia (tryb testowy z zamrożonym zegarem) obie
+ceny to ostatnia zamknięta świeca **do odtwarzanej godziny**, a nie cena
+zamknięcia dnia. Bez tego testy pokazywałyby przyszłość: wychodziły
+„odrzucone, bo cena zjechała pod stop”, choć o odtwarzanej godzinie cena była
+jeszcze w porządku.
+
 ## 7. Limity ryzyka (domyślne)
 
 | Limit | Wartość | Znaczenie |

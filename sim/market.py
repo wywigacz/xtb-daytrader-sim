@@ -129,16 +129,47 @@ def bars_for_day(symbol: str, day: date, interval: str = "5m") -> list[dict]:
     return out
 
 
-def last_price(symbol: str) -> tuple[float, float]:
-    """(cena, znacznik czasu epoch). Bierze ostatnia niepusta swiece 5m."""
+def last_price(symbol: str, as_of=None) -> tuple[float, float]:
+    """(cena, znacznik czasu epoch) ostatniej ZAMKNIETEJ swiecy 5m.
+
+    Dlaczego tylko zamkniete: swieca w trakcie formowania ma cene zmieniajaca
+    sie z sekundy na sekunde i nie jest jeszcze faktem. Poza tym przy
+    odtwarzaniu przeszlego dnia (SIM_NOW) naiwne "ostatnia swieca" bralo cene
+    ZAMKNIECIA DNIA, a nie cene z odtwarzanej godziny - co falszowalo wyniki
+    testow (np. zlecenia "odrzucone, bo cena pod stopem", ktore w rzeczywistosci
+    bylyby wazne).
+    """
     doc = chart(symbol, "1d", "5m")
     bs = doc["bars"]
-    if not bs:
-        mp = doc["meta"].get("regularMarketPrice")
-        if mp:
-            return float(mp), float(doc["meta"].get("regularMarketTime") or time.time())
-        raise MarketError("brak ceny dla %s" % symbol)
-    return bs[-1]["c"], bs[-1]["t"]
+    now_epoch = int(ses.now_ny(as_of).timestamp())
+    done = [b for b in bs if b["t"] + 300 <= now_epoch]
+    if done:
+        return done[-1]["c"], done[-1]["t"]
+    meta = doc.get("meta") or {}
+    mp = meta.get("regularMarketPrice")
+    if mp:
+        return float(mp), float(meta.get("regularMarketTime") or now_epoch)
+    if bs:
+        return bs[-1]["c"], bs[-1]["t"]
+    raise MarketError("brak ceny dla %s" % symbol)
+
+
+def live_price(symbol: str) -> tuple[float, float]:
+    """Cena, po ktorej REALNIE wykonaloby sie zlecenie rynkowe.
+
+    Przy prawdziwym zegarze: ostatni tick z meta Yahoo (to jest cena, ktora
+    widzi trader). Przy odtwarzaniu przeszlego dnia: ostatnia zamknieta swieca,
+    bo meta zwraca wtedy cene konca dnia - czyli przyszlosc wzgledem
+    odtwarzanej godziny.
+    """
+    if os.environ.get("SIM_NOW"):
+        return last_price(symbol)
+    doc = chart(symbol, "1d", "5m")
+    meta = doc.get("meta") or {}
+    mp = meta.get("regularMarketPrice")
+    if mp:
+        return float(mp), float(meta.get("regularMarketTime") or time.time())
+    return last_price(symbol)
 
 
 def fx_usdpln() -> float:

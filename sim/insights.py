@@ -199,12 +199,44 @@ def today_actions(sim: dict) -> list[dict]:
     keep = {"deposit", "scan", "open", "close", "block", "scan_empty", "news_summary"}
     dec = [d for d in _read_decisions()
            if str(d.get("ts_ny", "")).startswith(day) and d.get("decision") in keep]
+
+    # Odrzucenia zbiorczo po powodzie: 29 razy "cena juz odjechala" to jedna
+    # linia z liczba, a nie 29 linii. Inaczej os czasu zamienia sie w sciane.
+    from . import plain
+    agg: dict[str, dict] = {}
+    rest = []
+    for d in dec:
+        if d.get("decision") == "block":
+            code = d.get("code") or "inne"
+            slot = agg.setdefault(code, {"code": code, "count": 0, "symbols": [], "time": str(d.get("ts_ny"))})
+            slot["count"] += 1
+            sym = d.get("symbol")
+            if sym and sym not in slot["symbols"]:
+                slot["symbols"].append(sym)
+            slot["time"] = str(d.get("ts_ny"))
+        else:
+            rest.append(d)
+    blocks = []
+    for slot in sorted(agg.values(), key=lambda s: -s["count"])[:2]:
+        blocks.append({
+            "time": slot["time"][11:16],
+            "kind": "block",
+            "title": "Odpuscilem %d okazj%s: %s" % (
+                slot["count"],
+                "e" if slot["count"] == 1 else "i",
+                plain.title_for(slot["code"]).lower()),
+            "why": "%s Sprawdzone spolki: %s." % (
+                plain.meaning_for(slot["code"]),
+                ", ".join(slot["symbols"][:5]) if slot["symbols"] else "kilka"),
+            "symbol": "",
+            "numbers": {"ile": slot["count"], "kod": slot["code"]},
+        })
+    dec = rest
     dec.sort(key=lambda d: str(d.get("ts_ny")))
-    if len(dec) > 10:
-        # jesli za duzo - zostaw najwazniejsze typy, potem najnowsze
-        prio = {"deposit": 0, "open": 0, "close": 0, "news_summary": 1, "block": 2, "scan": 3, "scan_empty": 4}
+    if len(dec) > 8:
+        prio = {"deposit": 0, "open": 0, "close": 0, "news_summary": 1, "scan": 2, "scan_empty": 3}
         dec.sort(key=lambda d: (prio.get(d.get("decision"), 9), str(d.get("ts_ny"))))
-        dec = dec[:10]
+        dec = dec[:8]
         dec.sort(key=lambda d: str(d.get("ts_ny")))
     out = []
     for d in dec:
@@ -216,4 +248,6 @@ def today_actions(sim: dict) -> list[dict]:
             "symbol": d.get("symbol") or "",
             "numbers": d.get("numbers") or {},
         })
+    out = out + blocks
+    out.sort(key=lambda x: x.get("time") or "")
     return out

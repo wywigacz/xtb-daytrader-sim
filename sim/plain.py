@@ -58,9 +58,10 @@ BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
 ]
 
 SIZE_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
-    (("reward:risk", "the move it was waiting for"), "cel",
+    (("reward:risk", "the move it was waiting for", "the move has already happened",
+      "not above the entry"), "cel",
      "Cena juz odjechala - nie gonie",
-     "Do celu zostalo zbyt malo miejsca. Wejscie teraz to gra o grosze przy duzym ryzyku."),
+     "Cena poszla wyzej, niz mialem w planie, zanim zdazylem kupic. Do celu nie ma juz miejsca."),
     (("too far away", "zero shares", "no order"), "strata",
      "Stop zbyt daleko jak na limit straty",
      "Przy tym stopie nawet 1 akcja ryzykuje wiecej, niz pozwalaja zasady."),
@@ -104,6 +105,23 @@ def exit_reason(code: str) -> tuple[str, str]:
 
 def exit_short(code: str) -> str:
     return EXIT_SHORT.get(code, code or "-")
+
+
+def meaning_for(code: str) -> str:
+    """Jedno zdanie 'co to znaczy' dla kodu odrzucenia (zbiorczo dla panelu)."""
+    for rules in (BLOCK_RULES, SIZE_RULES):
+        for keys, c, _title, meaning in rules:
+            if c == code:
+                return meaning
+    return "Zlecenie nie przeszlo kontroli."
+
+
+def title_for(code: str) -> str:
+    for rules in (BLOCK_RULES, SIZE_RULES):
+        for keys, c, title, meaning in rules:
+            if c == code:
+                return title
+    return "Odrzucone przez kontrole ryzyka"
 
 
 GLOSSARY = [
