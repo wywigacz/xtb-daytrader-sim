@@ -388,8 +388,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         book.decide(
             sim, "block", symbol=sym, code="cena-pod-stopem",
             title="%s: cena zdazyla zjechac pod stop" % sym,
-            why="Po sygnale cena spadla ponizej poziomu, na ktorym mialem sie wycofac. "
-                "Wejscie teraz to strata ustawiona z gory.",
+            why=plain.meaning_for("cena-pod-stopem"),
             numbers={"cena": round(fill, 2), "stop": stop_lvl},
         )
         return None

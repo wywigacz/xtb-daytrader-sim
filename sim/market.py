@@ -139,9 +139,15 @@ def last_price(symbol: str, as_of=None) -> tuple[float, float]:
     testow (np. zlecenia "odrzucone, bo cena pod stopem", ktore w rzeczywistosci
     bylyby wazne).
     """
-    doc = chart(symbol, "1d", "5m")
-    bs = doc["bars"]
-    now_epoch = int(ses.now_ny(as_of).timestamp())
+    now = ses.now_ny(as_of)
+    # Zapytanie o zakres: "1d" daje tylko dzisiejsze swiece. Przy odtwarzaniu
+    # PRZESZLEGO dnia trzeba poprosic o 5 dni i odfiltrowac wlasciwa date -
+    # inaczej wracaly dzisiejsze swiece i porownania byly bez sensu.
+    real_today = datetime.now(ses.NY).date()
+    rng = "1d" if now.date() == real_today else "5d"
+    doc = chart(symbol, rng, "5m")
+    bs = [b for b in doc["bars"] if ses.to_ny(b["t"]).date() == now.date()]
+    now_epoch = int(now.timestamp())
     done = [b for b in bs if b["t"] + 300 <= now_epoch]
     if done:
         return done[-1]["c"], done[-1]["t"]

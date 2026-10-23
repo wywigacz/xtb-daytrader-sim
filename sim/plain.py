@@ -107,16 +107,51 @@ def exit_short(code: str) -> str:
     return EXIT_SHORT.get(code, code or "-")
 
 
+# Kody, ktore nadaje wlasny silnik (z wlasnym tytulem i uzasadnieniem).
+# Trzymane OSOBNO: title_for/meaning_for ich uzywaja, ale classify() nie -
+# inaczej slowa typu "size" albo "news" przeszkadzalyby w dopasowaniu
+# komunikatow skilla.
+CODE_ONLY: list[tuple[str, str, str]] = [
+    ("cena-pod-stopem", "Cena zdazyla zjechac pod stop",
+     "Po sygnale cena spadla ponizej poziomu, na ktorym mialem sie wycofac. "
+     "Wejscie teraz to strata ustawiona z gory."),
+    ("news", "Wiadomosci wstrzymaly zakup",
+     "Naglowek o realnym wstrzasie (wstrzymanie handlu, upadlosc, dochodzenie, krach). "
+     "Nie kupuje, gdy cena moze skoczyc w obie strony."),
+    ("cel", "Cel zbyt blisko ceny wejscia",
+     "Do zysku zostalo mniej miejsca niz do straty, wiec gra nie byla warta ryzyka."),
+    ("plan", "Nie udalo sie ustalic stopu i celu",
+     "Bez z gory ustalonego wyjscia nie wchodze - plan musi istniec przed zakupem."),
+    ("size", "Kalkulator nie znalazl bezpiecznego rozmiaru",
+     "Przy tak ustawionym stopie zadna liczba akcji nie miescila sie w limicie straty."),
+    ("fill", "Nie udalo sie zapisac wykonania",
+     "Zlecenie przeszlo kontrole, ale zapis realizacji sie nie powiodl."),
+    ("dane", "Brak wiarygodnej ceny",
+     "Feed nie dal ceny, ktorej moglbym zaufac - nie ryzykowalem."),
+]
+
+
+def has_code(code: str) -> bool:
+    """Czy kod ma wlasne, napisane po polsku wyjasnienie?"""
+    return any(c == code for c, _title, _meaning in CODE_ONLY)
+
+
 def meaning_for(code: str) -> str:
     """Jedno zdanie 'co to znaczy' dla kodu odrzucenia (zbiorczo dla panelu)."""
     for rules in (BLOCK_RULES, SIZE_RULES):
         for keys, c, _title, meaning in rules:
             if c == code:
                 return meaning
+    for c, _title, meaning in CODE_ONLY:
+        if c == code:
+            return meaning
     return "Zlecenie nie przeszlo kontroli."
 
 
 def title_for(code: str) -> str:
+    for c, title, _meaning in CODE_ONLY:
+        if c == code:
+            return title
     for rules in (BLOCK_RULES, SIZE_RULES):
         for keys, c, title, meaning in rules:
             if c == code:
