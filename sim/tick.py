@@ -59,12 +59,28 @@ def main() -> int:
 
     print("Sesja otwarta. Minut od otwarcia: %.0f" % ses.minutes_since_open(now))
 
-    closed = strategy.manage(sim, now)
+    # Kazdy blad sieci czy feedu jest niekrytyczny: zapisujemy co sie udalo
+    # i konczymy tick bez wywalania calego uruchomienia (stan i tak zostanie
+    # zapisany nizej). Bez tego jeden timeout Yahoo przerywal dzien.
+    try:
+        closed = strategy.manage(sim, now)
+    except Exception as e:  # noqa: BLE001
+        closed = []
+        print("  (zarzadzanie pozycjami przerwane: %s: %s)" % (type(e).__name__, e))
     for t in closed:
         print("  ZAMKNIETE %s %s @ %s | P&L %.2f USD (%s)" % (
             t["symbol"], t["qty"], t["exit_usd"], t["pnl_usd"], t["exit_reason"]))
 
-    opened = strategy.try_enter(sim, now)
+    try:
+        opened = strategy.try_enter(sim, now)
+    except Exception as e:  # noqa: BLE001
+        opened = None
+        print("  (szukanie wejsc przerwane: %s: %s)" % (type(e).__name__, e))
+        book.decide(sim, "error",
+                    title="Nie udalo sie sprawdzic rynku",
+                    why="Yahoo albo feed wiadomosci nie odpowiedzial. Nic nie kupilem; "
+                        "sprobuje przy nastepnym uruchomieniu (za kilka minut).",
+                    error="%s: %s" % (type(e).__name__, str(e)[:180]))
     if opened:
         p = opened["plan"]
         print("  OTWARTE %s %s @ %s | stop %s | target %s | ryzyko/akcja %s" % (

@@ -49,14 +49,24 @@ def main() -> int:
         sim["day_count"] = int(sim.get("day_count") or 0) + 1
         sim["last_day"] = str(today)
 
-    # 1. Domkniecie resztek
-    closed = strategy.manage(sim, now, force_close_all=True)
+    # 1. Domkniecie resztek (blad feedu nie moze przerwac rozliczenia dnia)
+    try:
+        closed = strategy.manage(sim, now, force_close_all=True)
+    except Exception as e:  # noqa: BLE001
+        closed = []
+        print("  (domykanie resztek przerwane: %s: %s)" % (type(e).__name__, e))
+        book.decide(sim, "error", title="Nie udalo sie domknac resztek",
+                    why="Feed nie odpowiedzial. Sprobuje domknac przy nastepnym uruchomieniu.",
+                    error="%s: %s" % (type(e).__name__, str(e)[:180]))
     for t in closed:
         print("  ZAMKNIETE (koniec dnia) %s %s @ %s | P&L %.2f USD (%s)" % (
             t["symbol"], t["qty"], t["exit_usd"], t["pnl_usd"], t["exit_reason"]))
 
     # 1b. Podsumowanie lektury dnia (ile naglowkow, czy cofnely decyzje)
-    strategy.log_daily_news_summary(sim)
+    try:
+        strategy.log_daily_news_summary(sim)
+    except Exception as e:  # noqa: BLE001
+        print("  (podsumowanie wiadomosci pominiete: %s)" % e)
 
     # 2. Wycena
     m = engine.snapshot(sim, cfg)
