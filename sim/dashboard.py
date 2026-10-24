@@ -395,6 +395,10 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     h_gain_pln = esc(pln(gain)) if dep else "—"
     h_dep = esc(pln_short(dep)[0]) if dep else "0 zł"
     h_bench_lab = esc(cfg["benchmark"]["label"])
+    # polski podatek: ile zostanie po jego zaplaceniu (jest naliczony, ale jeszcze nie zaplacony)
+    tax_owed = (_f(last.get("tax_owed_pln")) if last.get("tax_owed_pln") not in (None, "")
+                else _f(sim.get("tax_reserve_pln")))
+    h_tax_line = ("po podatku " + pln(gain - tax_owed)) if (dep and tax_owed > 0.5) else ""
     # mini-wykresy na kartach (we wzorcu kazda karta ma swoj)
     sp_eq = ui.sparkline([_f(r.get("equity_pln")) for r in equity], ui.UP, gid="sp-eq")
     sp_dep = ui.sparkline([_f(r.get("deposits_pln_total")) for r in equity], ui.FAINT, gid="sp-dep")
@@ -417,6 +421,7 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     <div class="lab">Zysk / strata</div>
     <div class="v t-xl {cls}">{h_gain}</div>
     <div class="n">{h_gain_pln} od wpłat</div>
+    {f'<div class="n">{esc(h_tax_line)}</div>' if h_tax_line else ''}
   </div>
   <div class="kpi">
     <div class="lab">Wpłacone</div>
@@ -676,7 +681,7 @@ def _glossary() -> str:
             + "</div>")
 
 
-def _footer(sim: dict, cfg: dict) -> str:
+def _footer(sim: dict, cfg: dict, equity: list[dict] | None = None) -> str:
     """Stopka jako tabela liczb, nie akapit. Wzrok czyta liczby szybciej."""
     c, s = cfg["costs"], cfg["simulation"]
     try:
@@ -689,14 +694,33 @@ def _footer(sim: dict, cfg: dict) -> str:
         ("Dni symulacji", "%d" % int(s["days"])),
         ("Wymiana waluty", num(c["fx_cost_pct"], 1) + "%"),
         ("Poślizg ceny", num(_f(c["slippage_bps"]) / 100.0, 2) + "%"),
-        ("Podatek od zysku", num(c["tax_on_gains_pct"], 0) + "%"),
-        ("Ceny z", "Yahoo, opóźnione"),
+        ("Zasady podatku", "jak polski rachunek"),
     ]
-    if _f(sim.get("tax_reserve_pln")) > 0.5:
-        items.append(("Odłożone na podatek", pln(sim.get("tax_reserve_pln"))))
     cells = "".join(f'<div><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in items)
+    # tabela podatkowa: kwoty z rachunku, nie zalozenia
+    last = _last_row(equity or [])
+    paid_pln = _f(last.get("tax_paid_pln") if last.get("tax_paid_pln") not in (None, "") else sim.get("tax_paid_pln"))
+    owed_pln = _f(last.get("tax_owed_pln") if last.get("tax_owed_pln") not in (None, "") else sim.get("tax_reserve_pln"))
+    loss_pln = _f(last.get("loss_carry_pln") if last.get("loss_carry_pln") not in (None, "") else sim.get("loss_carry_pln"))
+    tax_items = [("Podatek od zysku", "%d%%" % int(_f(c["tax_on_gains_pct"]))),
+                 ("Termin zapłaty", "30 kwietnia")]
+    if paid_pln > 0.5:
+        tax_items.append(("Zapłacony", pln(paid_pln)))
+    if owed_pln > 0.5:
+        tax_items.append(("Do zapłaty", pln(owed_pln)))
+    if loss_pln > 0.5:
+        tax_items.append(("Strata do odliczenia", pln(loss_pln)))
+    if paid_pln <= 0.5 and owed_pln <= 0.5:
+        tax_items.append(("Podatek", "jeszcze żaden"))
+    tax_cells = "".join(f'<div><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in tax_items)
     return f'''<footer>
   <div class="costs">{cells}</div>
+  <div class="lab" style="margin:18px 0 8px">Podatek &mdash; zasady polskie</div>
+  <div class="costs">{tax_cells}</div>
+  <p class="fine">
+    19% od zysku rozliczam <b>raz w roku</b>, nie od każdej transakcji. Płacę do 30 kwietnia
+    roku następnego, a stratę odliczam przez 5 lat (maks. połowę rocznie).
+  </p>
   <p class="fine">
     Ceny z Yahoo, opóźnione. Zlecenia wymyślone &mdash; nic nie idzie do brokera.
     <b>To nie porada inwestycyjna.</b>
@@ -748,7 +772,7 @@ def build(sim: dict, cfg: dict) -> str:
   {content}
 </div>''')
     body.append("</div></section>")
-    body.append(_footer(sim, cfg))
+    body.append(_footer(sim, cfg, equity))
 
     html = f'''<!doctype html>
 <html lang="pl"><head><meta charset="utf-8">

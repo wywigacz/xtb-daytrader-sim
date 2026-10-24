@@ -1,5 +1,5 @@
 """Papierowy broker symulacji: wpłaty PLN, wymiana na USD, kupno/sprzedaż,
-wycena portfela, rezerwa na podatek Belki, dziennik zdarzeń.
+wycena portfela, polski podatek roczny (PIT-38), dziennik zdarzeń.
 
 Konto handlowe w USD (plik trader/portfolio.json w formacie skilla, aktualizowany
 przez ticket.py skilla - dzieki temu trader-risk widzi prawdziwe saldo i pozycje).
@@ -87,6 +87,106 @@ def decide(sim: dict, decision: str, **kw) -> None:
     rec = {"ts_ny": store.ny_stamp(), "decision": decision}
     rec.update(kw)
     store.append_jsonl(store.DECISIONS, rec)
+
+
+def num0(x) -> str:
+    """1234.5 -> '1 235' (polski zapis kwoty)."""
+    try:
+        return "{:,.0f}".format(abs(float(x))).replace(",", " ")
+    except (TypeError, ValueError):
+        return str(x)
+
+
+def _pl_date(iso: str) -> str:
+    """'2027-04-30' -> '30.04.2027' (polski zapis daty)."""
+    try:
+        y, m, d = str(iso)[:10].split("-")
+        return "%s.%s.%s" % (d, m, y)
+    except ValueError:
+        return str(iso)
+
+
+def _cash_add(usd: float) -> None:
+    """Zmienia saldo gotowki w USD (np. zaplata podatku)."""
+    pf = portfolio()
+    pf["cash"] = round(float(pf.get("cash") or 0) + usd, 2)
+    store.write_json(store.PORTFOLIO, pf)
+
+
+# --------------------------------------------------------------- podatek (PL)
+def tax_state(sim: dict) -> dict:
+    """Stan podatku po polsku: zaplacony, do zaplaty, naliczony, strata do odliczenia."""
+    pct = float(load_cfg()["costs"]["tax_on_gains_pct"])
+    settled = sim.get("tax_settled") or []
+    paid = round(sum(float(s.get("tax_pln") or 0) for s in settled if s.get("paid")), 2)
+    unpaid = round(sum(float(s.get("tax_pln") or 0) for s in settled if not s.get("paid")), 2)
+    done = {s.get("year") for s in settled}
+    open_year = None
+    for y in sorted(sim.get("year_result_pln") or {}):
+        if y not in done:
+            open_year = y
+    accrued = 0.0
+    if open_year:
+        accrued = xtb.accrued_tax_year((sim.get("year_result_pln") or {}).get(open_year),
+                                       sim.get("loss_carry_pln") or 0, pct)
+    return {"paid_pln": paid, "unpaid_pln": unpaid, "accrued_pln": accrued,
+            "owed_pln": round(unpaid + accrued, 2),
+            "loss_carry_pln": round(float(sim.get("loss_carry_pln") or 0), 2),
+            "settled": settled, "open_year": open_year}
+
+
+def settle_taxes(sim: dict, now) -> list[dict]:
+    """Rozlicza podatek po polsku.
+
+    1) rok podatkowy, ktory sie skonczyl -> liczymy podatek (19% od dochodu,
+       po odjeciu max 50% straty z lat ubieglych),
+    2) podatek placony jest do 30 kwietnia roku nastepnego - wtedy schodzi
+       z konta (z kosztem wymiany USD->PLN).
+    """
+    cfg = load_cfg()
+    pct = float(cfg["costs"]["tax_on_gains_pct"])
+    rate = float(sim.get("fx", {}).get("rate") or 3.65)
+    today = store.ny_stamp(now)[:10]
+    out = []
+    yr = sim.get("year_result_pln") or {}
+    settled = sim.setdefault("tax_settled", [])
+    for year in sorted(yr):
+        if any(s.get("year") == year for s in settled):
+            continue
+        if today <= "%s-12-31" % year:
+            continue
+        res = float(yr.get(year) or 0)
+        tax, deducted, carry = xtb.settle_tax_year(res, sim.get("loss_carry_pln") or 0, pct)
+        sim["loss_carry_pln"] = carry
+        rec = {"year": year, "result_pln": round(res, 2), "tax_pln": tax,
+               "deducted_pln": deducted, "pay_by": "%s-04-30" % (int(year) + 1), "paid": False}
+        settled.append(rec)
+        out.append(rec)
+        _log(sim, "TAX_DUE", notional_usd=round(tax / rate, 2),
+             note="rozliczenie roku %s: wynik %.0f PLN, podatek %.0f PLN (zaplace do %s)"
+                  % (year, res, tax, rec["pay_by"]))
+        decide(sim, "tax_due", title="Rozliczenie roku %s" % year,
+               why=(("Wynik roku %s zł, podatek %s zł do %s."
+                     % (num0(res), num0(tax), _pl_date(rec["pay_by"]))) if tax else
+                    ("Wynik roku %s zł. Podatku nie ma." % num0(res))),
+               numbers={"rok": year, "wynik_pln": round(res, 2), "podatek_pln": tax})
+    fx = float(cfg["costs"]["fx_cost_pct"]) / 100.0
+    for s in settled:
+        if s.get("paid") or float(s.get("tax_pln") or 0) <= 0:
+            continue
+        if today >= str(s.get("pay_by")):
+            _cash_add(-round(float(s["tax_pln"]) * (1 + fx) / rate, 2))
+            s["paid"] = True
+            s["paid_date"] = today
+            sim["tax_paid_pln"] = round(float(sim.get("tax_paid_pln") or 0) + float(s["tax_pln"]), 2)
+            _log(sim, "TAX_PAID", notional_usd=round(float(s["tax_pln"]) / rate, 2),
+                 note="zaplacony podatek za %s: %.0f PLN" % (s["year"], float(s["tax_pln"])))
+            decide(sim, "tax_paid", title="Zapłacony podatek za %s" % s["year"],
+                   why="Zeszło z konta %s." % num0(s["tax_pln"]),
+                   numbers={"rok": s["year"], "podatek_pln": float(s["tax_pln"])})
+    if out:
+        save_sim(sim)
+    return out
 
 
 # --------------------------------------------------------------- wplaty / FX
@@ -186,28 +286,43 @@ def close_position(sim: dict, symbol: str, qty: float, price: float, fee: float,
         "setup": op.get("setup", ""), "hold_min": hold,
     }
     store.append_csv(store.TRADES, trade, store.TRADE_COLS)
-    # podatek Belki: odkladamy 19% od zysku (na koniec roku / przy wypłacie)
+    # Polski podatek: NIE placimy go od pojedynczej transakcji. Wynik zapisujemy
+    # per rok podatkowy w PLN, a podatek liczymy i placimy raz w roku (PIT-38,
+    # do 30 kwietnia roku nastepnego). Szczegoly: settle_taxes() i sim/xtb.py.
     rate = float(sim.get("fx", {}).get("rate") or 3.65)
-    tax = xtb.tax_on_gain(pnl, rate, float(load_cfg()["costs"]["tax_on_gains_pct"]))
-    sim["tax_reserve_pln"] = round(float(sim.get("tax_reserve_pln") or 0) + tax, 2)
+    year = str(store.ny_stamp(now))[:4]
+    yr = sim.setdefault("year_result_pln", {})
+    yr[year] = round(float(yr.get(year) or 0) + pnl * rate, 2)
     _log(sim, "SELL", symbol=symbol, qty=qty, price_usd=price, notional_usd=round(qty * price, 2),
          fee_usd=fee, note="%s | P&L %.2f USD" % (exit_reason, pnl))
     return trade
 
 
 def mark(sim: dict, prices: dict[str, float]) -> dict:
-    """Wycena portfela: USD i PLN (po kursie), z rezerwa na podatek."""
+    """Wycena portfela: USD i PLN po kursie, plus stan podatku.
+
+    Uwaga na polskie realia: podatek placimy dopiero do 30 kwietnia roku
+    nastepnego, wiec pieniadze na podatek do tego dnia pracuja na koncie.
+    Dlatego 'ile mam na koncie' (equity_pln) i 'ile zostanie po podatku'
+    (equity_pln_net) to dwie rozne liczby - panel pokazuje obie.
+    """
     rate = float(sim.get("fx", {}).get("rate") or 3.65)
     cash = cash_usd()
     pos_val = position_value(prices)
     equity_usd = round(cash + pos_val, 2)
     equity_pln = xtb.usd_to_pln(equity_usd, rate)
+    t = tax_state(sim)
     return {
         "equity_usd": equity_usd,
         "cash_usd": cash,
         "positions_usd": pos_val,
         "equity_pln": equity_pln,
-        "tax_reserve_pln": round(float(sim.get("tax_reserve_pln") or 0), 2),
-        "equity_pln_net": round(equity_pln - float(sim.get("tax_reserve_pln") or 0), 2),
+        "tax_reserve_pln": t["owed_pln"],
+        "tax_owed_pln": t["owed_pln"],
+        "tax_paid_pln": t["paid_pln"],
+        "tax_unpaid_pln": t["unpaid_pln"],
+        "tax_accrued_pln": t["accrued_pln"],
+        "loss_carry_pln": t["loss_carry_pln"],
+        "equity_pln_net": round(equity_pln - t["owed_pln"], 2),
         "rate": rate,
     }

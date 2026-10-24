@@ -169,7 +169,7 @@ GLOSSARY = [
     ("Pozycja", "Akcje, które mam teraz."),
     ("Gotówka", "Pieniądze poza akcjami."),
     ("Poślizg", "Różnica między ceną widzianą a zapłaconą."),
-    ("Podatek", "19% od zysku, odkładane z góry."),
+    ("Podatek", "19% od rocznego zysku. Płacę do 30 kwietnia."),
     ("S&P 500", "Wzorzec: te same wpłaty w indeks."),
 ]
 

@@ -23,7 +23,7 @@ wystarczy podmienić wartość.
 | Przewalutowanie PLN→USD | 0,50% | przy każdej wpłacie | `costs.fx_cost_pct` |
 | Prowizja za akcje USA | 0,00% | przy kupnie i sprzedaży | `costs.commission_pct` |
 | Poślizg rynkowy | 5 pb = 0,05% | kupno drożej, sprzedaż taniej | `costs.slippage_bps` |
-| Podatek Belki | 19% od zysku | odkładany po każdej zamkniętej transakcji | `costs.tax_on_gains_pct` |
+| Podatek od zysku | 19% | raz w roku, od wyniku za cały rok | `costs.tax_on_gains_pct` |
 
 **Przewalutowanie liczę raz, przy wpłacie.** To celowe: realny trader
 z rachunkiem PLN nie wymienia pieniędzy tam i z powrotem co tydzień — trzyma
@@ -33,15 +33,27 @@ USD na koncie i handluje. Gdybyś wypłacał zysk co miesiąc, dołóż drugie 0
 różnicę między ceną, którą widzisz, a ceną realizacji. 5 pb to ostrożne,
 uczciwe założenie dla płynnych large-capów.
 
-## 3. Podatek
+## 3. Podatek — tak, jak na polskim rachunku maklerskim
 
-* 19% od **zrealizowanego** zysku (nie od niezrealizowanego).
-* Kwota podatku jest odejmowana od wyniku i pokazywana osobno jako
-  „podatek w rezerwie”. Nie znika po cichu że statystyk.
-* Strata z jednej transakcji **nie** obniża podatku od zysku w tej symulacji
-  (uproszczenie — w Polsce rozlicza się to narastająco w roku).
-* Nie modeluję podatku od dywidend (spółki w symulacji dywidend nie wypłacają
-  w horyzoncie jednego dnia).
+Podatku **nie płaci się od każdej transakcji**. Zasady są takie jak w PIT-38:
+
+* **19% od zysku za cały rok**, nie od pojedynczej transakcji.
+* Strata z danego roku **obniża** zysk w latach następnych.
+* Odliczać można przez **5 lat**, w jednym roku **najwyżej połowę** straty.
+* Podatek płaci się **do 30 kwietnia** roku następnego. Do tego dnia pieniądze
+  na podatek zostają na koncie i pracują.
+* Deklarację składasz sam — broker wystawia tylko PIT-8C.
+
+Dlatego w panelu są **dwie różne liczby**:
+
+* **ile masz na koncie** — pełna wartość, razem z pieniędzmi na podatek,
+* **ile zostanie po podatku** — po odjęciu podatku, który już się naliczył.
+
+Przeliczanie na złotówki: wynik liczę po kursie z dnia transakcji. W realnym
+rozliczeniu bierze się kurs NBP z dnia poprzedzającego — przy transakcjach
+jednodniowych różnica jest znikoma.
+
+Podatku od dywidend nie ma, bo nic nie trzymam przez noc.
 
 ## 4. Kurs USD/PLN
 
@@ -68,7 +80,7 @@ uczciwe założenie dla płynnych large-capów.
   pierwszych 15 minut sesji (opening range). Drgnięcie ceny w środku świecy
   się nie liczy — liczy się zamknięcie.
 * **Stop:** środek porannego zakresu (opening-range midpoint).
-* **Cel:** 1R, czyli tyle samo, ile wynosi ryzyko na akcję.
+* **Cel:** tyle samo, ile wynosi ryzyko na akcję (1 do 1).
 * **Wielkość pozycji:** najmniejsza z czterech granic — limit straty na
   transakcję, limit udziału jednej spółki, limit wartości zlecenia, dostępna
   gotówka z buforem.
@@ -103,7 +115,7 @@ czasem minut. Jeśli w tym czasie:
   bot **nie wchodzi** (R byłby bliski zeru).
 
 Ryzyko na akcję liczone jest od **faktycznej** ceny wejścia do stopu, nie od
-ceny z planu. Dzięki temu „R” w panelu pokazuje prawdę.
+ceny z planu. Dzięki temu „× ryzyko” w panelu pokazuje prawdę.
 
 **Dwie ceny, celowo różne.** Do pomiaru ryzyka i do wyceny portfela używana
 jest cena z **ostatniej zamkniętej** świecy 5-minutowej — to fakt, a nie

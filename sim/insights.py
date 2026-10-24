@@ -194,7 +194,8 @@ def today_actions(sim: dict) -> list[dict]:
     żeby os była czytelna, a nie była sciana tekstu.
     """
     day = store.ny_stamp()[:10]
-    keep = {"deposit", "scan", "open", "close", "block", "scan_empty", "news_summary"}
+    keep = {"deposit", "scan", "open", "close", "block", "scan_empty", "news_summary",
+            "tax_due", "tax_paid"}
     dec = [d for d in _read_decisions()
            if str(d.get("ts_ny", "")).startswith(day) and d.get("decision") in keep]
 
@@ -232,7 +233,8 @@ def today_actions(sim: dict) -> list[dict]:
     dec = rest
     dec.sort(key=lambda d: str(d.get("ts_ny")))
     if len(dec) > 8:
-        prio = {"deposit": 0, "open": 0, "close": 0, "news_summary": 1, "scan": 2, "scan_empty": 3}
+        prio = {"deposit": 0, "open": 0, "close": 0, "tax_due": 0, "tax_paid": 0,
+                "news_summary": 1, "scan": 2, "scan_empty": 3}
         dec.sort(key=lambda d: (prio.get(d.get("decision"), 9), str(d.get("ts_ny"))))
         dec = dec[:8]
         dec.sort(key=lambda d: str(d.get("ts_ny")))

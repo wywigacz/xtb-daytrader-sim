@@ -29,7 +29,7 @@ Podgląd, jak wygląda wypełniony, jest w `docs/przykład-panelu.png`.
    handlu, upadłość, dochodzenie, krach) → odpuszcza. Zwykłe wzmianki
    o wynikach nie blokują handlu.
 3. **Planuje wyjście przed wejściem**: stop = środek porannego zakresu,
-   cel = 1R (tyle samo, ile ryzykuję).
+   cel = tyle samo, ile ryzykuję (1 do 1).
 4. **Liczy wielkość pozycji** tak, by maksymalna strata na transakcji to
    1% kapitału.
 5. **Kontroluje ryzyko**: limity strat dnia, liczba transakcji, warunki wejścia.
@@ -49,7 +49,7 @@ powstaje panel.
 | Przewalutowanie PLN→USD | 0,5% (jak spread XTB) |
 | Poślizg rynkowy | 0,05% na transakcję |
 | Prowizja za akcje USA | 0% (do limitu obrotu w XTB) |
-| Podatek Belki | 19% od zysku, odkładany w rezerwie |
+| Podatek od zysku | 19% od rocznego zysku, płacony do 30 kwietnia |
 
 Handel odbywa się na akcjach amerykańskich, więc wpłata jest przewalutowana
 raz; dalej środki zostają w dolarach. Wartość portfela jest przeliczana na

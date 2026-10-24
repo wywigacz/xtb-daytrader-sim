@@ -14,6 +14,7 @@ from sim import book, market, session as ses, store, strategy  # noqa: E402
 EQUITY_COLS = [
     "date", "equity_usd", "equity_pln", "equity_pln_net", "cash_usd",
     "positions_usd", "deposits_pln_total", "rate", "bench_pln", "bench_units",
+    "tax_owed_pln", "tax_paid_pln", "loss_carry_pln",
 ]
 
 
@@ -28,6 +29,10 @@ def ensure_init(sim: dict, cfg: dict) -> dict:
         sim["deposits"] = []
         sim["realized_pnl_usd"] = 0.0
         sim["tax_reserve_pln"] = 0.0
+        sim["year_result_pln"] = {}      # wynik per rok podatkowy (PLN)
+        sim["tax_settled"] = []          # rozliczone lata (PIT-38)
+        sim["tax_paid_pln"] = 0.0        # podatek faktycznie zaplacony
+        sim["loss_carry_pln"] = 0.0      # strata do odliczenia (max 5 lat)
         sim["fx"] = {"rate": float(cfg.get("fx_fallback", 3.65)), "as_of": store.ny_stamp()}
         sim["day_count"] = 0
         book.save_sim(sim)
@@ -90,6 +95,11 @@ def snapshot(sim: dict, cfg: dict, prices: dict[str, float] | None = None) -> di
     if prices is None:
         syms = list(book.holdings().keys())
         prices = {s: p for s, (p, _t) in strategy.quotes_for(syms).items()}
+    # polski podatek: raz w roku po zamknieciu roku podatkowego, zaplata do 30.04
+    try:
+        book.settle_taxes(sim, ses.now_ny())
+    except Exception as ex:  # noqa: BLE001 - podatek nie moze przewrocic dnia
+        book.decide(sim, "error", title="Nie udało się rozliczyć podatku", why=str(ex))
     m = book.mark(sim, prices)
     rate = float(sim.get("fx", {}).get("rate") or 3.65)
     b = sim.get("benchmark") or {}
@@ -110,6 +120,10 @@ def snapshot(sim: dict, cfg: dict, prices: dict[str, float] | None = None) -> di
         "rate": rate,
         "bench_pln": bench_pln,
         "bench_units": b.get("units", ""),
+        # podatek w wierszu historii: stopka panelu pokazuje stan z ostatniej wyceny
+        "tax_owed_pln": m.get("tax_owed_pln", 0),
+        "tax_paid_pln": m.get("tax_paid_pln", 0),
+        "loss_carry_pln": m.get("loss_carry_pln", 0),
     }
     # jedna linia na dzien (nadpisz dzisiejsza, jesli juz jest)
     rows = [r for r in store.read_csv(store.EQUITY) if r.get("date") != row["date"]]

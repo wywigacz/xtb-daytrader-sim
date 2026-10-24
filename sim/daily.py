@@ -79,7 +79,7 @@ def main() -> int:
     dep = float(sim.get("deposits_pln_total") or 0)
     print("Wpłaty: %.0f PLN | Wartość: %.0f PLN | Zysk: %.0f PLN"%(
         dep, m["equity_pln"], m["equity_pln"] - dep))
-    print("Transakcje: %d (wygrane %d / przegrane %d) | P&L USD %.2f | podatek w rezerwie %.2f PLN" % (
+    print("Transakcje: %d (wygrane %d / przegrane %d) | P&L USD %.2f | podatek do zapłaty %.2f PLN" % (
         len(trades), len(wins), len(losses), float(sim.get("realized_pnl_usd") or 0),
         float(sim.get("tax_reserve_pln") or 0)))
     print("Benchmark %s: %.0f PLN" % (cfg["benchmark"]["label"], float(m.get("bench_pln") or 0)))

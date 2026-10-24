@@ -45,10 +45,15 @@ nie przy zwykłej wzmiance o wynikach.
 ### Jak zatrzymać symulację?
 GitHub → zakładka **Actions** → wybrany workflow → **Disable workflow**.
 
-### Dlaczego „R” czasem nie zgadza się z „1R” z planu?
-Bo wejście następuje po cenie rynkowej, a plan liczył ryzyko od ceny sygnału.
-R liczone jest od **faktycznej** ceny wejścia do stopu, więc wychodzi inaczej
-niż „1” z planu. To poprawne.
+### Dlaczego „× ryzyko” czasem nie wychodzi równe 1?
+Bo kupno następuje po cenie rynkowej, a plan liczył ryzyko od ceny sygnału.
+„× ryzyko” liczę od **faktycznej** ceny kupna do stopu, więc wychodzi inaczej
+niż 1 z planu. To poprawne.
+
+### Jak liczysz podatek?
+19% od zysku **za cały rok**, nie od każdej transakcji. Stratę odliczam w kolejnych
+latach — maksymalnie 5 lat i nie więcej niż połowę straty na rok. Płacę do
+**30 kwietnia** roku następnego, więc do tego dnia pieniądze na podatek pracują.
 
 ### Czy w panelu są jakieś dane osobowe?
 Nie. Panel pokazuje wyłącznie wyniki symulacji, koszty i statystyki. Nie ma
