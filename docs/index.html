@@ -5,302 +5,312 @@
 <title>XTB Day Trader — dziennik symulacji</title>
 <style>
 :root{
-  --paper:#FAF9F6; --ink:#101418; --muted:#6A7079; --line:#E3E0D8;
-  --up:#0E6B4F; --down:#A32017; --acc:#1D3F8F; --sand:#F1EEE6; --card:#FFFFFF;
+  --paper:#FAF9F6; --ink:#0C1116; --muted:#55606E; --faint:#5F6875;
+  --line:#E2DED5; --soft:#F3F1EB; --card:#FFFFFF;
+  --up:#0B6B4A; --down:#A32017; --acc:#1D3F8F;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size:15px;line-height:1.55;font-feature-settings:"tnum" 0;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:36px 30px 90px}
-.serif{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;letter-spacing:-0.01em}
-.mono{font-variant-numeric:tabular-nums}
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 72px}
 a{color:var(--acc);text-decoration:none}
 a:hover{text-decoration:underline}
+.serif{font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
 
-/* --- masthead --- */
-.mast{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
-  border-bottom:2px solid var(--ink);padding-bottom:14px}
-.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.mast h1{font-size:31px;margin:0;line-height:1.1}
-.mast .right{text-align:right;font-size:12.5px;color:var(--muted);white-space:nowrap}
-.pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;
-  letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);background:#fff}
-.pill.open{border-color:#BFE0D2;background:#EAF6F0;color:var(--up)}
-.pill.shut{color:var(--muted)}
+/* ---- skala typografii: 12 / 14 / 16 / 20 / 28 / 44 ---- */
+.t-xs{font-size:12px}
+.t-sm{font-size:14px}
+.t-md{font-size:16px}
+.t-lg{font-size:20px}
+.t-xl{font-size:28px}
+.t-2xl{font-size:44px}
+.up{color:var(--up)}.down{color:var(--down)}.mut{color:var(--muted)}.faint{color:var(--faint)}
+.lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-/* --- kpi --- */
-.kpis{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:0;margin:26px 0 8px;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.kpi{padding:18px 20px 18px 0;border-right:1px solid var(--line)}
-.kpi:last-child{border-right:0;padding-right:0}
-.kpi .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.kpi .v{font-size:30px;line-height:1.15;margin-top:6px;font-weight:400}
-.kpi .v.big{font-size:38px}
-.kpi .n{font-size:12.5px;color:var(--muted);margin-top:4px}
-.up{color:var(--up)}.down{color:var(--down)}
-
-/* --- sekcje --- */
-section{margin-top:44px;scroll-margin-top:64px}
-.toc{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.94);
+/* ---- pasek nawigacji ---- */
+.toc{position:sticky;top:0;z-index:30;background:rgba(250,249,246,.96);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);margin:0 -30px 4px;padding:11px 30px;
-  display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px}
-.toc a{color:var(--muted);text-decoration:none;white-space:nowrap}
+  border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:center;
+  overflow-x:auto;padding:0 20px;margin:0 -20px 8px;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{font-size:14px;color:var(--muted);white-space:nowrap;
+  display:flex;align-items:center;min-height:44px;padding:0 2px}
+.toc a:first-child{color:var(--ink);font-weight:600}
 .toc a:hover{color:var(--ink)}
-.toc b{font-weight:600;color:var(--ink)}
-.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
-.sec-h .idx{font-size:11px;letter-spacing:.14em;color:var(--muted);padding-top:3px}
-.sec-h h2{font-size:20px;margin:0;font-weight:600;letter-spacing:-0.01em}
-.sec-h .sub{font-size:13px;color:var(--muted);margin-left:auto;text-align:right;max-width:46%}
 
-/* --- karty --- */
+/* ---- naglowek ---- */
+.mast{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:flex-end;
+  justify-content:space-between;border-bottom:2px solid var(--ink);padding:26px 0 14px}
+.mast h1{margin:0;font-size:28px;line-height:1.1}
+.mast .right{font-size:14px;color:var(--muted);line-height:1.5}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;
+  letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);background:#fff}
+.pill.open{border-color:#BEDFCE;background:#EAF6F0;color:var(--up)}
+
+/* ---- podsumowanie: jeden ekran ---- */
+section{margin-top:32px;scroll-margin-top:60px}
+[id]{scroll-margin-top:60px}
+.sum{margin-top:24px}
+.hero{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hero > div{padding:14px 20px 14px 0;border-right:1px solid var(--line)}
+.hero > div:last-child{border-right:0;padding-right:0}
+.hero .v{line-height:1.1;margin-top:4px}
+.hero .n{font-size:14px;color:var(--muted);margin-top:6px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 14px 8px;margin-top:18px}
+.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card h3{margin:0 0 12px;font-size:20px;font-weight:600}
+.card h4{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--muted);
+  letter-spacing:.06em;text-transform:uppercase}
 
-/* --- os czasu --- */
+/* ---- os czasu ---- */
 .tl{list-style:none;margin:0;padding:0}
-.tl li{position:relative;padding:0 0 18px 26px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 14px 22px;border-left:1px solid var(--line)}
 .tl li:last-child{border-left-color:transparent;padding-bottom:0}
-.tl li:before{content:"";position:absolute;left:-5px;top:5px;width:9px;height:9px;
-  border-radius:50%;background:#fff;border:2px solid var(--muted)}
+.tl li:before{content:"";position:absolute;left:-4.5px;top:6px;width:9px;height:9px;
+  border-radius:50%;background:#fff;border:2px solid var(--faint)}
 .tl li.open:before{border-color:var(--up);background:var(--up)}
 .tl li.close:before{border-color:var(--acc);background:var(--acc)}
-.tl li.skip:before,.tl li.block:before{border-color:#C9C5BA;background:#fff}
 .tl li.deposit:before{border-color:var(--ink);background:var(--ink)}
-.tl .t{font-size:12px;color:var(--muted)}
-.tl .a{font-weight:600;font-size:14.5px}
-.tl .w{font-size:13.5px;color:#3A3F45;margin-top:2px}
+.tl .t{font-size:12px;color:var(--faint)}
+.tl .a{font-size:16px;font-weight:600}
+.tl .w{font-size:14px;color:var(--muted);margin-top:2px}
 
-/* --- pozycje --- */
-.pos{display:flex;flex-direction:column;gap:10px}
-.pos .top{display:flex;justify-content:space-between;align-items:baseline}
-.pos .sym{font-size:19px;font-weight:600;letter-spacing:-.01em}
-.pos .qty{font-size:12.5px;color:var(--muted)}
-.pos .row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+/* ---- mini statystyki dnia ---- */
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.mini div .v{font-size:20px;font-weight:600;margin-top:2px}
+
+/* ---- pozycje ---- */
+.pos{display:flex;flex-direction:column;gap:8px}
+.pos + .pos{margin-top:16px;padding-top:16px;border-top:1px solid var(--soft)}
+.pos .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.pos .sym{font-size:20px;font-weight:600}
+.pos .row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
 .pos .row b{color:var(--ink);font-weight:600}
-.pos .rng{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}
+/* pasek stop-wejscie-cel: HTML/CSS, zeby nic sie nie rozciagalo na telefonie */
+.rg{position:relative;height:28px;margin:4px 0 2px}
+.rg-track{position:absolute;left:2%;right:2%;top:9px;height:5px;background:var(--line);border-radius:3px}
+.rg-seg{position:absolute;top:9px;height:5px}
+.rg-dot{position:absolute;top:6px;width:10px;height:10px;border-radius:50%;transform:translateX(-50%)}
+.rg-entry{position:absolute;top:5px;width:13px;height:13px;border-radius:50%;background:#fff;
+  border:2px solid var(--muted);transform:translateX(-50%)}
+.rg-price{position:absolute;top:3px;width:17px;height:17px;border-radius:50%;border:2px solid #fff;
+  transform:translateX(-50%)}
+.rg-lab{position:absolute;top:17px;font-size:12px;color:var(--faint);transform:translateX(-50%);white-space:nowrap}
 
-/* --- tabela --- */
-table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
-  text-align:left;font-weight:500;padding:0 10px 8px 0;border-bottom:1px solid var(--line)}
-td{padding:9px 10px 9px 0;border-bottom:1px solid #F0EDE6;vertical-align:top}
+/* ---- tabele ---- */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  text-align:left;font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--line)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--soft);white-space:nowrap}
 tr:last-child td{border-bottom:0}
 td.r,th.r{text-align:right;padding-right:0}
 
-/* --- lejek --- */
-.fn{display:flex;flex-direction:column;gap:7px}
-.fn-row{display:grid;grid-template-columns:1fr 240px;gap:14px;align-items:center}
-.fn-bar{background:#1A4731;color:#fff;border-radius:7px;
-  padding:9px 14px;display:flex;align-items:baseline;gap:10px;min-width:150px}
-.fn-val{font-size:19px;font-weight:600}
-.fn-lab{font-size:12.5px;opacity:.9}
-.fn-note{font-size:12.5px;color:var(--muted)}
+/* ---- lejek ---- */
+.fn{display:flex;flex-direction:column;gap:10px}
+.fn-bar{background:#1A4731;color:#fff;border-radius:8px;padding:10px 14px;
+  display:flex;align-items:baseline;gap:10px;min-width:140px}
+.fn-val{font-size:20px;font-weight:600}
+.fn-lab{font-size:14px;opacity:.92}
+.fn-note{font-size:14px;color:var(--muted);margin-top:5px}
 
-/* --- obserwacje --- */
-.obs .v{font-size:26px;font-weight:400;margin:2px 0 6px}
-.obs .t{font-size:13.5px;color:#3A3F45}
-.obs .cap{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.obs .n{font-size:11px;color:var(--muted);margin-top:8px}
+/* ---- karty decyzji ---- */
+.dec{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+.dec + .dec{margin-top:12px}
+.dec .hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dec .ttl{font-size:16px;font-weight:600;margin:10px 0 4px}
+.dec .why{font-size:14px;color:var(--muted)}
+.nums{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--soft)}
+.nums div{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.nums b{display:block;font-size:16px;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:2px}
+.tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;
+  border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.tag.buy{border-color:#BEDFCE;background:#EAF6F0;color:var(--up)}
+.tag.sell{border-color:#CBD6F0;background:#EDF1FB;color:var(--acc)}
 
-/* --- wiadomosci --- */
-.news-item{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #F0EDE6}
+/* ---- obserwacje ---- */
+.obs{border-left:3px solid var(--line);padding-left:14px;margin-bottom:18px}
+.obs .v{font-size:28px;font-weight:600;line-height:1.15}
+.obs .t{font-size:14px;color:var(--muted);margin-top:4px}
+
+/* ---- naglowki ---- */
+.news-item{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--soft)}
 .news-item:last-child{border-bottom:0}
-.news-item .tm{font-size:12px;color:var(--muted)}
-.news-item .ti{font-size:13.5px;line-height:1.4}
-.news-item .mt{font-size:11.5px;color:var(--muted);margin-top:3px}
-.tag{display:inline-block;font-size:10.5px;letter-spacing:.04em;padding:1px 7px;border-radius:999px;
-  background:var(--sand);color:#4A4F56;margin-right:5px}
-.tag.risk{background:#FBEAE8;color:var(--down)}
+.news-item .ti{font-size:14px;line-height:1.45}
+.news-item .mt{font-size:12px;color:var(--faint);margin-top:3px}
+.chip{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;
+  background:var(--soft);color:var(--muted);margin-right:6px}
+.chip.risk{background:#FBEAE8;color:var(--down)}
 
-/* --- kroki --- */
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s}
-.step{border-top:2px solid var(--ink);padding-top:10px}
-.step .n{font-size:11px;color:var(--muted);letter-spacing:.1em}
-.step .h{font-weight:600;font-size:14px;margin:4px 0 3px}
-.step .d{font-size:12.5px;color:#3A3F45;line-height:1.45}
+/* ---- kroki ---- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 24px}
+.step .n{font-size:12px;color:var(--faint);letter-spacing:.08em}
+.step .h{font-size:16px;font-weight:600;margin:4px 0 3px}
+.step .d{font-size:14px;color:var(--muted)}
 
-/* --- slowniczek --- */
-.gloss{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
-.gloss div{font-size:12.5px;line-height:1.45}
-.gloss b{font-size:12.5px}
-.gloss span{color:#3A3F45}
+/* ---- slowniczek ---- */
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.gloss b{font-size:14px}
+.gloss span{font-size:14px;color:var(--muted)}
 
-/* --- stopka --- */
-footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
-  font-size:12px;color:var(--muted);line-height:1.6}
-.empty{color:var(--muted);font-size:13.5px;padding:14px 0}
-.ax{font-size:10px;fill:#8A9099}
-.lg{font-size:11px;fill:#6A7079}
-.lastv{font-size:12px;fill:#101418;font-weight:600}
-.ring{display:flex;align-items:center;gap:10px}
-.ring-v{font-size:15px;font-weight:600;fill:#101418}
-.ring-s{font-size:11.5px;color:var(--muted);line-height:1.35}
-.bignum{font-size:24px;font-weight:600}
-.tag2{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;
-  border-radius:4px;border:1px solid var(--line);color:var(--muted)}
-.tag2.buy{border-color:#BFE0D2;background:#EAF6F0;color:var(--up)}
-.tag2.sell{border-color:#CBD6F0;background:#EDF1FB;color:var(--acc)}
-.tag2.no{background:var(--sand)}
-.tag2.cash{border-color:#DAD5C8;background:#F7F5EF;color:#4A4F56}
-.nums{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #F0EDE6}
-.nums div{font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-.nums b{display:block;font-size:14px;color:var(--ink);letter-spacing:0;text-transform:none;font-weight:600}
-@media (max-width:860px){
-  .kpis{grid-template-columns:1fr 1fr}
-  .kpi{border-bottom:1px solid var(--line)}
-  .grid2,.grid3,.grid4,.gloss,.steps{grid-template-columns:1fr}
-  .fn-row{grid-template-columns:1fr}
-  .wrap{padding:22px 16px 60px}
+/* ---- wspolne ---- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* wykres rysowany w dwoch szerokosciach: kazda w naturalnym rozmiarze,
+   wiec tekst na osi nigdy nie jest rozciagany ani pomniejszany */
+.chart-narrow{display:none}
+.empty{color:var(--muted);font-size:14px}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:18px;
+  font-size:14px;color:var(--muted);line-height:1.6}
+.ax{font-size:12px;fill:#5F6875}
+.sv{font-size:12px}
+.lastv{font-size:14px;fill:#0C1116;font-weight:600}
+.gx{font-size:12px;fill:#5F6875}
+code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:14px}
+.warn{background:#FFF8EC;border:1px solid #EBD9B4;border-radius:12px;
+  padding:16px;font-size:14px;color:#5A4413;margin-top:18px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr 1fr}
+  .hero > div{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
+  .hero > div:nth-last-child(-n+2){border-bottom:0}
+  .duo,.grid2,.steps,.gloss{grid-template-columns:1fr}
+  .chart-wide{display:none}
+  .chart-narrow{display:block}
+  .wrap{padding:0 16px 56px}
+  .toc{margin:0 -16px 8px;padding:0 16px}
 }
 </style></head>
 <body><div class="wrap">
-<div class="mast">
+<nav class="toc"><a href="#podsumowanie">Podsumowanie</a><a href="#s1">Pozycje</a><a href="#s2">Dlaczego</a><a href="#s3">Lejek</a><a href="#s4">Nauka</a><a href="#s5">Naglowki</a><a href="#s6">Jak dziala</a><a href="#s7">Slowniczek</a></nav><div class="mast">
   <div>
-    <div class="kicker">Dziennik symulacji &middot; rachunek XTB w zlotowkach</div>
+    <div class="lab">Dziennik symulacji &middot; rachunek XTB w zlotowkach</div>
     <h1 class="serif">XTB Day Trader</h1>
   </div>
   <div class="right">
-    <span class="pill shut">rynek zamkniety</span><br>
-    dzien <b>0</b> z 300 &middot; dane na —<br>
-    zaktualizowano 23.10.2026 23:59 (czas Nowego Jorku)
+    <span class="pill">rynek zamkniety</span> &nbsp; dzien <b>0</b> z 300<br>
+    dane na — &middot; zaktualizowano 24.10.2026 00:07 (czas Nowego Jorku)
   </div>
-</div><div class="kpis">
-  <div class="kpi">
-    <div class="l">Wartosc portfela</div>
-    <div class="v big serif">—</div>
-    <div class="n">po odlozeniu podatku: —</div>
+</div><section id="podsumowanie" class="sum">
+  <div class="hero">
+  <div>
+    <div class="lab">Wartosc portfela</div>
+    <div class="v t-2xl serif">—</div>
+    <div class="n">— &middot; po odlozeniu podatku —</div>
   </div>
-  <div class="kpi">
-    <div class="l">Zysk / strata</div>
-    <div class="v serif ">—</div>
+  <div>
+    <div class="lab">Zysk / strata</div>
+    <div class="v t-xl ">—</div>
     <div class="n">— od wplat</div>
   </div>
-  <div class="kpi">
-    <div class="l">Wplacone</div>
-    <div class="v serif">0 zl</div>
-    <div class="n">0 wplat &middot; 0 transakcji</div>
+  <div>
+    <div class="lab">Wplacone</div>
+    <div class="v t-xl">0 zł</div>
+    <div class="n">0 wplat &middot; 0 transakcji &middot; 0 otwartych</div>
   </div>
-  <div class="kpi">
-    <div class="l">S&amp;P 500 zamiast tego</div>
-    <div class="v serif">—</div>
-    <div class="n">brak danych</div>
+  <div>
+    <div class="lab">S&amp;P 500 zamiast tego</div>
+    <div class="v t-xl">—</div>
+    <div class="n">— &middot; —</div>
   </div>
-</div><nav class="toc"><b>W tym raporcie:</b><a href="#s1">Dzis</a><a href="#s2">Kapital</a><a href="#s3">Pozycje</a><a href="#s4">Dlaczego</a><a href="#s5">Lejek</a><a href="#s6">Czego sie nauczyl</a><a href="#s7">Co czytal</a><a href="#s8">Jak dziala</a><a href="#s9">Slowniczek</a></nav><div class="card" style="margin-top:26px;background:#FCFBF7">
-  <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Zanim ruszy</div>
-  <div class="serif" style="font-size:22px;margin:8px 0 6px">Symulacja startuje 2026-10-26</div>
-  <div style="font-size:13.5px;color:#3A3F45;max-width:620px">
-    Pierwszego dnia handlowego bot wplaci 10 000 zl, przewalutuje je na dolary
-    i zacznie skanowac rynek. Pierwsze decyzje pojawiaja sie po 15:30 czasu polskiego.
-    Do tego czasu panel jest celowo pusty — nic tu nie jest zmyslane.
-    <br><br>
-    Jak wyglada panel po rozegranym dniu: <a href="przyklad-panelu.png">przyklad-panelu.png</a>
-    (przebieg testowy na prawdziwym rynku).
+</div>
+  <div class="chart-card">
+    <div class="chart-wide"><div class="empty">Wykres pojawi sie po pierwszych dniach handlowych. Zielona linia to wartosc portfela, przerywana - suma wplat.</div></div>
+    <div class="chart-narrow"><div class="empty">Wykres pojawi sie po pierwszych dniach handlowych. Zielona linia to wartosc portfela, przerywana - suma wplat.</div></div>
   </div>
-</div><section id="s1">
-  <div class="sec-h"><span class="idx">01</span><h2>Dzis w skrocie</h2>
-    <span class="sub">Co bot zrobil i dlaczego — po kolei, bez zargonu</span></div>
-  <div class="grid2" style="grid-template-columns:1.5fr 1fr;gap:16px">
-    <div class="card"><div class="empty">Dzis bot nie podjal jeszcze zadnej decyzji. Pierwsze wpisy pojawia sie po otwarciu sesji w USA (15:30 czasu polskiego).</div></div>
-    <div class="card"><div class="grid3" style="gap:0 26px"><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Sprawdzil spolek</div>
-      <div class="v" style="font-size:22px">—</div>
-      <div class="n">na liscie XTB</div></div><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Przeczytal naglowkow</div>
-      <div class="v" style="font-size:22px">0</div>
-      <div class="n">wiadomosci z rynku</div></div><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Kupil</div>
-      <div class="v" style="font-size:22px">0</div>
-      <div class="n">nowych pozycji</div></div><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Sprzedal</div>
-      <div class="v" style="font-size:22px">0</div>
-      <div class="n">zamknietych</div></div><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Odpuscil</div>
-      <div class="v" style="font-size:22px">0</div>
-      <div class="n">okazji odrzuconych</div></div><div class="kpi" style="border-right:0;padding:10px 0">
-      <div class="l">Wynik dnia</div>
-      <div class="v" style="font-size:22px">—</div>
-      <div class="n">na zamknietych</div></div></div></div>
+  <div class="duo">
+    <div class="card">
+      <h3>Dzis w skrocie</h3>
+      <div class="empty">Dzis bot nie podjal jeszcze zadnej decyzji. Pierwsze wpisy pojawiaja sie po otwarciu sesji w USA (15:30 czasu polskiego).</div>
+    </div>
+    <div class="card">
+      <h3>Bilans dnia</h3>
+      <div class="mini"><div><div class="lab">Sprawdzone spolki</div><div class="v">—</div></div><div><div class="lab">Przeczytane naglowki</div><div class="v">0</div></div><div><div class="lab">Kupione</div><div class="v">0</div></div><div><div class="lab">Sprzedane</div><div class="v">0</div></div><div><div class="lab">Odpuszczone okazje</div><div class="v">0</div></div><div><div class="lab">Wynik dnia</div><div class="v">—</div></div></div>
+    </div>
   </div>
-</section><section id="s2">
-  <div class="sec-h"><span class="idx">02</span><h2>Kapital w czasie</h2>
-    <span class="sub">Zielona linia to wartosc portfela. Przerywana — suma wplat</span></div>
-  <div class="card" style="padding:14px 10px 6px"><div class="empty">Tu pojawi sie wykres, gdy tylko zaczna sie pierwsze dni handlowe.</div></div>
-</section><section id="s3">
-  <div class="sec-h"><span class="idx">03</span><h2>Pozycje</h2>
-    <span class="sub">Kropka na pasku pokazuje, gdzie cena jest miedzy stopem a celem</span></div>
-  <div class="card"><div class="empty">Zadnej otwartej pozycji. Bot konczy dzien zawsze na zero — nic nie zostaje na noc.</div></div>
-  
-</section><section id="s4">
-  <div class="sec-h"><span class="idx">04</span><h2>Dlaczego podjal te decyzje</h2>
-    <span class="sub">Kazda decyzja z powodem i liczbami</span></div>
-  <div class="card"><div class="empty">Jeszcze nic nie kupilem ani nie sprzedalem. Pierwsza decyzja pojawi sie tu z powodem w jednym zdaniu.</div></div>
-</section><section id="s5">
-  <div class="sec-h"><span class="idx">05</span><h2>Lejek decyzji</h2>
-    <span class="sub">Z tysiecy spolek zostaje kilka transakcji — i to jest celowe</span></div>
+</section><div class="card" style="margin-top:18px;background:#FCFBF7">
+  <div class="lab">Zanim ruszy</div>
+  <div class="serif t-xl" style="margin:6px 0 6px">Symulacja startuje 2026-10-26</div>
+  <div class="t-sm mut">
+    Pierwszego dnia handlowego bot wplaci 10 000 zł, przewalutuje je na
+    dolary i zacznie skanowac rynek. Pierwsze decyzje pojawiaja sie po 15:30 czasu polskiego —
+    do tego czasu panel jest celowo pusty, nic tu nie jest zmyslane.
+    Jak wyglada po rozegranym dniu: <a href="przyklad-panelu.png">przyklad-panelu.png</a>.
+  </div>
+</div><section><div class="lab" style="margin-bottom:14px">Szczegoly</div><div class="grid2"><div class="card" id="s1">
+  <h3>Pozycje</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Co bot trzyma teraz i co zamknal dzisiaj</div>
+  <div class="empty">Zadnej otwartej pozycji. Bot konczy dzien zawsze na zero — nic nie zostaje na noc.</div>
+</div><div class="card" id="s2">
+  <h3>Dlaczego podjal te decyzje</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Kazda decyzja z powodem i liczbami</div>
+  <div class="empty">Jeszcze nic nie kupiono ani nie sprzedano. Pierwsza decyzja pojawi sie tu z powodem w jednym zdaniu.</div>
+</div><div class="card" id="s3">
+  <h3>Lejek decyzji</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Z tysiecy spolek zostaje kilka transakcji</div>
   <div class="fn"><div class="fn-row">
-  <div class="fn-bar" style="width:100.0%;opacity:1.00">
-    <span class="fn-val">5 943</span><span class="fn-lab">spolek w USA</span>
+  <div class="fn-bar" style="width:100.0%">
+    <span class="fn-val">5 943</span><span class="fn-lab">spolek w USA</span>
   </div>
   <div class="fn-note">tyle widzi skaner skilla - caly rynek akcji USA</div>
 </div><div class="fn-row">
-  <div class="fn-bar" style="width:91.6%;opacity:0.88">
-    <span class="fn-val">50</span><span class="fn-lab">na mojej liscie</span>
+  <div class="fn-bar" style="width:91.2%">
+    <span class="fn-val">50</span><span class="fn-lab">na liscie</span>
   </div>
   <div class="fn-note">tylko te dostepne w XTB jako akcje realne</div>
 </div><div class="fn-row">
-  <div class="fn-bar" style="width:83.2%;opacity:0.76">
+  <div class="fn-bar" style="width:82.4%">
     <span class="fn-val">0</span><span class="fn-lab">sygnalow lacznie</span>
   </div>
   <div class="fn-note">cena przebila poranny szczyt i zamknela sie nad nim</div>
 </div><div class="fn-row">
-  <div class="fn-bar" style="width:74.8%;opacity:0.64">
+  <div class="fn-bar" style="width:73.6%">
     <span class="fn-val">0</span><span class="fn-lab">sprawdzonych</span>
   </div>
-  <div class="fn-note">z wiadomosciami, stopem i limitem straty</div>
+  <div class="fn-note">z naglowkami, stopem i limitem straty</div>
 </div><div class="fn-row">
-  <div class="fn-bar" style="width:66.4%;opacity:0.52">
+  <div class="fn-bar" style="width:64.8%">
     <span class="fn-val">0</span><span class="fn-lab">transakcji</span>
   </div>
   <div class="fn-note">tyle przeszlo wszystkie filtry</div>
 </div></div>
-</section><section id="s6">
-  <div class="sec-h"><span class="idx">06</span><h2>Czego sie nauczyl</h2>
-    <span class="sub">Wnioski z jego wlasnych transakcji, nie z obietnic</span></div>
-  <div class="card"><div class="empty">Za malo transakcji, zeby wyciagac wnioski. Obserwacje pojawia sie po kilku rozegranych dniach — nie zmyslam ich na zapas.</div></div>
-</section><section id="s7">
-  <div class="sec-h"><span class="idx">07</span><h2>Co czytal</h2>
-    <span class="sub">Naglowki, ktore widzial przed decyzja — i czy cos zmienily (godziny czasu Nowego Jorku)</span></div>
-  <div class="card"><div class="empty">Dzis bot nie czytal jeszcze wiadomosci. Czyta je dopiero, gdy ma kandydata do kupna — nie czyta dla samego czytania.</div></div>
-</section><section id="s8">
-  <div class="sec-h"><span class="idx">08</span><h2>Jak to dziala</h2>
-    <span class="sub">Ta sama petla kazdego dnia handlowego</span></div>
+</div><div class="card" id="s4">
+  <h3>Czego sie nauczyl</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Wnioski z wlasnych transakcji</div>
+  <div class="empty">Za malo transakcji, zeby wyciagac wnioski. Obserwacje pojawia sie po kilku rozegranych dniach — nie sa zmyslane na zapas.</div>
+</div><div class="card" id="s5">
+  <h3>Co czytal</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Naglowki i ich wplyw na decyzje</div>
+  <div class="empty">Dzis bot nie czytal jeszcze naglowkow. Czyta je dopiero, gdy ma kandydata do kupna — nie czyta dla samego czytania.</div>
+</div><div class="card" id="s6" style="grid-column:1/-1">
+  <h3>Jak dziala</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Ta sama petla kazdego dnia handlowego</div>
   <div class="steps"><div class="step"><div class="n">01</div>
       <div class="h">Skan</div><div class="d">Przegladam liste spolek i szukam ceny, ktora przebila maksimum pierwszych 15 minut sesji.</div></div><div class="step"><div class="n">02</div>
-      <div class="h">Wiadomosci</div><div class="d">Czytam naglowki o kandydacie. Cos groznego = odpuszczam, zanim zaryzykuje.</div></div><div class="step"><div class="n">03</div>
+      <div class="h">Naglowki</div><div class="d">Czytam wiadomosci o kandydacie. Realny wstrzas = odpuszczam, zanim zaryzykuje.</div></div><div class="step"><div class="n">03</div>
       <div class="h">Plan</div><div class="d">Przed wejsciem ustalam stop (gdzie sie mylilem) i cel (kiedy biore zysk).</div></div><div class="step"><div class="n">04</div>
-      <div class="h">Wielkosc</div><div class="d">Licze, ile akcji kupic, zeby max strata to 1% kapitalu. Nie na oko.</div></div><div class="step"><div class="n">05</div>
+      <div class="h">Wielkosc</div><div class="d">Licze, ile akcji kupic, zeby maksymalna strata to 1% kapitalu. Nie na oko.</div></div><div class="step"><div class="n">05</div>
       <div class="h">Koniec dnia</div><div class="d">Zamykam wszystko przed 16:00 w Nowym Jorku. Zero trzymania na noc.</div></div></div>
-</section><section id="s9">
-  <div class="sec-h"><span class="idx">09</span><h2>Slowniczek</h2>
-    <span class="sub">Kazde pojecie jednym zdaniem</span></div>
-  <div class="card"><div class="gloss"><div><b>Stop-loss</b> <span>— Poziom ceny, przy ktorym automatycznie sprzedaje, zeby ograniczyc strate. Jak hamulec bezpieczenstwa.</span></div><div><b>Cel (target)</b> <span>— Poziom ceny, przy ktorym biore zysk. Ustawiony z gory, przed wejsciem.</span></div><div><b>R</b> <span>— Jednostka ryzyka. 1R = tyle, ile moge stracic na jednej transakcji. Wynik +1R = zarobilem tyle, ile bylem gotow stracic.</span></div><div><b>Opening range</b> <span>— Zakres cen z pierwszych 15 minut sesji. Jego przebicie to sygnal, ktorego szuka bot.</span></div><div><b>Pozycja</b> <span>— Akcje, ktore w danej chwili posiadam.</span></div><div><b>Gotowka</b> <span>— Pieniadze na koncie, ktore nie sa zainwestowane.</span></div><div><b>Poslizg</b> <span>— Roznica miedzy cena, ktora widze, a cena, po ktorej naprawde kupuje. Zawsze troche na moja niekorzysc.</span></div><div><b>Podatek Belki</b> <span>— 19% podatku od zysku ze sprzedazy akcji. Odkladam go z gory, zeby nie zniknal z wyniku.</span></div><div><b>Benchmark</b> <span>— Wzorzec do porownania. Tu: co by bylo, gdybym te same wplaty wrzucil w indeks S&amp;P 500.</span></div></div></div>
-</section><footer>
-  <b>Jak to policzone.</b> Start 10 000 zl,
-  potem 10 000 zl w pierwszym dniu handlowym kazdego miesiaca
-  przez 300 dni. Koszty: przewalutowanie 0,5%,
-  poslizg 5 pb na transakcje, podatek Belki
-  19% od zysku (odkladany w rezerwie).
+</div><div class="card" id="s7" style="grid-column:1/-1">
+  <h3>Slowniczek</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px">Kazde pojecie jednym zdaniem</div>
+  <div class="gloss"><div><b>Stop-loss</b><br><span>Poziom ceny, przy ktorym automatycznie sprzedaje, zeby ograniczyc strate. Jak hamulec bezpieczenstwa.</span></div><div><b>Cel (target)</b><br><span>Poziom ceny, przy ktorym biore zysk. Ustawiony z gory, przed wejsciem.</span></div><div><b>R</b><br><span>Jednostka ryzyka. 1R = tyle, ile moge stracic na jednej transakcji. Wynik +1R = zarobilem tyle, ile bylem gotow stracic.</span></div><div><b>Opening range</b><br><span>Zakres cen z pierwszych 15 minut sesji. Jego przebicie to sygnal, ktorego szuka bot.</span></div><div><b>Pozycja</b><br><span>Akcje, ktore w danej chwili posiadam.</span></div><div><b>Gotowka</b><br><span>Pieniadze na koncie, ktore nie sa zainwestowane.</span></div><div><b>Poslizg</b><br><span>Roznica miedzy cena, ktora widze, a cena, po ktorej naprawde kupuje. Zawsze troche na moja niekorzysc.</span></div><div><b>Podatek Belki</b><br><span>19% podatku od zysku ze sprzedazy akcji. Odkladam go z gory, zeby nie zniknal z wyniku.</span></div><div><b>Benchmark</b><br><span>Wzorzec do porownania. Tu: co by bylo, gdybym te same wplaty wrzucil w indeks S&amp;P 500.</span></div></div>
+</div></div></section><footer>
+  <b>Jak to policzone.</b> Kapital startowy 10 000 zł, potem
+  10 000 zł w pierwszym dniu handlowym kazdego miesiaca przez 300 dni.
+  Koszty: przewalutowanie 0,5%, poslizg 5 pb
+  na transakcje, podatek Belki 19% od zysku (odkladany w rezerwie).
   Ceny: darmowe, nieoficjalne Yahoo, opoznione o kilkadziesiat sekund.
-  Zlecenia sa <b>symulowane</b> — nic nie idzie do XTB.
+  Zlecenia sa <b>symulowane</b> — nic nie idzie do brokera.
   <br><br>
   <b>To nie jest porada inwestycyjna.</b> Symulacja pokazuje metode, nie obiecuje wyniku.
   Wiekszosc osob handlujacych w ciagu dnia traci pieniadze.
-  Zalozenia: <code>docs/XTB-ZALOZENIA.md</code> &middot; dziennik decyzji: <code>sim/state/decisions.jsonl</code>
-  &middot; transakcje: <code>sim/state/trades.csv</code>
+  Zalozenia: <code>docs/XTB-ZALOZENIA.md</code> &middot; decyzje:
+  <code>sim/state/decisions.jsonl</code> &middot; transakcje: <code>sim/state/trades.csv</code>
 </footer>
 </div></body></html>
