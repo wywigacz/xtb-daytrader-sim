@@ -61,7 +61,14 @@ a:hover{text-decoration:underline}
 .up{color:var(--up)}.down{color:var(--down)}
 
 /* --- sekcje --- */
-section{margin-top:44px}
+section{margin-top:44px;scroll-margin-top:64px}
+.toc{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.94);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);margin:0 -30px 4px;padding:11px 30px;
+  display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px}
+.toc a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.toc a:hover{color:var(--ink)}
+.toc b{font-weight:600;color:var(--ink)}
 .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
 .sec-h .idx{font-size:11px;letter-spacing:.14em;color:var(--muted);padding-top:3px}
 .sec-h h2{font-size:20px;margin:0;font-weight:600;letter-spacing:-0.01em}
@@ -304,6 +311,19 @@ def _today_balance(decisions: list[dict], trades: list[dict]) -> str:
       <div class="v" style="font-size:22px">{esc(v)}</div>
       <div class="n">{esc(s)}</div></div>''' for l, v, s in items)
     return f'<div class="grid3" style="gap:0 26px">{cells}</div>'
+
+
+TOC = [
+    ("s1", "Dzis"), ("s2", "Kapital"), ("s3", "Pozycje"), ("s4", "Dlaczego"),
+    ("s5", "Lejek"), ("s6", "Czego sie nauczyl"), ("s7", "Co czytal"),
+    ("s8", "Jak dziala"), ("s9", "Slowniczek"),
+]
+
+
+def _toc() -> str:
+    """Pasek nawigacji - dziala w przegladarce; na zrzucie PNG jest ukrywany."""
+    links = "".join('<a href="#%s">%s</a>' % (i, esc(t)) for i, t in TOC)
+    return f'<nav class="toc"><b>W tym raporcie:</b>{links}</nav>'
 
 
 def _timeline(actions: list[dict]) -> str:
@@ -559,6 +579,7 @@ def build(sim: dict, cfg: dict) -> str:
     body = []
     body.append(_masthead(sim, cfg, equity))
     body.append(_kpis(sim, cfg, equity, trades))
+    body.append(_toc())
     if not dep and not trades:
         body.append(_empty_intro(cfg))
 
@@ -622,13 +643,21 @@ def build(sim: dict, cfg: dict) -> str:
 
     body.append(_footer(sim, cfg))
 
+    # numerujemy sekcje, zeby pasek nawigacji mial do czego prowadzic
+    page = "".join(body)
+    parts = page.split("<section>")
+    if len(parts) == len(TOC) + 1:
+        page = parts[0] + "".join(
+            '<section id="%s">%s' % (TOC[i][0], chunk) for i, chunk in enumerate(parts[1:]))
+
     html = f'''<!doctype html>
 <html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Dziennik symulacji inwestowania: co bot zrobil i dlaczego.">
 <title>XTB Day Trader — dziennik symulacji</title>
 <style>{CSS}</style></head>
 <body><div class="wrap">
-{''.join(body)}
+{page}
 </div></body></html>'''
 
     out = store.p(store.ROOT, "docs", "index.html")

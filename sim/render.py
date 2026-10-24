@@ -79,6 +79,8 @@ def to_png(html_path: str, png_path: str, width: int = VIEWPORT, scale: int = SC
                 device_scale_factor=scale,
             )
             page.goto("file://" + os.path.abspath(html_path), wait_until="load")
+            # na obrazku linki nie dzialaja - pasek nawigacji bylby mylacy
+            page.add_style_tag(content=".toc{display:none!important}")
             page.wait_for_timeout(500)
             page.screenshot(path=png_path, full_page=True)
             browser.close()

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Dziennik symulacji inwestowania: co bot zrobil i dlaczego.">
 <title>XTB Day Trader — dziennik symulacji</title>
 <style>
 :root{
@@ -41,7 +42,14 @@ a:hover{text-decoration:underline}
 .up{color:var(--up)}.down{color:var(--down)}
 
 /* --- sekcje --- */
-section{margin-top:44px}
+section{margin-top:44px;scroll-margin-top:64px}
+.toc{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.94);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);margin:0 -30px 4px;padding:11px 30px;
+  display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px}
+.toc a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.toc a:hover{color:var(--ink)}
+.toc b{font-weight:600;color:var(--ink)}
 .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
 .sec-h .idx{font-size:11px;letter-spacing:.14em;color:var(--muted);padding-top:3px}
 .sec-h h2{font-size:20px;margin:0;font-weight:600;letter-spacing:-0.01em}
@@ -159,7 +167,7 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
   <div class="right">
     <span class="pill shut">rynek zamkniety</span><br>
     dzien <b>0</b> z 300 &middot; dane na —<br>
-    zaktualizowano 23.10.2026 19:50 (czas Nowego Jorku)
+    zaktualizowano 23.10.2026 23:46 (czas Nowego Jorku)
   </div>
 </div><div class="kpis">
   <div class="kpi">
@@ -182,7 +190,7 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
     <div class="v serif">—</div>
     <div class="n">brak danych</div>
   </div>
-</div><div class="card" style="margin-top:26px;background:#FCFBF7">
+</div><nav class="toc"><b>W tym raporcie:</b><a href="#s1">Dzis</a><a href="#s2">Kapital</a><a href="#s3">Pozycje</a><a href="#s4">Dlaczego</a><a href="#s5">Lejek</a><a href="#s6">Czego sie nauczyl</a><a href="#s7">Co czytal</a><a href="#s8">Jak dziala</a><a href="#s9">Slowniczek</a></nav><div class="card" style="margin-top:26px;background:#FCFBF7">
   <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Zanim ruszy</div>
   <div class="serif" style="font-size:22px;margin:8px 0 6px">Symulacja startuje 2026-10-26</div>
   <div style="font-size:13.5px;color:#3A3F45;max-width:620px">
@@ -190,7 +198,7 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
     i zacznie skanowac rynek. Pierwsze decyzje zobaczysz po 15:30 czasu polskiego.
     Do tego czasu panel jest celowo pusty — nic tu nie jest zmyslane.
   </div>
-</div><section>
+</div><section id="s1">
   <div class="sec-h"><span class="idx">01</span><h2>Dzis w skrocie</h2>
     <span class="sub">Co bot zrobil i dlaczego — po kolei, bez zargonu</span></div>
   <div class="grid2" style="grid-template-columns:1.5fr 1fr;gap:16px">
@@ -215,20 +223,20 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
       <div class="v" style="font-size:22px">—</div>
       <div class="n">na zamknietych</div></div></div></div>
   </div>
-</section><section>
+</section><section id="s2">
   <div class="sec-h"><span class="idx">02</span><h2>Kapital w czasie</h2>
     <span class="sub">Zielona linia to Twoje pieniadze. Przerywana — ile wplaciles</span></div>
   <div class="card" style="padding:14px 10px 6px"><div class="empty">Tu pojawi sie wykres, gdy tylko zaczna sie pierwsze dni handlowe.</div></div>
-</section><section>
+</section><section id="s3">
   <div class="sec-h"><span class="idx">03</span><h2>Pozycje</h2>
     <span class="sub">Kropka na pasku pokazuje, gdzie cena jest miedzy stopem a celem</span></div>
   <div class="card"><div class="empty">Zadnej otwartej pozycji. Bot konczy dzien zawsze na zero — nic nie zostaje na noc.</div></div>
   
-</section><section>
+</section><section id="s4">
   <div class="sec-h"><span class="idx">04</span><h2>Dlaczego podjal te decyzje</h2>
     <span class="sub">Kazda decyzja z powodem i liczbami</span></div>
   <div class="card"><div class="empty">Jeszcze nic nie kupilem ani nie sprzedalem. Gdy pojawi sie pierwsza decyzja, zobaczysz tu powod w jednym zdaniu.</div></div>
-</section><section>
+</section><section id="s5">
   <div class="sec-h"><span class="idx">05</span><h2>Lejek decyzji</h2>
     <span class="sub">Z tysiecy spolek zostaje kilka transakcji — i to jest celowe</span></div>
   <div class="fn"><div class="fn-row">
@@ -257,15 +265,15 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
   </div>
   <div class="fn-note">tyle przeszlo wszystkie filtry</div>
 </div></div>
-</section><section>
+</section><section id="s6">
   <div class="sec-h"><span class="idx">06</span><h2>Czego sie nauczyl</h2>
     <span class="sub">Wnioski z jego wlasnych transakcji, nie z obietnic</span></div>
   <div class="card"><div class="empty">Za malo transakcji, zeby wyciagac wnioski. Obserwacje pojawia sie po kilku rozegranych dniach — nie zmyslam ich na zapas.</div></div>
-</section><section>
+</section><section id="s7">
   <div class="sec-h"><span class="idx">07</span><h2>Co czytal</h2>
     <span class="sub">Naglowki, ktore widzial przed decyzja — i czy cos zmienily (godziny czasu Nowego Jorku)</span></div>
   <div class="card"><div class="empty">Dzis bot nie czytal jeszcze wiadomosci. Czyta je dopiero, gdy ma kandydata do kupna — nie czyta dla samego czytania.</div></div>
-</section><section>
+</section><section id="s8">
   <div class="sec-h"><span class="idx">08</span><h2>Jak to dziala</h2>
     <span class="sub">Ta sama petla kazdego dnia handlowego</span></div>
   <div class="steps"><div class="step"><div class="n">01</div>
@@ -274,7 +282,7 @@ footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
       <div class="h">Plan</div><div class="d">Przed wejsciem ustalam stop (gdzie sie mylilem) i cel (kiedy biore zysk).</div></div><div class="step"><div class="n">04</div>
       <div class="h">Wielkosc</div><div class="d">Licze, ile akcji kupic, zeby max strata to 1% kapitalu. Nie na oko.</div></div><div class="step"><div class="n">05</div>
       <div class="h">Koniec dnia</div><div class="d">Zamykam wszystko przed 16:00 w Nowym Jorku. Zero trzymania na noc.</div></div></div>
-</section><section>
+</section><section id="s9">
   <div class="sec-h"><span class="idx">09</span><h2>Slowniczek</h2>
     <span class="sub">Kazde pojecie jednym zdaniem</span></div>
   <div class="card"><div class="gloss"><div><b>Stop-loss</b> <span>— Poziom ceny, przy ktorym automatycznie sprzedaje, zeby ograniczyc strate. Jak hamulec bezpieczenstwa.</span></div><div><b>Cel (target)</b> <span>— Poziom ceny, przy ktorym biore zysk. Ustawiony z gory, przed wejsciem.</span></div><div><b>R</b> <span>— Jednostka ryzyka. 1R = tyle, ile moge stracic na jednej transakcji. Wynik +1R = zarobilem tyle, ile bylem gotow stracic.</span></div><div><b>Opening range</b> <span>— Zakres cen z pierwszych 15 minut sesji. Jego przebicie to sygnal, ktorego szuka bot.</span></div><div><b>Pozycja</b> <span>— Akcje, ktore w danej chwili posiadam.</span></div><div><b>Gotowka</b> <span>— Pieniadze na koncie, ktore nie sa zainwestowane.</span></div><div><b>Poslizg</b> <span>— Roznica miedzy cena, ktora widze, a cena, po ktorej naprawde kupuje. Zawsze troche na moja niekorzysc.</span></div><div><b>Podatek Belki</b> <span>— 19% podatku od zysku ze sprzedazy akcji. Odkladam go z gory, zeby nie zniknal z wyniku.</span></div><div><b>Benchmark</b> <span>— Wzorzec do porownania. Tu: co by bylo, gdybym te same wplaty wrzucil w indeks S&amp;P 500.</span></div></div></div>
