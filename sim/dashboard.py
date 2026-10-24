@@ -275,7 +275,7 @@ def _kpis(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     <div class="n">{pln(gain) if dep else "—"} od wplat</div>
   </div>
   <div class="kpi">
-    <div class="l">Wplacilem</div>
+    <div class="l">Wplacone</div>
     <div class="v serif">{pln(dep) if dep else "0 zl"}</div>
     <div class="n">{len(sim.get("deposits") or [])} wplat &middot; {n_tr} transakcji</div>
   </div>
@@ -451,7 +451,7 @@ def _decisions(decisions: list[dict]) -> str:
         picks = [d for d in reversed(decisions) if d.get("decision") in ("open", "close", "deposit")][:2]
     if not picks:
         return ('<div class="card"><div class="empty">Jeszcze nic nie kupilem ani nie sprzedalem. '
-                'Gdy pojawi sie pierwsza decyzja, zobaczysz tu powod w jednym zdaniu.</div></div>')
+                'Pierwsza decyzja pojawi sie tu z powodem w jednym zdaniu.</div></div>')
     cards = [c for c in (_decision_card(d) for d in picks[:4]) if c]
     return '<div class="grid2">' + "".join(cards) + "</div>"
 
@@ -562,7 +562,7 @@ def _empty_intro(cfg: dict) -> str:
   <div class="serif" style="font-size:22px;margin:8px 0 6px">Symulacja startuje {sc["start_date"]}</div>
   <div style="font-size:13.5px;color:#3A3F45;max-width:620px">
     Pierwszego dnia handlowego bot wplaci {pln(sc["start_capital_pln"])}, przewalutuje je na dolary
-    i zacznie skanowac rynek. Pierwsze decyzje zobaczysz po 15:30 czasu polskiego.
+    i zacznie skanowac rynek. Pierwsze decyzje pojawiaja sie po 15:30 czasu polskiego.
     Do tego czasu panel jest celowo pusty — nic tu nie jest zmyslane.
   </div>
 </div>'''
@@ -594,7 +594,7 @@ def build(sim: dict, cfg: dict) -> str:
 
     body.append(f'''<section>
   <div class="sec-h"><span class="idx">02</span><h2>Kapital w czasie</h2>
-    <span class="sub">Zielona linia to Twoje pieniadze. Przerywana — ile wplaciles</span></div>
+    <span class="sub">Zielona linia to wartosc portfela. Przerywana — suma wplat</span></div>
   <div class="card" style="padding:14px 10px 6px">{ui.line_chart(equity)}</div>
 </section>''')
 

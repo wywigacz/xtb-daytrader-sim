@@ -1,7 +1,8 @@
 # Założenia: XTB, koszty, podatek, dane
 
-Ten plik mówi dokładnie, **jakie liczby przyjąłem** i dlaczego. Jeśli któraś
-liczbowka jest inna u Ciebie w XTB, zmień ją w `sim/config.json`.
+Ten plik mówi dokładnie, **jakie liczby przyjął symulator** i dlaczego.
+Wszystkie są do zmiany w `sim/config.json` — jeśli realne stawki są inne,
+wystarczy podmienić wartość.
 
 ---
 

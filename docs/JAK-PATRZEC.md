@@ -1,66 +1,46 @@
-# Jak patrzeć na panel (repo prywatne)
+# Jak czytać panel
 
-Repo jest **prywatne**. To znaczy, że tylko Ty widzisz kod, wyniki i panel.
-Nie ma publicznego adresu w internecie — i celowo, bo GitHub Pages na darmowym
-planie zawsze publikuje stronę publicznie.
+Panel: **https://wywigacz.github.io/xtb-daytrader-sim/**
 
-Dlatego panel jest **obrazkiem w repo**: po każdym dniu bot zapisuje
-`docs/panel.png`. GitHub wyświetla obrazy bezpośrednio — nie trzeba nic
-pobierać ani nic instalować.
+Jest to jedna strona, która tłumaczy co się stało i dlaczego. Odświeża się
+automatycznie po każdym rozliczeniu dnia. Nie wymaga logowania ani instalowania
+niczego.
 
----
-
-## Najprościej: telefon (aplikacja GitHub)
-
-1. Otwórz aplikację **GitHub**.
-2. Wejdź w swoje repo `xtb-daytrader-sim`.
-3. Otwórz folder **docs**.
-4. Dotknij **panel.png**.
-
-Obraz otworzy się na cały ekran. Możesz powiększyć dwoma palcami — jest
-zrobiony w wysokiej rozdzielczości, więc liczby pozostają ostre.
-
-## Na komputerze
-
-1. Wejdź na `https://github.com/wywigacz/xtb-daytrader-sim`
-2. Kliknij `docs` → `panel.png`.
-3. Kliknij obraz, żeby powiększyć.
-
-### Chcesz najpierw zobaczyć, jak to wygląda?
-
-Otwórz **`docs/przyklad-panelu.png`** — to przebieg **testowy** na prawdziwych
-danych z 22–23.10.2026, zrobiony tylko po to, żebyś zobaczył układ i sposób
-wyjaśniania. To **nie są Twoje wyniki**. Twoje pojawią się w `docs/panel.png`
-po pierwszym dniu handlowym.
+Podgląd wypełnionego panelu (z przebiegu testowego) jest w
+`docs/przyklad-panelu.png`.
 
 ---
 
 ## Co jest w panelu (od góry)
 
+Pasek na samej górze pozwala przeskoczyć do wybranej sekcji.
+
 | Sekcja | Odpowiada na pytanie |
 | --- | --- |
-| Nagłówek + 4 liczby | Ile mam, ile zarobiłem, ile wpłaciłem, jak wypada S&P 500 |
-| **01 Dzis w skrócie** | Co bot zrobił dziś, po kolei, jednym zdaniem każde |
-| **02 Kapitał w czasie** | Jak zmieniała się wartość — na tle wpłat i indeksu |
+| Cztery liczby na starcie | Ile jest warte, ile zarobiło, ile wpłacono, jak wypada S&P 500 |
+| **01 Dziś w skrócie** | Co bot zrobił dziś — po kolei, jednym zdaniem każde |
+| **02 Kapitał w czasie** | Jak zmieniała się wartość, na tle wpłat i indeksu |
 | **03 Pozycje** | Co trzyma teraz (z odległością do stopu i celu) i co zamknął dziś |
 | **04 Dlaczego podjął te decyzje** | Powód każdego kupna i sprzedaży + liczby |
-| **05 Lejek decyzji** | Z 5 943 spółek — ile przeszło filtry |
-| **06 Czego się nauczył** | Wnioski z własnych transakcji, z podaniem próby |
+| **05 Lejek decyzji** | Jak z ~6 000 spółek zostaje kilka transakcji |
+| **06 Czego się nauczył** | Wnioski z własnych transakcji, zawsze z podaniem próby |
 | **07 Co czytał** | Nagłówki, które widział, i czy któryś wstrzymał zakup |
 | **08 Jak to działa** | Pięć kroków, powtarzanych codziennie |
 | **09 Słowniczek** | Każde pojęcie jednym zdaniem |
 
 ---
 
-## Wersja interaktywna (pełna)
+## Jak czytać liczby
 
-Plik `docs/index.html` to ten sam panel w wersji „na żywo”. Żeby go otworzyć:
-
-1. Otwórz `docs/index.html` w repo.
-2. Kliknij przycisk **Raw** (prawy górny róg pliku) — pobierze się plik.
-3. Otwórz pobrany plik w przeglądarce (dwuklik).
-
-Nic nie trzeba instalować. Panel nie łączy się z internetem.
+* **Wartość portfela** — ile jest warte teraz, po przeliczeniu na złotówki.
+* **Zysk / strata** — różnica od sumy wpłat, nie od „wczoraj”. Wpłaty
+  podnoszą wartość, więc sam wzrost jeszcze nic nie znaczy.
+* **S&P 500 zamiast tego** — co by było, gdyby te same wpłaty wrzucić
+  w indeks. To uczciwy punkt odniesienia.
+* **R** — jednostka ryzyka. `+2R` znaczy „zarobiłem dwa razy tyle, ile byłem
+  gotów stracić na tej transakcji”.
+* **Pozycje zamknięte przed końcem dnia** — to nie błąd, to zasada: nic nie
+  zostaje na noc.
 
 ---
 
@@ -68,7 +48,7 @@ Nic nie trzeba instalować. Panel nie łączy się z internetem.
 
 | Plik | Co zawiera |
 | --- | --- |
-| `sim/state/decisions.jsonl` | Każda decyzja z powodem (pełny dziennik) |
+| `sim/state/decisions.jsonl` | Każda decyzja bota z powodem |
 | `sim/state/trades.csv` | Wszystkie zamknięte transakcje |
 | `sim/state/equity.csv` | Wartość portfela dzień po dniu |
 | `sim/state/news.json` | Nagłówki przeczytane każdego dnia |
@@ -76,11 +56,8 @@ Nic nie trzeba instalować. Panel nie łączy się z internetem.
 
 ---
 
-## Czego nie da się zrobić na darmowym GitHubie
+## Czego w panelu nie ma i dlaczego
 
-Prywatny adres WWW z panelem (np. `panel.twojadomena.pl`) wymaga albo płatnego
-planu GitHub Enterprise, albo zewnętrznego hostingu z logowaniem
-(np. Cloudflare Access — darmowy, ale wymaga osobnego konta).
-
-Jeśli będziesz chciał taki prywatny link, da się to dopiąć — powiedz, to
-dodam publikację na Cloudflare obok obrazka w repo.
+* **Nie ma prognoz.** Panel pokazuje, co się stało, a nie co będzie.
+* **Nie ma „sygnałów” do skopiowania.** To dziennik symulacji, nie doradztwo.
+* **Nie ma danych osobowych** ani dostępu do żadnego konta.
