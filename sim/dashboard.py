@@ -564,6 +564,9 @@ def _empty_intro(cfg: dict) -> str:
     Pierwszego dnia handlowego bot wplaci {pln(sc["start_capital_pln"])}, przewalutuje je na dolary
     i zacznie skanowac rynek. Pierwsze decyzje pojawiaja sie po 15:30 czasu polskiego.
     Do tego czasu panel jest celowo pusty — nic tu nie jest zmyslane.
+    <br><br>
+    Jak wyglada panel po rozegranym dniu: <a href="przyklad-panelu.png">przyklad-panelu.png</a>
+    (przebieg testowy na prawdziwym rynku).
   </div>
 </div>'''
 
