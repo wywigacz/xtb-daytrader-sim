@@ -223,7 +223,7 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .costs div{min-width:0}
 .costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
 .costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
-.fine{font-size:14px;color:var(--muted);margin:6px 0 0}
+.fine{font-size:14px;color:var(--muted);margin:6px 0 0;max-width:64ch}
 footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
   font-size:14px;color:var(--muted);line-height:1.65}
 code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:14px;color:var(--ink2)}
