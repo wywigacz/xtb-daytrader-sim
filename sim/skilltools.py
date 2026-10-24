@@ -62,6 +62,40 @@ def extract_json(text: str):
     return best
 
 
+def extract_json_list(text: str) -> list | None:
+    """Jak extract_json, ale dla narzedzi zwracajacych LISTE obiektow.
+
+    Uwaga: extract_json() celowo przyjmuje tylko obiekt {...}, wiec narzedzie
+    zwracajace liste (np. trader-analyst facts.py) dawaloby None - cicho i bez
+    bledu. Stad osobna funkcja.
+    """
+    best, best_score = None, -1
+    for i, ch in enumerate(text or ""):
+        if ch != "[":
+            continue
+        try:
+            obj, _ = json.JSONDecoder().raw_decode(text[i:])
+        except ValueError:
+            continue
+        if not isinstance(obj, list):
+            continue
+        # nie bierzemy "najdluzszej" listy: w wyjsciu narzedzia bywaja inne
+        # tablice (postep, listy pol). Najpierw lista slownikow z "ticker".
+        score = 0
+        if obj and all(isinstance(x, dict) for x in obj):
+            score = 2 + (1 if any("ticker" in x for x in obj) else 0)
+        score = score * 1000 + len(obj)
+        if score > best_score:
+            best, best_score = obj, score
+    return best
+
+
 def json_run(tool: str, args: list[str], timeout: int = 300) -> tuple[int, dict | None, str]:
     rc, out, err = run(tool, list(args) + ["--json"], timeout=timeout)
     return rc, extract_json(out), (err or out).strip()
+
+
+def list_run(tool: str, args: list[str], timeout: int = 300) -> tuple[int, list | None, str]:
+    """Wariant json_run dla narzedzi zwracajacych liste."""
+    rc, out, err = run(tool, list(args) + ["--json"], timeout=timeout)
+    return rc, extract_json_list(out), (err or out).strip()

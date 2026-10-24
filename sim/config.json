@@ -33,5 +33,12 @@
     "min_volume": 1000000,
     "or_minutes": 15,
     "max_confirm": 60
+  },
+  "research": {
+    "enabled": true,
+    "require_profit": true,
+    "max_revenue_drop_pct": -15.0,
+    "max_symbols": 3,
+    "opis": "Przed kazdym kupnem sprawdzam raporty spolki (SEC): przychody, marze, zysk, zysk na akcje. Nie kupuje spolki ze strata w ostatnim kwartale ani takiej, ktorej przychody spadly o wiecej niz 15% r/r."
   }
 }

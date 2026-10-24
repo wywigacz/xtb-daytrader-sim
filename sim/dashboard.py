@@ -23,10 +23,10 @@ from datetime import datetime
 
 if __package__ in (None, ""):
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from sim import insights, market, news, plain, session as ses, store, ui
+    from sim import insights, market, news, plain, session as ses, spolki, store, ui
     from sim.ui import esc, num, pct, pln, pln_short, usd
 else:
-    from . import insights, market, news, plain, session as ses, store, ui
+    from . import insights, market, news, plain, session as ses, spolki, store, ui
     from .ui import esc, num, pct, pln, pln_short, usd
 
 CSS = """/* Paleta i styl wzorowane na darmowym pliku Figma
@@ -200,7 +200,7 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .news-item{display:grid;grid-template-columns:46px 1fr;gap:12px;padding:11px 0;
   border-bottom:1px solid var(--soft)}
 .news-item:last-child{border-bottom:0}
-.news-item .ti{font-size:14px;line-height:1.45;color:var(--ink2)}
+.news-item .ti{font-size:14px;line-height:1.45;color:var(--ink2);max-width:62ch}
 .news-item .mt{font-size:12px;color:var(--faint);margin-top:3px}
 .chip{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--soft);color:var(--muted);margin-right:6px}
@@ -220,6 +220,19 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 /* ---- wspolne ---- */
 .empty{color:var(--muted);font-size:14px}
 .costs{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
+.kats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kat-h{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px}
+.kat-h span{color:var(--acc);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;gap:6px;align-items:baseline;font-size:12px;padding:4px 9px;
+  border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--muted);
+  white-space:nowrap}
+.chip b{color:var(--ink2);font-weight:700}
+.chip.kupiona{background:rgba(56,217,169,.16);border-color:rgba(56,217,169,.45);color:#D8FBF1}
+.chip.sprzedana{background:rgba(56,217,169,.10);border-color:rgba(56,217,169,.28)}
+.chip.odrzucona{background:rgba(240,101,149,.14);border-color:rgba(240,101,149,.40);color:#FBD9E5}
+.chip.sprawdzona{background:rgba(163,137,244,.16);border-color:rgba(163,137,244,.45);color:#E4DBFB}
 .costs div{min-width:0}
 .costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
 .costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
@@ -253,6 +266,7 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   .chart-wide{display:none}
   .chart-narrow{display:block}
   .costs{grid-template-columns:1fr 1fr}
+  .kats{grid-template-columns:1fr}
 }
 """
 
@@ -266,17 +280,19 @@ _ICONS = {
     "lines": '<path d="M4 6h16M4 11h16M4 16h10"/>',
     "play": '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/>',
     "abc": '<path d="M5 4h8l3 3v13H5z"/><path d="M8 9h5M8 13h5"/>',
+    "grid": '<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
 }
 
 TOC = [
     ("podsumowanie", "Podsumowanie", "pulse"),
     ("s1", "Co mam teraz", "layers"),
-    ("s2", "Dlaczego kupił", "bulb"),
-    ("s3", "Od czego do czego", "funnel"),
-    ("s4", "Czego się nauczył", "book"),
-    ("s5", "Co czytał", "lines"),
-    ("s6", "Jak działa", "play"),
-    ("s7", "Słowniczek", "abc"),
+    ("s2", "Spółki, które obserwuję", "grid"),
+    ("s3", "Dlaczego kupił", "bulb"),
+    ("s4", "Od czego do czego", "funnel"),
+    ("s5", "Czego się nauczył", "book"),
+    ("s6", "Co czytał", "lines"),
+    ("s7", "Jak działa", "play"),
+    ("s8", "Słowniczek", "abc"),
 ]
 
 
@@ -567,6 +583,9 @@ def _decision_card(d: dict) -> str:
     if kind == "open":
         rows = [("kupno", usd(n.get("entry"))), ("stop", usd(n.get("stop"))),
                 ("cel", usd(n.get("target"))), ("maks. strata", usd(n.get("max_loss")))]
+        # wyniki badania spółki (raporty ze SEC) - po to, zeby widac bylo DLACZEGO
+        for k, v in (n.get("badanie") or {}).items():
+            rows.append((k, v))
     elif kind == "close":
         # cena wejscia i wyjscia sa w tabeli wyzej - tutaj tylko wynik i R
         r = n.get("r")
@@ -576,8 +595,11 @@ def _decision_card(d: dict) -> str:
         rows = [("wpłacone", pln(n.get("pln"))), ("kurs dolara", num(n.get("rate"), 4)),
                 ("kupiono akcji za", usd(n.get("usd")))]
     else:
-        return ""
-    nums = "".join(f'<div>{esc(l)}<b>{esc(v)}</b></div>' for l, v in rows)
+        # odrzucenie (skip/block): to tez decyzja i tez ma powod.
+        # Bylo tu "return ''" - karty odrzucen znikaly bez sladu.
+        badge = ("", "odpuszczono")
+        rows = [(k, v) for k, v in n.items() if k not in ("ile", "kod", "top")]
+    nums = "".join(f'<div>{esc(l)}<b>{esc(v)}</b></div>' for l, v in rows[:6])
     return f'''<div class="dec">
   <div class="hd"><span class="tag {badge[0]}">{esc(badge[1])}</span>
     <span class="t-xs faint">{esc(str(d.get("ts_ny"))[11:16])}</span></div>
@@ -596,8 +618,73 @@ def _decisions(decisions: list[dict]) -> str:
     if not picks:
         picks = [d for d in reversed(decisions) if d.get("decision") in ("open", "close", "deposit")][:2]
     if not picks:
-        return '<div class="empty">Jeszcze nic tu nie ma.</div>' 
+        return '<div class="empty">Jeszcze nic tu nie ma.</div>'
+    # obok kupna pokazujemy tez dzisiejsze odrzucenie: "dlaczego NIE kupilem"
+    # bywa wazniejsze niz "dlaczego kupilem".
+    odrzucone = [d for d in td if d.get("decision") in ("skip", "block") and d.get("symbol")]
+    if odrzucone:
+        picks = picks[:3] + odrzucone[:1]   # max 4 karty razem
     return "".join(c for c in (_decision_card(d) for d in picks[:4]) if c)
+
+
+def _spolki(decisions: list[dict], sim: dict) -> str:
+    """Co bot obserwuje: nazwy spółek, kategorie i dzisiejszy status.
+
+    Status bierze się z dziennika decyzji, więc nie jest ozdobnikiem:
+    "kupiona" = faktycznie kupiona dzisiaj, "odrzucona" = sprawdzona i odpuszczona.
+    """
+    kat = spolki
+
+    watch = kat.watchlist()
+    if not watch:
+        return '<div class="empty">Brak listy spółek (universe.txt).</div>'
+    day = store.ny_stamp()[:10]
+    today = [x for x in decisions if str(x.get("ts_ny", "")).startswith(day)]
+    kupione, sprzedane, odrzucone, sygnal = set(), set(), {}, set()
+    for x in today:
+        sym = str(x.get("symbol") or "").upper()
+        dec = x.get("decision")
+        if dec == "open" and sym:
+            kupione.add(sym)
+        elif dec == "close" and sym:
+            sprzedane.add(sym)
+        elif dec in ("skip", "block") and sym:
+            odrzucone.setdefault(sym, x)
+        elif dec == "scan":
+            for s in (x.get("numbers") or {}).get("top") or []:
+                sygnal.add(str(s).upper())
+
+    def status(sym: str) -> tuple[str, str]:
+        if sym in kupione:
+            return "kupiona", "kupiona dziś"
+        if sym in sprzedane:
+            return "sprzedana", "sprzedana dziś"
+        if sym in odrzucone:
+            return "odrzucona", plain.title_for(odrzucone[sym].get("code") or "inne").lower()
+        if sym in sygnal:
+            return "sprawdzona", "miała sygnał — sprawdzałem"
+        return "", "czekam na sygnał"
+
+    ich = len([s for s in watch if s in kupione])
+    their = len([s for s in watch if s in sygnal])
+    heads = (f'{len(watch)} spółek w {len(kat.grupy(watch))} kategoriach. '
+             f'Dziś kupione: {ich}, ze sygnałem: {their}, sprawdzone i odrzucone: '
+             f'{len([s for s in watch if s in odrzucone])}.')
+    blocks = []
+    for name, syms in kat.grupy(watch):
+        chips = []
+        for s in syms:
+            cls, why = status(s)
+            cls_attr = f' class="chip {cls}"' if cls else ' class="chip"'
+            chips.append(f'<span{cls_attr} title="{esc(kat.nazwa(s))} — {esc(why)}">'
+                         f'<b>{esc(s)}</b>{esc(kat.nazwa(s))}</span>')
+        blocks.append(f'<div><div class="kat-h">{esc(name)} <span>{len(syms)}</span></div>'
+                      f'<div class="chips">{"".join(chips)}</div></div>')
+    legend = ('<div class="empty" style="margin-top:12px">'
+              'Zielona = kupiona dzisiaj · fioletowa = miała sygnał i sprawdzałem · '
+              'różowa = sprawdzona i odrzucona · szara = czekam na sygnał.</div>')
+    return (f'<div class="t-sm mut" style="margin-bottom:14px">{heads}</div>'
+            f'<div class="kats">{"".join(blocks)}</div>{legend}')
 
 
 def _funnel(sim: dict) -> str:
@@ -662,17 +749,29 @@ def _news() -> str:
     return head + "".join(rows)
 
 
-def _how() -> str:
+def _how(cfg: dict) -> str:
+    """Kolejnosc pracy. Badanie spolki jest krokiem, nie ozdoba."""
+    r = cfg.get("research") or {}
     steps = [
         ("01", "Skan", "Szukam sygnału"),
-        ("02", "Wiadomości", "Sprawdzam ryzyko"),
-        ("03", "Plan", "Stop i cel"),
-        ("04", "Wielkość", "Ryzyko najwyżej 1%"),
-        ("05", "Koniec dnia", "Zamykam wszystko"),
+        ("02", "Badanie", "Czytam raporty spółki"),
+        ("03", "Wiadomości", "Sprawdzam wieści"),
+        ("04", "Plan", "Stop i cel"),
+        ("05", "Wielkość", "Ryzyko najwyżej 1%"),
+        ("06", "Koniec dnia", "Zamykam wszystko"),
     ]
+    if r.get("enabled") is False:
+        steps = [s for s in steps if s[1] != "Badanie"]
     cells = "".join(f'''<div class="step"><div class="n">{n}</div>
       <div class="h">{esc(h)}</div><div class="d">{esc(d)}</div></div>''' for n, h, d in steps)
-    return f'<div class="steps">{cells}</div>'
+    rule = ""
+    if r.get("enabled") is not False:
+        spadek = abs(float(r.get("max_revenue_drop_pct") or -15.0))
+        rule = ("<div class=\"empty\" style=\"margin-top:12px\">Nie kupuję spółki, która "
+                "w ostatnim kwartale straciła pieniądze, ani takiej, której przychody "
+                "spadły o więcej niż %.0f%% rok do roku. Wszystko, co sprawdzam, "
+                "zapisuję przy decyzji.</div>") % spadek
+    return f'<div class="steps">{cells}</div>{rule}'
 
 
 def _glossary() -> str:
@@ -755,12 +854,13 @@ def build(sim: dict, cfg: dict) -> str:
 
     detail = [
         ("s1", "Co mam teraz", "", _positions(sim, trades)),
-        ("s2", "Dlaczego kupił albo sprzedał", "", _decisions(decisions)),
-        ("s3", "Od czego do czego", "", _funnel(sim)),
-        ("s4", "Czego się nauczył", "", _lessons(sim)),
-        ("s5", "Co czytał", "", _news()),
-        ("s6", "Jak działa", "", _how()),
-        ("s7", "Słowniczek", "", _glossary()),
+        ("s2", "Spółki, które obserwuję", "", _spolki(decisions, sim)),
+        ("s3", "Dlaczego kupił albo sprzedał", "", _decisions(decisions)),
+        ("s4", "Od czego do czego", "", _funnel(sim)),
+        ("s5", "Czego się nauczył", "", _lessons(sim)),
+        ("s6", "Co czytał", "", _news()),
+        ("s7", "Jak działa", "", _how(cfg)),
+        ("s8", "Słowniczek", "", _glossary()),
     ]
     body.append('<section><div class="sec-h"><div class="lab">Szczegóły</div></div>'
                 '<div class="grid2">')

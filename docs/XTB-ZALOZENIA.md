@@ -33,6 +33,32 @@ USD na koncie i handluje. Gdybyś wypłacał zysk co miesiąc, dołóż drugie 0
 różnicę między ceną, którą widzisz, a ceną realizacji. 5 pb to ostrożne,
 uczciwe założenie dla płynnych large-capów.
 
+## 2a. Badanie spółki przed każdym kupnem
+
+Zanim cokolwiek kupię, czytam **raporty spółki ze SEC** (narzędzie
+`trader-analyst` z dołączonego skilla): przychody, marże, zysk netto,
+zysk na akcję i wzrost rok do roku. To prawdziwe dane z ostatnich raportów
+kwartalnych, nie prognoza.
+
+Reguła jest jawna i prosta:
+
+* **nie kupuję** spółki, która w ostatnim kwartale **straciła pieniądze**,
+* **nie kupuję** takiej, której **przychody spadły o więcej niż 15%** rok do roku.
+
+Progi zmieniasz w `sim/config.json` (klucz `research`). Badanie wyłącza się
+ustawieniem `"enabled": false`.
+
+Co sprawdziłem, zapisuję przy decyzji — panel pokazuje te liczby w karcie
+kupna, więc widać nie tylko *co*, ale i *na jakiej podstawie*.
+
+**Kontakt do SEC:** SEC wymaga nagłówka z nazwą i adresem e-mail. W kodzie jest
+neutralny zapas. Chcesz swój? Dodaj sekret `SEC_USER_AGENT` w repozytorium
+GitHub (Settings → Secrets and variables → Actions) — nie trafi do publicznego
+repozytorium. Uwaga: SEC odrzuca domenę `users.noreply.github.com`.
+
+Jeżeli SEC nie odpowiada, badanie jest pomijane, a symulacja działa dalej —
+nie udajemy, że coś sprawdziliśmy.
+
 ## 3. Podatek — tak, jak na polskim rachunku maklerskim
 
 Podatku **nie płaci się od każdej transakcji**. Zasady są takie jak w PIT-38:

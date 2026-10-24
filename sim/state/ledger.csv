@@ -1,2 +1,16 @@
 ts_ny,event,symbol,qty,price_usd,notional_usd,fee_usd,cash_usd_after,equity_usd,note
 2026-10-26 09:00,DEPOSIT,,,,2534.32,12.74,2534.32,,wpłata 10000 PLN @ 3.9261 -> 2534.32 USD
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,3050.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,3020.81,,zaplacony podatek za 2026: 118 PLN

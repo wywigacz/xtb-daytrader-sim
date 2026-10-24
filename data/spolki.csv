@@ -1,0 +1,51 @@
+symbol,nazwa,kategoria
+NVDA,Nvidia,Półprzewodniki
+AMD,AMD,Półprzewodniki
+AVGO,Broadcom,Półprzewodniki
+INTC,Intel,Półprzewodniki
+MU,Micron,Półprzewodniki
+QCOM,Qualcomm,Półprzewodniki
+AAPL,Apple,Technologia i software
+MSFT,Microsoft,Technologia i software
+CRM,Salesforce,Technologia i software
+ORCL,Oracle,Technologia i software
+ADBE,Adobe,Technologia i software
+PLTR,Palantir,Technologia i software
+SNOW,Snowflake,Technologia i software
+DDOG,Datadog,Technologia i software
+CRWD,CrowdStrike,Technologia i software
+PANW,Palo Alto Networks,Technologia i software
+GOOGL,Alphabet (Google),Internet i media
+META,Meta (Facebook),Internet i media
+NFLX,Netflix,Internet i media
+DIS,Walt Disney,Internet i media
+AMZN,Amazon,Handel internetowy
+SHOP,Shopify,Handel internetowy
+JPM,JPMorgan Chase,Finanse i banki
+BAC,Bank of America,Finanse i banki
+C,Citigroup,Finanse i banki
+GS,Goldman Sachs,Finanse i banki
+PYPL,PayPal,Finanse i banki
+SQ,Block (Square),Finanse i banki
+SOFI,SoFi,Finanse i banki
+COIN,Coinbase,Kryptowaluty
+MARA,Marathon Digital,Kryptowaluty
+RIOT,Riot Platforms,Kryptowaluty
+XOM,Exxon Mobil,Energia i paliwa
+CVX,Chevron,Energia i paliwa
+PFE,Pfizer,Zdrowie i farmacja
+MRNA,Moderna,Zdrowie i farmacja
+KO,Coca-Cola,Napoje i żywność
+PEP,PepsiCo,Napoje i żywność
+TSLA,Tesla,Motoryzacja
+F,Ford,Motoryzacja
+GM,General Motors,Motoryzacja
+RIVN,Rivian,Motoryzacja
+LCID,Lucid,Motoryzacja
+BA,Boeing,Przemysł i transport
+CAT,Caterpillar,Przemysł i transport
+UBER,Uber,Przemysł i transport
+AAL,American Airlines,Przemysł i transport
+NKE,Nike,Czas wolny, sport i turystyka
+CCL,Carnival,Czas wolny, sport i turystyka
+ABNB,Airbnb,Czas wolny, sport i turystyka

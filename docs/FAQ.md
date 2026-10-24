@@ -50,6 +50,12 @@ Bo kupno następuje po cenie rynkowej, a plan liczył ryzyko od ceny sygnału.
 „× ryzyko” liczę od **faktycznej** ceny kupna do stopu, więc wychodzi inaczej
 niż 1 z planu. To poprawne.
 
+### Czy bot bada spółkę, zanim ją kupi?
+Tak. Przed każdym kupnem czyta **raporty spółki ze SEC**: przychody, marże, zysk
+netto, zysk na akcję, wzrost rok do roku. Nie kupuje spółki, która w ostatnim
+kwartale straciła pieniądze, ani takiej, której przychody spadły o więcej niż
+15% rok do roku. Co sprawdził, widać przy decyzji w panelu.
+
 ### Jak liczysz podatek?
 19% od zysku **za cały rok**, nie od każdej transakcji. Stratę odliczam w kolejnych
 latach — maksymalnie 5 lat i nie więcej niż połowę straty na rok. Płacę do

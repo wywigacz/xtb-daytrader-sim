@@ -94,6 +94,7 @@ RISK_STATE = p(TRADER, "state", "risk.json")
 BROKER_STATE = p(TRADER, "state", "broker.json")
 SIM_CONFIG = p(ROOT, "sim", "config.json")
 UNIVERSE = p(ROOT, "universe.txt")
+SPOLKI = p(ROOT, "data", "spolki.csv")          # katalog: nazwa i kategoria
 
 LEDGER_COLS = [
     "ts_ny", "event", "symbol", "qty", "price_usd", "notional_usd",

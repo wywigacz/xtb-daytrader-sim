@@ -174,7 +174,7 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .news-item{display:grid;grid-template-columns:46px 1fr;gap:12px;padding:11px 0;
   border-bottom:1px solid var(--soft)}
 .news-item:last-child{border-bottom:0}
-.news-item .ti{font-size:14px;line-height:1.45;color:var(--ink2)}
+.news-item .ti{font-size:14px;line-height:1.45;color:var(--ink2);max-width:62ch}
 .news-item .mt{font-size:12px;color:var(--faint);margin-top:3px}
 .chip{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--soft);color:var(--muted);margin-right:6px}
@@ -194,6 +194,19 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 /* ---- wspolne ---- */
 .empty{color:var(--muted);font-size:14px}
 .costs{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
+.kats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kat-h{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px}
+.kat-h span{color:var(--acc);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;gap:6px;align-items:baseline;font-size:12px;padding:4px 9px;
+  border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--muted);
+  white-space:nowrap}
+.chip b{color:var(--ink2);font-weight:700}
+.chip.kupiona{background:rgba(56,217,169,.16);border-color:rgba(56,217,169,.45);color:#D8FBF1}
+.chip.sprzedana{background:rgba(56,217,169,.10);border-color:rgba(56,217,169,.28)}
+.chip.odrzucona{background:rgba(240,101,149,.14);border-color:rgba(240,101,149,.40);color:#FBD9E5}
+.chip.sprawdzona{background:rgba(163,137,244,.16);border-color:rgba(163,137,244,.45);color:#E4DBFB}
 .costs div{min-width:0}
 .costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
 .costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
@@ -227,10 +240,11 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   .chart-wide{display:none}
   .chart-narrow{display:block}
   .costs{grid-template-columns:1fr 1fr}
+  .kats{grid-template-columns:1fr}
 }
 </style></head>
 <body><div class="app">
-<aside class="side"><div class="brand">XTB Day Trader<span>dziennik symulacji</span></div><nav><a href="#podsumowanie"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h5l2.5 6L15 5l2 7h4"/></svg><span>Podsumowanie</span></a><a href="#s1"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18V10M10 18V5M16 18v-6M22 18H2"/></svg><span>Co mam teraz</span></a><a href="#s2"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.6 2.6 0 1 1 3.4 2.5V13"/><circle cx="12" cy="16.4" r=".7"/></svg><span>Dlaczego kupił</span></a><a href="#s3"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8v6l-4-2v-4z"/></svg><span>Od czego do czego</span></a><a href="#s4"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6.5a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-5.5a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2H20z"/></svg><span>Czego się nauczył</span></a><a href="#s5"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h10"/></svg><span>Co czytał</span></a><a href="#s6"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg><span>Jak działa</span></a><a href="#s7"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h8l3 3v13H5z"/><path d="M8 9h5M8 13h5"/></svg><span>Słowniczek</span></a></nav><div class="foot">Symulacja na danych historycznych.<br>Nic nie idzie do brokera.</div></aside>
+<aside class="side"><div class="brand">XTB Day Trader<span>dziennik symulacji</span></div><nav><a href="#podsumowanie"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h5l2.5 6L15 5l2 7h4"/></svg><span>Podsumowanie</span></a><a href="#s1"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18V10M10 18V5M16 18v-6M22 18H2"/></svg><span>Co mam teraz</span></a><a href="#s2"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg><span>Spółki, które obserwuję</span></a><a href="#s3"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.6 2.6 0 1 1 3.4 2.5V13"/><circle cx="12" cy="16.4" r=".7"/></svg><span>Dlaczego kupił</span></a><a href="#s4"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8v6l-4-2v-4z"/></svg><span>Od czego do czego</span></a><a href="#s5"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6.5a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-5.5a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2H20z"/></svg><span>Czego się nauczył</span></a><a href="#s6"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h10"/></svg><span>Co czytał</span></a><a href="#s7"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg><span>Jak działa</span></a><a href="#s8"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h8l3 3v13H5z"/><path d="M8 9h5M8 13h5"/></svg><span>Słowniczek</span></a></nav><div class="foot">Symulacja na danych historycznych.<br>Nic nie idzie do brokera.</div></aside>
 <main class="main">
 <div class="topbar">
   <div>
@@ -239,7 +253,7 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   </div>
   <div class="right">
     <span class="stat shut"><i></i>rynek zamknięty</span> &nbsp; <b style="color:var(--ink2)">dzień 0 z 300</b><br>
-    dane z 26.10.2026 &middot; 11:25 czasu Nowego Jorku
+    dane z 26.10.2026 &middot; 11:47 czasu Nowego Jorku
   </div>
 </div>
 <div class="prog" role="img" aria-label="Postęp symulacji: dzień 0 z 300">
@@ -291,10 +305,14 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="empty">Nic nie trzymam. Dzień zawsze kończę na zero.</div>
 </div><div class="card" id="s2">
+  <h3>Spółki, które obserwuję</h3>
+  <div class="t-sm mut" style="margin:-6px 0 14px"></div>
+  <div class="t-sm mut" style="margin-bottom:14px">50 spółek w 12 kategoriach. Dziś kupione: 0, ze sygnałem: 0, sprawdzone i odrzucone: 0.</div><div class="kats"><div><div class="kat-h">Czas wolny <span>3</span></div><div class="chips"><span class="chip" title="Nike — czekam na sygnał"><b>NKE</b>Nike</span><span class="chip" title="Carnival — czekam na sygnał"><b>CCL</b>Carnival</span><span class="chip" title="Airbnb — czekam na sygnał"><b>ABNB</b>Airbnb</span></div></div><div><div class="kat-h">Energia i paliwa <span>2</span></div><div class="chips"><span class="chip" title="Exxon Mobil — czekam na sygnał"><b>XOM</b>Exxon Mobil</span><span class="chip" title="Chevron — czekam na sygnał"><b>CVX</b>Chevron</span></div></div><div><div class="kat-h">Finanse i banki <span>7</span></div><div class="chips"><span class="chip" title="PayPal — czekam na sygnał"><b>PYPL</b>PayPal</span><span class="chip" title="SoFi — czekam na sygnał"><b>SOFI</b>SoFi</span><span class="chip" title="Bank of America — czekam na sygnał"><b>BAC</b>Bank of America</span><span class="chip" title="JPMorgan Chase — czekam na sygnał"><b>JPM</b>JPMorgan Chase</span><span class="chip" title="Citigroup — czekam na sygnał"><b>C</b>Citigroup</span><span class="chip" title="Goldman Sachs — czekam na sygnał"><b>GS</b>Goldman Sachs</span><span class="chip" title="Block (Square) — czekam na sygnał"><b>SQ</b>Block (Square)</span></div></div><div><div class="kat-h">Handel internetowy <span>2</span></div><div class="chips"><span class="chip" title="Amazon — czekam na sygnał"><b>AMZN</b>Amazon</span><span class="chip" title="Shopify — czekam na sygnał"><b>SHOP</b>Shopify</span></div></div><div><div class="kat-h">Internet i media <span>4</span></div><div class="chips"><span class="chip" title="Alphabet (Google) — czekam na sygnał"><b>GOOGL</b>Alphabet (Google)</span><span class="chip" title="Meta (Facebook) — czekam na sygnał"><b>META</b>Meta (Facebook)</span><span class="chip" title="Netflix — czekam na sygnał"><b>NFLX</b>Netflix</span><span class="chip" title="Walt Disney — czekam na sygnał"><b>DIS</b>Walt Disney</span></div></div><div><div class="kat-h">Kryptowaluty <span>3</span></div><div class="chips"><span class="chip" title="Coinbase — czekam na sygnał"><b>COIN</b>Coinbase</span><span class="chip" title="Marathon Digital — czekam na sygnał"><b>MARA</b>Marathon Digital</span><span class="chip" title="Riot Platforms — czekam na sygnał"><b>RIOT</b>Riot Platforms</span></div></div><div><div class="kat-h">Motoryzacja <span>5</span></div><div class="chips"><span class="chip" title="Tesla — czekam na sygnał"><b>TSLA</b>Tesla</span><span class="chip" title="Ford — czekam na sygnał"><b>F</b>Ford</span><span class="chip" title="General Motors — czekam na sygnał"><b>GM</b>General Motors</span><span class="chip" title="Rivian — czekam na sygnał"><b>RIVN</b>Rivian</span><span class="chip" title="Lucid — czekam na sygnał"><b>LCID</b>Lucid</span></div></div><div><div class="kat-h">Napoje i żywność <span>2</span></div><div class="chips"><span class="chip" title="Coca-Cola — czekam na sygnał"><b>KO</b>Coca-Cola</span><span class="chip" title="PepsiCo — czekam na sygnał"><b>PEP</b>PepsiCo</span></div></div><div><div class="kat-h">Przemysł i transport <span>4</span></div><div class="chips"><span class="chip" title="Uber — czekam na sygnał"><b>UBER</b>Uber</span><span class="chip" title="Boeing — czekam na sygnał"><b>BA</b>Boeing</span><span class="chip" title="Caterpillar — czekam na sygnał"><b>CAT</b>Caterpillar</span><span class="chip" title="American Airlines — czekam na sygnał"><b>AAL</b>American Airlines</span></div></div><div><div class="kat-h">Półprzewodniki <span>6</span></div><div class="chips"><span class="chip" title="Nvidia — czekam na sygnał"><b>NVDA</b>Nvidia</span><span class="chip" title="AMD — czekam na sygnał"><b>AMD</b>AMD</span><span class="chip" title="Broadcom — czekam na sygnał"><b>AVGO</b>Broadcom</span><span class="chip" title="Intel — czekam na sygnał"><b>INTC</b>Intel</span><span class="chip" title="Micron — czekam na sygnał"><b>MU</b>Micron</span><span class="chip" title="Qualcomm — czekam na sygnał"><b>QCOM</b>Qualcomm</span></div></div><div><div class="kat-h">Technologia i software <span>10</span></div><div class="chips"><span class="chip" title="Apple — czekam na sygnał"><b>AAPL</b>Apple</span><span class="chip" title="Microsoft — czekam na sygnał"><b>MSFT</b>Microsoft</span><span class="chip" title="Salesforce — czekam na sygnał"><b>CRM</b>Salesforce</span><span class="chip" title="Oracle — czekam na sygnał"><b>ORCL</b>Oracle</span><span class="chip" title="Adobe — czekam na sygnał"><b>ADBE</b>Adobe</span><span class="chip" title="Palantir — czekam na sygnał"><b>PLTR</b>Palantir</span><span class="chip" title="Snowflake — czekam na sygnał"><b>SNOW</b>Snowflake</span><span class="chip" title="Datadog — czekam na sygnał"><b>DDOG</b>Datadog</span><span class="chip" title="CrowdStrike — czekam na sygnał"><b>CRWD</b>CrowdStrike</span><span class="chip" title="Palo Alto Networks — czekam na sygnał"><b>PANW</b>Palo Alto Networks</span></div></div><div><div class="kat-h">Zdrowie i farmacja <span>2</span></div><div class="chips"><span class="chip" title="Pfizer — czekam na sygnał"><b>PFE</b>Pfizer</span><span class="chip" title="Moderna — czekam na sygnał"><b>MRNA</b>Moderna</span></div></div></div><div class="empty" style="margin-top:12px">Zielona = kupiona dzisiaj · fioletowa = miała sygnał i sprawdzałem · różowa = sprawdzona i odrzucona · szara = czekam na sygnał.</div>
+</div><div class="card" id="s3">
   <h3>Dlaczego kupił albo sprzedał</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="empty">Jeszcze nic tu nie ma.</div>
-</div><div class="card" id="s3">
+</div><div class="card" id="s4">
   <h3>Od czego do czego</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="fn"><div class="fn-row">
@@ -323,24 +341,25 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   </div>
   
 </div></div>
-</div><div class="card" id="s4">
+</div><div class="card" id="s5">
   <h3>Czego się nauczył</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="empty">Za mało danych. Wnioski pojawią się po kilku dniach.</div>
-</div><div class="card" id="s5">
+</div><div class="card" id="s6" style="grid-column:1/-1">
   <h3>Co czytał</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="empty">Dziś nic. Czytam tylko wtedy, gdy mam kandydata do kupna.</div>
-</div><div class="card" id="s6" style="grid-column:1/-1">
+</div><div class="card" id="s7" style="grid-column:1/-1">
   <h3>Jak działa</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="steps"><div class="step"><div class="n">01</div>
       <div class="h">Skan</div><div class="d">Szukam sygnału</div></div><div class="step"><div class="n">02</div>
-      <div class="h">Wiadomości</div><div class="d">Sprawdzam ryzyko</div></div><div class="step"><div class="n">03</div>
-      <div class="h">Plan</div><div class="d">Stop i cel</div></div><div class="step"><div class="n">04</div>
-      <div class="h">Wielkość</div><div class="d">Ryzyko najwyżej 1%</div></div><div class="step"><div class="n">05</div>
-      <div class="h">Koniec dnia</div><div class="d">Zamykam wszystko</div></div></div>
-</div><div class="card" id="s7" style="grid-column:1/-1">
+      <div class="h">Badanie</div><div class="d">Czytam raporty spółki</div></div><div class="step"><div class="n">03</div>
+      <div class="h">Wiadomości</div><div class="d">Sprawdzam wieści</div></div><div class="step"><div class="n">04</div>
+      <div class="h">Plan</div><div class="d">Stop i cel</div></div><div class="step"><div class="n">05</div>
+      <div class="h">Wielkość</div><div class="d">Ryzyko najwyżej 1%</div></div><div class="step"><div class="n">06</div>
+      <div class="h">Koniec dnia</div><div class="d">Zamykam wszystko</div></div></div><div class="empty" style="margin-top:12px">Nie kupuję spółki, która w ostatnim kwartale straciła pieniądze, ani takiej, której przychody spadły o więcej niż 15% rok do roku. Wszystko, co sprawdzam, zapisuję przy decyzji.</div>
+</div><div class="card" id="s8">
   <h3>Słowniczek</h3>
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="gloss"><div><b>Stop</b><br><span>Cena, przy której sprzedaję ze stratą.</span></div><div><b>Cel</b><br><span>Cena, przy której sprzedaję z zyskiem.</span></div><div><b>× ryzyko</b><br><span>Ile zarabiam na złotówkę ryzyka.</span></div><div><b>Przebicie</b><br><span>Cena nad szczytem pierwszych 15 minut.</span></div><div><b>Pozycja</b><br><span>Akcje, które mam teraz.</span></div><div><b>Gotówka</b><br><span>Pieniądze poza akcjami.</span></div><div><b>Poślizg</b><br><span>Różnica między ceną widzianą a zapłaconą.</span></div><div><b>Podatek</b><br><span>19% od rocznego zysku. Płacę do 30 kwietnia.</span></div><div><b>S&amp;P 500</b><br><span>Wzorzec: te same wpłaty w indeks.</span></div></div>

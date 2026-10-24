@@ -17,7 +17,10 @@ import os
 import time
 from datetime import datetime
 
-from . import book, market, news, plain, session as ses, skilltools, store, xtb
+from . import book, market, news, research, session as ses, skilltools, store, xtb
+
+# Badania spółek trzymamy w pamięci jednego uruchomienia - SEC jest wolne.
+_RESEARCH_CACHE: dict[str, dict] = {}
 
 
 def _clock_args(now=None) -> list[str]:
@@ -291,7 +294,16 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     comm = float(costs["commission_pct"])
     comm_min = float(costs.get("commission_min_usd") or 0.0)
 
-    # 0. Wiadomosci: twardy sygnal ryzyka = odpuszczam.
+    # 0. Research: sprawdzam raporty spółki, ZANIM cokolwiek kupię.
+    bad = research.sprawdz(sym, book.load_cfg(), _RESEARCH_CACHE)
+    if bad.get("blokada"):
+        book.decide(sim, "skip", symbol=sym, code="badanie",
+                    title="%s: badanie spółki wypadło słabo" % sym,
+                    why="%s %s" % (bad["powod"], bad.get("tekst") or ""),
+                    numbers=bad.get("liczby") or {})
+        return None
+
+    # 1. Wiadomosci: twardy sygnal ryzyka = odpuszczam.
     gate = _news_gate(sim, sym, now_dt)
     if gate["blocked"]:
         hit = gate["risk_items"][0]
@@ -446,6 +458,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
             "max_loss": passed.get("max_loss"), "rr": passed.get("reward_risk"),
             "range_high": rng.get("high"), "range_low": rng.get("low"),
             "trigger": entry_doc.get("time"), "news": gate.get("count") or 0,
+            "badanie": bad.get("liczby") or {},
         },
     )
     return {"symbol": sym, "qty": qty, "fill": round(fill, 4), "plan": plan}
