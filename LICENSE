@@ -24,6 +24,6 @@ SOFTWARE.
 
 Silnik strategii w katalogu `skills/` pochodzi z projektu
 day-trader-skill autorstwa Jake Schincariol
-(https://github.com/Jakeschincariol/day-trader-skill), udostepnionego na
+(https://github.com/Jakeschincariol/day-trader-skill), udostępnionego na
 licencji MIT. Tekst tej licencji: `skills/day-trader-skill-LICENSE.txt`.
-Kod w `sim/` jest licencjonowany powyzej, na tych samych warunkach MIT.
+Kod w `sim/` jest licencjonowany powyżej, na tych samych warunkach MIT.

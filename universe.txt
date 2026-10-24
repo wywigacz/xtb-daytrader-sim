@@ -1,6 +1,6 @@
-# Universe: plynne spolki USA dostepne jako AKCJE REALNE w XTB (rachunek PLN).
-# Jedna spolka w linii. Bez # komentarzy w danych, bez pustych linii.
-# Dobrane pod day-trading: duzy obrot, waski spread, czeste ruchy srodziennie.
+# Universe: płynne spółki USA dostępne jako AKCJE REALNE w XTB (rachunek PLN).
+# Jedna spółka w linii. Bez # komentarzy w danych, bez pustych linii.
+# Dobrane pod day-trading: duży obrót, wąski spread, częste ruchy śródziemnie.
 AAPL
 MSFT
 NVDA

@@ -1,7 +1,7 @@
 """Zegar giełdy USA w czasie Nowego Jorku. Tylko biblioteka standardowa.
 
 Sesja: 9:30-16:00 ET (w dni skrocone 13:00 ET). Weekendy i święta NYSE zamknięte.
-Uzywane przez cały silnik: tick srodzienny, rozliczenie dzienne, flat-by.
+Uzywane przez cały silnik: tick śródziemny, rozliczenie dzienne, flat-by.
 """
 from __future__ import annotations
 

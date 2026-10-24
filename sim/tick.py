@@ -1,4 +1,4 @@
-"""Tick srodzienny: jedno uruchomienie w trakcie sesji USA.
+"""Tick śródziemny: jedno uruchomienie w trakcie sesji USA.
 
 Uruchamiany co ~15 minut przez GitHub Actions. Robi dwie rzeczy:
   1. ZARZADZA otwartymi pozycjami (stop / target / czas flat-by) po swiecach 5m.
