@@ -67,9 +67,22 @@ Zmiany działają od następnego uruchomienia.
 
 ## Reset symulacji od zera
 
-Usuń z repo: `sim/state/` (cały folder), pliki `trader/*.json`,
-`trader/state/` oraz `docs/index.html`. Przy następnym uruchomieniu wszystko
-powstanie na nowo, z wpłatą startową.
+W terminalu, w folderze projektu:
+
+```
+python -m sim.reset --yes
+```
+
+Kasuje stan i **od razu wpłaca kapitał startowy**, żeby portfel nie zaczynał od
+zera. Konto od razu ma 10 000 zł (po koszcie wymiany ok. 9 950 zł).
+
+Jeśli symulacja ma już historię, polecenie odmówi — trzeba dodać `--force`:
+
+```
+python -m sim.reset --yes --force
+```
+
+**Uwaga:** `--force` kasuje wszystkie transakcje i decyzje.
 
 ---
 

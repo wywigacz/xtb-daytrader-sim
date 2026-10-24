@@ -4,7 +4,8 @@ Autonomiczny symulator handlu akcjami USA w ciągu dnia, oparty na metodyce
 [**day-trader-skill**](https://github.com/Jakeschincariol/day-trader-skill),
 z kosztami i podatkami jak na polskim rachunku **XTB**.
 
-* Kapitał startowy: **10 000 zł**, potem **+10 000 zł co miesiąc**.
+* Kapitał startowy **10 000 zł wpłacany od razu** — portfel ma wartość już
+  pierwszego dnia, a nie zero. Potem **+10 000 zł co miesiąc**.
 * Horyzont: **300 dni**.
 * Handel **tylko w ciągu dnia** — wszystkie pozycje zamknięte przed końcem sesji.
 * Uruchamiany automatycznie przez **GitHub Actions**, bez udziału człowieka.
@@ -45,6 +46,7 @@ powstaje panel.
 | --- | --- |
 | Kapitał startowy | 10 000 zł |
 | Wpłaty miesięczne | 10 000 zł, pierwszy dzień handlowy miesiąca |
+| Pierwsza wpłata | 10 000 zł od razu w dniu otwarcia konta |
 | Razem przez 300 dni | ~110 000 zł |
 | Przewalutowanie PLN→USD | 0,5% (jak spread XTB) |
 | Poślizg rynkowy | 0,05% na transakcję |

@@ -19,7 +19,11 @@ EQUITY_COLS = [
 
 
 def ensure_init(sim: dict, cfg: dict) -> dict:
-    """Zainicjuj stan symulacji i pierwsza wpłatę."""
+    """Zainicjuj stan i ZROB WPLATE STARTOWA od razu.
+
+    Wpłata startowa nie czeka na pierwszy dzień handlowy: konto ma mieć
+    10 000 zl w portfelu od samego poczatku, a nie zero.
+    """
     sc = cfg["simulation"]
     if not sim.get("start_date"):
         sim["start_date"] = sc["start_date"]
@@ -35,6 +39,19 @@ def ensure_init(sim: dict, cfg: dict) -> dict:
         sim["loss_carry_pln"] = 0.0      # strata do odliczenia (max 5 lat)
         sim["fx"] = {"rate": float(cfg.get("fx_fallback", 3.65)), "as_of": store.ny_stamp()}
         sim["day_count"] = 0
+        book.save_sim(sim)
+        # wpłata startowa od razu - portfel nie zaczyna od zera
+        day0 = sc["start_date"]
+        try:
+            rate = market.fx_usdpln()
+        except Exception:  # noqa: BLE001
+            rate = float(cfg.get("fx_fallback", 3.65))
+        sim["fx"] = {"rate": round(float(rate), 4), "as_of": day0 + " 09:00"}
+        book.deposit(sim, float(sc["start_capital_pln"]), float(rate), day0)
+        book.decide(sim, "start", title="Otwarcie konta",
+                    why="Wpłata startowa %s zł, wymieniona na dolary."
+                        % ("{:,.0f}".format(float(sc["start_capital_pln"])).replace(",", " ")),
+                    numbers={"pln": float(sc["start_capital_pln"]), "rate": round(float(rate), 4)})
         book.save_sim(sim)
     return sim
 
