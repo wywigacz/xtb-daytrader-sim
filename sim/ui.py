@@ -141,11 +141,10 @@ def line_chart(rows: list[dict], width: int = 1000, height: int = 148,
     if len(rows) < 2:
         # Jeden punkt to nie linia. Wczesniej rysowal sie pusty wykres z
         # powtorzonymi etykietami osi Y - wygladalo to jak blad danych.
-        return ('<div class="empty" style="padding:34px 6px;text-align:center">'
-                'Wykres pojawi się po drugim dniu handlowym &mdash; do narysowania linii '
-                'potrzebne są co najmniej dwa punkty.<br>'
-                '<span style="font-size:14px">Zielona linia to wartość portfela, '
-                'przerywana &mdash; suma wpłat.</span></div>')
+        return ('<div class="empty" style="padding:30px 6px;text-align:center">'
+                'Wykres pojawi się po drugim dniu.<br>'
+                '<span style="font-size:14px">Zielona linia to portfel, '
+                'przerywana &mdash; wpłaty.</span></div>')
     # waska wersja ma mniej miejsca na podpisy i mniej etykiet osi
     pad_l, pad_r, pad_t, pad_b = 10, (84 if narrow else 122), 14, 26
     w = width - pad_l - pad_r
@@ -334,10 +333,11 @@ def funnel(steps: list[tuple[str, str, str]]) -> str:
     n = len(steps)
     for i, (value, label, note) in enumerate(steps):
         width = 100 - i * (44 / max(n, 1))
+        note_html = f'<div class="fn-note">{esc(note)}</div>' if note else ""
         rows.append(f'''<div class="fn-row">
   <div class="fn-bar" style="width:{width:.1f}%">
     <span class="fn-val">{esc(value)}</span><span class="fn-lab">{esc(label)}</span>
   </div>
-  <div class="fn-note">{esc(note)}</div>
+  {note_html}
 </div>''')
     return '<div class="fn">' + "".join(rows) + "</div>"

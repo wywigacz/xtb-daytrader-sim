@@ -219,6 +219,11 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 
 /* ---- wspolne ---- */
 .empty{color:var(--muted);font-size:14px}
+.costs{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px}
+.costs div{min-width:0}
+.costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
+.fine{font-size:14px;color:var(--muted);margin:6px 0 0}
 footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
   font-size:14px;color:var(--muted);line-height:1.65}
 code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:14px;color:var(--ink2)}
@@ -247,6 +252,7 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   .card{padding:16px}
   .chart-wide{display:none}
   .chart-narrow{display:block}
+  .costs{grid-template-columns:1fr 1fr}
 }
 """
 
@@ -264,11 +270,11 @@ _ICONS = {
 
 TOC = [
     ("podsumowanie", "Podsumowanie", "pulse"),
-    ("s1", "Pozycje", "layers"),
-    ("s2", "Dlaczego", "bulb"),
-    ("s3", "Lejek", "funnel"),
-    ("s4", "Nauka", "book"),
-    ("s5", "Nagłówki", "lines"),
+    ("s1", "Co mam teraz", "layers"),
+    ("s2", "Dlaczego kupił", "bulb"),
+    ("s3", "Od czego do czego", "funnel"),
+    ("s4", "Czego się nauczył", "book"),
+    ("s5", "Co czytał", "lines"),
     ("s6", "Jak działa", "play"),
     ("s7", "Słowniczek", "abc"),
 ]
@@ -354,7 +360,7 @@ def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
   </div>
   <div class="right">
     {pill} &nbsp; <b style="color:var(--ink2)">dzień {day} z {total}</b><br>
-    dane na {esc(pretty)} &middot; zaktualizowano {esc(now.strftime('%d.%m.%Y %H:%M'))} (czas Nowego Jorku)
+    dane z {esc(pretty)} &middot; {esc(now.strftime('%H:%M'))} czasu Nowego Jorku
   </div>
 </div>
 <div class="prog" role="img" aria-label="Postęp symulacji: dzień {day} z {total}">
@@ -377,7 +383,7 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     exact_line = exact if (exact != short) else ""
     tax = _f(sim.get("tax_reserve_pln"))
     # w karcie ma byc JEDNA liczba - podatek pokazujemy w stopce, nie tutaj
-    sub_text = exact_line if exact_line else "tyle jest na rachunku"
+    sub_text = exact_line if exact_line else ""
     bench_short, bench_exact = (pln_short(bench) if bench else ("—", "—"))
     bench_delta = (pct((bench - dep) / dep * 100) if bench and dep else "—")
     n_pos = len(sim.get("open") or {})
@@ -419,7 +425,7 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     <div class="n">{h_counts}</div>
   </div>
   <div class="kpi">
-    <div class="lab">{h_bench_lab}</div>
+    <div class="lab">{h_bench_lab} — wzorzec</div>
     <div class="v t-xl">{h_bench}</div>
     <div class="n">{h_bench_sub}</div>
     {sp_ben}
@@ -439,12 +445,12 @@ def _day_mini(decisions: list[dict], trades: list[dict]) -> str:
     read = max(read, int((news.today() or {}).get("read") or 0))
     pnl = sum(_f(d.get("numbers", {}).get("pnl")) for d in closed)
     items = [
-        ("Sprawdzone spółki", str(scanned) if scanned else "—"),
-        ("Przeczytane nagłówki", str(read) if read else "0"),
+        ("Sprawdzone", str(scanned) if scanned else "—"),
+        ("Nagłówki", str(read) if read else "0"),
         ("Kupione", str(len(opened))),
         ("Sprzedane", str(len(closed))),
-        ("Odpuszczone okazje", str(len(skipped))),
-        ("Wynik dnia", usd(pnl) if closed else "—"),
+        ("Odpuszczone", str(len(skipped))),
+        ("Wynik", usd(pnl) if closed else "—"),
     ]
     cells = "".join(f'<div><div class="lab">{esc(l)}</div><div class="v">{esc(v)}</div></div>'
                     for l, v in items)
@@ -453,21 +459,22 @@ def _day_mini(decisions: list[dict], trades: list[dict]) -> str:
 
 def _timeline(actions: list[dict], limit: int = 3) -> str:
     if not actions:
-        return ('<div class="empty">Dziś bot nie podjął jeszcze żadnej decyzji. Pierwsze wpisy '
-                'pojawiają się po otwarciu sesji w USA (15:30 czasu polskiego).</div>')
+        return ('<div class="empty">Dziś nic jeszcze. Pierwsze decyzje po 15:30 czasu polskiego.</div>')
     li = []
     for a in actions[:limit]:
         if not a.get("title"):
             continue
+        # powody kupna i sprzedazy sa w kartach nizej - tutaj nie powtarzamy
+        skip_why = (a.get("kind") or "") in ("open", "close", "deposit")
         li.append(f'''<li class="{esc(a.get("kind") or "")}">
   <div class="t">{esc(a.get("time") or "")}</div>
   <div class="a">{esc(a.get("title"))}</div>
-  {f'<div class="w">{esc(a.get("why"))}</div>' if a.get("why") else ''}
+  {f'<div class="w">{esc(a.get("why"))}</div>' if (a.get("why") and not skip_why) else ''}
 </li>''')
     more = ""
     if len(actions) > limit:
-        more = ('<div class="empty" style="margin-top:10px">...i %d więcej zdarzeń dzisiaj '
-                '(pelna oś czasu ponizej).</div>' % (len(actions) - limit))
+        more = ('<div class="empty" style="margin-top:8px">…i %d więcej poniżej.</div>'
+                % (len(actions) - limit))
     return '<ul class="tl">' + "".join(li) + "</ul>" + more
 
 
@@ -518,8 +525,7 @@ def _positions(sim: dict, trades: list[dict]) -> str:
 </div>''')
         body = "".join(blocks)
     else:
-        body = ('<div class="empty">Żadnej otwartej pozycji. Bot kończy dzień zawsze na zero — '
-                'nic nie zostaje na noc.</div>')
+        body = '<div class="empty">Nic nie trzymam. Dzień zawsze kończę na zero.</div>' 
 
     day = store.ny_stamp()[:10]
     today = [t for t in trades if str(t.get("close_ts_ny") or "").startswith(day)]
@@ -536,13 +542,13 @@ def _positions(sim: dict, trades: list[dict]) -> str:
             f'<td>{usd(t.get("entry_usd"))}→{usd(t.get("exit_usd"))}</td>'
             f'<td>{num(t.get("qty"))}</td>'
             f'<td class="r {cls}"><b>{usd(pnl)}</b></td>'
-            f'<td class="r">{(("%+.2f" % _f(r)).replace(".", ",") + " R") if r not in (None, "") else "—"}</td>'
+            f'<td class="r">{("%+.2f" % _f(r)).replace(".", ",") if r not in (None, "") else "—"}</td>' 
             f'<td>{esc(plain.exit_short(t.get("exit_reason")))}</td></tr>')
     total = sum(_f(t.get("pnl_usd")) for t in today)
     tcls = "up" if total > 0 else ("down" if total < 0 else "")
     return body + f'''<h4 style="margin-top:22px">Zamknięte dzisiaj &nbsp;<span class="{tcls}">{usd(total)}</span></h4>
 <div class="scroll"><table>
-  <tr><th>Spółka</th><th>Czas</th><th>Cena</th><th>Szt.</th><th class="r">Wynik</th><th class="r">Zysk w R</th><th>Wyjście</th></tr>
+  <tr><th>Spółka</th><th>Czas</th><th>Cena</th><th>Szt.</th><th class="r">Wynik</th><th class="r">× ryzyko</th><th>Wyjście</th></tr>
   {''.join(rows)}
 </table></div>'''
 
@@ -554,16 +560,16 @@ def _decision_card(d: dict) -> str:
     n = d.get("numbers") or {}
     rows = []
     if kind == "open":
-        rows = [("wejście", usd(n.get("entry"))), ("stop", usd(n.get("stop"))),
-                ("cel", usd(n.get("target"))), ("max strata", usd(n.get("max_loss")))]
+        rows = [("kupno", usd(n.get("entry"))), ("stop", usd(n.get("stop"))),
+                ("cel", usd(n.get("target"))), ("maks. strata", usd(n.get("max_loss")))]
     elif kind == "close":
         # cena wejscia i wyjscia sa w tabeli wyzej - tutaj tylko wynik i R
         r = n.get("r")
         rows = [("wynik", usd(n.get("pnl"))),
-                ("w jedn. R", (("%+.2f" % _f(r)).replace(".", ",")) if r not in (None, "") else "—")]
+                ("× ryzyko", (("%+.2f" % _f(r)).replace(".", ",")) if r not in (None, "") else "—")]
     elif kind == "deposit":
-        rows = [("wpłacone", pln(n.get("pln"))), ("kurs USD/PLN", num(n.get("rate"), 4)),
-                ("otrzymane", usd(n.get("usd")))]
+        rows = [("wpłacone", pln(n.get("pln"))), ("kurs dolara", num(n.get("rate"), 4)),
+                ("kupiono akcji za", usd(n.get("usd")))]
     else:
         return ""
     nums = "".join(f'<div>{esc(l)}<b>{esc(v)}</b></div>' for l, v in rows)
@@ -585,32 +591,30 @@ def _decisions(decisions: list[dict]) -> str:
     if not picks:
         picks = [d for d in reversed(decisions) if d.get("decision") in ("open", "close", "deposit")][:2]
     if not picks:
-        return ('<div class="empty">Jeszcze nic nie kupiono ani nie sprzedano. Pierwsza decyzja '
-                'pojawi się tu z powodem w jednym zdaniu.</div>')
+        return '<div class="empty">Jeszcze nic tu nie ma.</div>' 
     return "".join(c for c in (_decision_card(d) for d in picks[:4]) if c)
 
 
 def _funnel(sim: dict) -> str:
     f = insights.funnel(sim)
     steps = [
-        (num(5943), "spółek w USA", "tyle widzi skaner skilla - cały rynek akcji USA"),
-        (num(f["watched"]), "na liście", "tylko te dostępne w XTB jako akcje realne"),
-        (num(f["signals_total"]), "sygnałów łącznie", "cena przebiła poranny szczyt i zamknęła się nad nim"),
-        (num(f["checked"]), "sprawdzonych", "z nagłówkami, stopem i limitem straty"),
-        (num(f["trades"]), "transakcji", "tyle przeszło wszystkie filtry"),
+        (num(5943), "spółek w USA", ""),
+        (num(f["watched"]), "na mojej liście", ""),
+        (num(f["signals_total"]), "wyszło nad szczyt", ""),
+        (num(f["checked"]), "z planem wyjścia", ""),
+        (num(f["trades"]), "kupionych", ""),
     ]
     out = ui.funnel(steps)
     if f["trades"]:
-        out += (f'<div class="empty" style="margin-top:14px">Na każda transakcje przypadało '
-                f'{f["skipped"] + f["blocked"]} odrzuconych okazji. To nie awaria — to metoda.</div>')
+        out += (f'<div class="empty" style="margin-top:12px">{f["skipped"] + f["blocked"]} '
+                f'odrzuconych na 1 zakup.</div>')
     return out
 
 
 def _lessons(sim: dict) -> str:
     obs = insights.observations(sim)
     if not obs:
-        return ('<div class="empty">Za mało transakcji, żeby wyciągać wnioski. Obserwacje pojawia '
-                'się po kilku rozegranych dniach — nie są zmyślane na zapas.</div>')
+        return '<div class="empty">Za mało danych. Wnioski pojawią się po kilku dniach.</div>' 
     cards = []
     for o in obs[:5]:
         tone = o.get("tone")
@@ -619,7 +623,7 @@ def _lessons(sim: dict) -> str:
   <div class="lab">{esc(o["title"])}</div>
   <div class="v {cls}">{esc(o["value"])}</div>
   <div class="t">{esc(o["text"])}</div>
-  <div class="t-xs faint" style="margin-top:4px">na podstawie {o["n"]} obserwacji</div>
+  <div class="t-xs faint" style="margin-top:4px">z {o["n"]} {ui.pl_plural(o["n"], "zakupu", "zakupów", "zakupów")}</div>
 </div>''')
     return "".join(cards)
 
@@ -628,8 +632,7 @@ def _news() -> str:
     t = news.today()
     items = list(t.get("items") or [])
     if not items:
-        return ('<div class="empty">Dziś bot nie czytał jeszcze nagłówków. Czyta je dopiero, gdy ma '
-                'kandydata do kupna — nie czyta dla samego czytania.</div>')
+        return '<div class="empty">Dziś nic. Czytam tylko wtedy, gdy mam kandydata do kupna.</div>' 
     items = sorted(items, key=lambda i: str(i.get("time") or ""), reverse=True)[:6]
     rows = []
     for it in items:
@@ -645,19 +648,22 @@ def _news() -> str:
     <div class="mt">{tags}{esc(it.get("source") or "")}{imp}</div>
   </div>
 </div>''')
-    head = (f'<div class="t-sm mut" style="margin-bottom:6px">Przeczytane dzisiaj: '
-            f'<b>{len(t.get("items") or [])}</b> nagłówków'
-            + (f', {t.get("blocked")} wstrzymalo zakup' if t.get("blocked") else "") + ".</div>")
+    n_items = len(t.get("items") or [])
+    blocked = int(t.get("blocked") or 0)
+    head = (f'<div class="t-sm mut" style="margin-bottom:6px">Dziś przeczytałem '
+            f'<b>{n_items}</b> {ui.pl_plural(n_items, "nagłówek", "nagłówki", "nagłówków")}'
+            + (f', {blocked} {ui.pl_plural(blocked, "wstrzymał", "wstrzymały", "wstrzymało")} zakup'
+               if blocked else "") + ".</div>")
     return head + "".join(rows)
 
 
 def _how() -> str:
     steps = [
-        ("01", "Skan", "Przeglądam listę spółek i szukam ceny, która przebiła maksimum pierwszych 15 minut sesji."),
-        ("02", "Nagłówki", "Czytam wiadomości o kandydacie. Realny wstrząs = odpuszczam, zanim zaryzykuję."),
-        ("03", "Plan", "Przed wejściem ustalam stop (gdzie się myliłem) i cel (kiedy biorę zysk)."),
-        ("04", "Wielkość", "Liczę, ile akcji kupić, żeby maksymalna strata to 1% kapitału. Nie na oko."),
-        ("05", "Koniec dnia", "Zamykam wszystko przed 16:00 w Nowym Jorku. Zero trzymania na noc."),
+        ("01", "Skan", "Szukam sygnału"),
+        ("02", "Wiadomości", "Sprawdzam ryzyko"),
+        ("03", "Plan", "Stop i cel"),
+        ("04", "Wielkość", "Ryzyko najwyżej 1%"),
+        ("05", "Koniec dnia", "Zamykam wszystko"),
     ]
     cells = "".join(f'''<div class="step"><div class="n">{n}</div>
       <div class="h">{esc(h)}</div><div class="d">{esc(d)}</div></div>''' for n, h, d in steps)
@@ -671,34 +677,43 @@ def _glossary() -> str:
 
 
 def _footer(sim: dict, cfg: dict) -> str:
-    c = cfg["costs"]
-    s = cfg["simulation"]
+    """Stopka jako tabela liczb, nie akapit. Wzrok czyta liczby szybciej."""
+    c, s = cfg["costs"], cfg["simulation"]
+    try:
+        day = int(sim.get("day_count") or 0)
+    except (TypeError, ValueError):
+        day = 0
+    items = [
+        ("Start", pln(s["start_capital_pln"])),
+        ("Co miesiąc", "+" + pln(s["monthly_deposit_pln"])),
+        ("Dni symulacji", "%d" % int(s["days"])),
+        ("Wymiana waluty", num(c["fx_cost_pct"], 1) + "%"),
+        ("Poślizg ceny", num(_f(c["slippage_bps"]) / 100.0, 2) + "%"),
+        ("Podatek od zysku", num(c["tax_on_gains_pct"], 0) + "%"),
+        ("Ceny z", "Yahoo, opóźnione"),
+    ]
+    if _f(sim.get("tax_reserve_pln")) > 0.5:
+        items.append(("Odłożone na podatek", pln(sim.get("tax_reserve_pln"))))
+    cells = "".join(f'<div><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in items)
     return f'''<footer>
-  <b>Jak to policzone.</b> Kapitał startowy {pln(s["start_capital_pln"])}, potem
-  {pln(s["monthly_deposit_pln"])} w pierwszym dniu handlowym każdego miesiąca przez {s["days"]} dni.
-  Koszty: przewalutowanie {num(c["fx_cost_pct"], 1)}%, poślizg {num(c["slippage_bps"], 0)} pb
-  na transakcję, podatek Belki {num(c["tax_on_gains_pct"], 0)}% od zysku.
-  {("Odłożone na podatek: <b>" + pln(sim.get("tax_reserve_pln")) + "</b>. ") if _f(sim.get("tax_reserve_pln")) > 0.5 else ""}
-  Ceny: darmowe, nieoficjalne Yahoo, opóźnione o kilkadziesiąt sekund.
-  Zlecenia są <b>symulowane</b> — nic nie idzie do brokera.
-  <br><br>
-  <b>To nie jest porada inwestycyjna.</b> Symulacja pokazuje metodę, nie obiecuję wyniku.
-  Większość osób handlujących w ciągu dnia traci pieniądze.
-  Zalozenia: <code>docs/XTB-ZALOZENIA.md</code> &middot; decyzje:
-  <code>sim/state/decisions.jsonl</code> &middot; transakcje: <code>sim/state/trades.csv</code>
+  <div class="costs">{cells}</div>
+  <p class="fine">
+    Ceny z Yahoo, opóźnione. Zlecenia wymyślone &mdash; nic nie idzie do brokera.
+    <b>To nie porada inwestycyjna.</b>
+  </p>
 </footer>'''
 
 
 def _empty_intro(cfg: dict) -> str:
     s = cfg["simulation"]
     return f'''<div class="hero-note">
-  <div class="lab">Zanim ruszy</div>
-  <div class="t-xl" style="margin:6px 0 6px;font-weight:700">Symulacja startuje {esc(s["start_date"])}</div>
+  <div class="lab">Zaczynam {esc(s["start_date"])}</div>
+  <div class="t-lg" style="margin:6px 0 4px;font-weight:600">
+    Wpłata {pln(s["start_capital_pln"])}, potem {pln(s["monthly_deposit_pln"])} co miesiąc.
+  </div>
   <div class="t-sm mut">
-    Pierwszego dnia handlowego bot wpłaci {pln(s["start_capital_pln"])}, przewalutuje je na
-    dolary i zacznie skanować rynek. Pierwsze decyzje pojawiają się po 15:30 czasu polskiego —
-    do tego czasu panel jest celowo pusty, nic tu nie jest zmyślane.
-    Jak wygląda po rozegranym dniu: <a class="lnk" href="przykład-panelu.png">przykład-panelu.png</a>.
+    Pierwsze decyzje po 15:30 czasu polskiego.
+    <a class="lnk" href="przyklad-panelu.png">Zobacz przykład wypełnionego panelu</a>
   </div>
 </div>'''
 
@@ -715,16 +730,15 @@ def build(sim: dict, cfg: dict) -> str:
         body.append(_empty_intro(cfg))
 
     detail = [
-        ("s1", "Pozycje", "Co bot trzyma teraz i co zamknął dzisiaj", _positions(sim, trades)),
-        ("s2", "Dlaczego podjął te decyzje", "Każda decyzja z powodem i liczbami", _decisions(decisions)),
-        ("s3", "Lejek decyzji", "Z tysięcy spółek zostaje kilka transakcji", _funnel(sim)),
-        ("s4", "Czego się nauczył", "Wnioski z własnych transakcji", _lessons(sim)),
-        ("s5", "Co czytał", "Nagłówki i ich wpływ na decyzje", _news()),
-        ("s6", "Jak działa", "Ta sama pętla każdego dnia handlowego", _how()),
-        ("s7", "Słowniczek", "Każde pojęcie jednym zdaniem", _glossary()),
+        ("s1", "Co mam teraz", "", _positions(sim, trades)),
+        ("s2", "Dlaczego kupił albo sprzedał", "", _decisions(decisions)),
+        ("s3", "Od czego do czego", "", _funnel(sim)),
+        ("s4", "Czego się nauczył", "", _lessons(sim)),
+        ("s5", "Co czytał", "", _news()),
+        ("s6", "Jak działa", "", _how()),
+        ("s7", "Słowniczek", "", _glossary()),
     ]
-    body.append('<section><div class="sec-h"><div class="lab">Szczegóły</div>'
-                '<div class="t-sm mut">7 sekcji &middot; rozwiń, żeby zobaczyć powody decyzji</div></div>'
+    body.append('<section><div class="sec-h"><div class="lab">Szczegóły</div></div>'
                 '<div class="grid2">')
     for i, (sid, title, sub, content) in enumerate(detail):
         span = ' style="grid-column:1/-1"' if sid in ("s7", "s6") else ""

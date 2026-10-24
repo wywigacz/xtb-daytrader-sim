@@ -128,7 +128,7 @@ def manage(sim: dict, now=None, force_close_all: bool = False) -> list[dict]:
         except Exception as e:  # noqa: BLE001
             book.decide(sim, "manage_error", symbol=symbol,
                         title="Brak danych o %s" % symbol,
-                        why="Nie moglem pobrać swiec - sprawdze przy następnym uruchomieniu.",
+                        why="Nie udało się pobrać cen. Spróbuję przy następnym uruchomieniu.",
                         error=str(e))
             continue
 
@@ -211,7 +211,7 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
     if not doc:
         book.decide(sim, "scan_empty",
                     title="Skan nie zwrocil wyników",
-                    why="Feed z rynku nie odpowiedzial albo nie było jeszcze danych z sesji.",
+                    why="Brak danych z giełdy. Spróbuję później.",
                     note=tail[:300], rc=rc)
         return []
     hits = doc.get("hits") or []
@@ -219,7 +219,7 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
     book.decide(
         sim, "scan",
         title="Przejrzalem %s spółek" % doc.get("scanned"),
-        why=("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji i zamknęła się nad nim. "
+        why=("Szukałem ceny, która wyszła nad szczyt pierwszych 15 minut i zamknęła się nad nim. "
              "Znalazlem %d takich spółek." % len(hits)) if hits else
             ("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji. "
              "Zadna spółka nie dala sygnału - nie kupuję na sile."),
@@ -242,7 +242,7 @@ def try_enter(sim: dict, now=None) -> dict | None:
     if len(sim.get("open") or {}) >= int(sim_cfg["max_concurrent_positions"]):
         book.decide(sim, "skip", code="miejsca",
                     title="Brak wolnego miejsca",
-                    why="Mam już maksymalna liczbę otwartych pozycji naraz (%d)."
+                    why="Mam już maksymalną liczbę kupionych spółek naraz (%d)."
                         % int(sim_cfg["max_concurrent_positions"]))
         return None
 
@@ -263,7 +263,7 @@ def try_enter(sim: dict, now=None) -> dict | None:
     if not cands:
         book.decide(sim, "skip", code="duplikat",
                     title="Wszystkie sygnały już wykorzystane",
-                    why="Te spółki już trzymam albo gralem nimi dzisiaj. Nie dokladam do tej samej pozycji.")
+                    why="Te spółki już mam albo kupowałem je dziś. Nie dokupuję.")
         return None
 
     for h in cands[:3]:
@@ -297,7 +297,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         hit = gate["risk_items"][0]
         book.decide(
             sim, "block", symbol=sym, code="news",
-            title="Odpuscilem %s przez wiadomości" % sym,
+            title="%s: wiadomości wstrzymały zakup" % sym,
             why='Naglowek: "%s". Po takiej informacji cena potrafi skoczyc w obie strony, '
                 'a ja nie zgaduje kierunku.' % str(hit.get("title") or "")[:110],
             numbers={"nagłówek": str(hit.get("title") or "")[:160],
@@ -312,7 +312,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     except Exception as e:  # noqa: BLE001
         book.decide(sim, "skip", symbol=sym, code="dane",
                     title="Brak świeżej ceny %s" % sym,
-                    why="Nie miałem wiarygodnej ceny, wiec nie ryzykowalem.", error=str(e))
+                    why="Nie było ceny, której mogłem zaufać.", error=str(e))
         return None
     write_prices({sym: (px, _t)})
 
@@ -322,8 +322,8 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     status = str(entry_doc.get("status") or "")
     if rc != 0 or "trigger" not in status.lower():
         book.decide(sim, "skip", symbol=sym, code="brak-sygnału",
-                    title="%s nie potwierdzil sygnału" % sym,
-                    why="Cena nie zamknęła się nad porannym szczytem w sposób, który wymaga metoda.",
+                    title="%s: brak potwierdzenia" % sym,
+                    why="Cena nie zamknęła się nad porannym szczytem tak, jak wymaga metoda.",
                     status=status)
         return None
 
@@ -332,14 +332,14 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     if rc != 0:
         book.decide(sim, "skip", symbol=sym, code="plan",
                     title="Plan dla %s nie powstal" % sym,
-                    why="Nie moglem wyznaczyc stopu i celu, a bez nich nie wchodze.",
+                    why="Nie udało się ustalić stopu i celu. Bez nich nie kupuję.",
                     detail=(err or out).strip()[:160])
         return None
     plan = store.read_json(store.PLAN) or {}
     if str(plan.get("symbol", "")).upper() != sym:
         book.decide(sim, "skip", symbol=sym, code="plan",
                     title="Plan dotyczyl innej spółki",
-                    why="Plan wyjścia nie pasowal do tej spółki - odpuszczam.")
+                    why="Plan wyjścia nie pasował do tej spółki.")
         return None
 
     # 4. Budget Manager: ile akcji.
@@ -438,7 +438,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         sim, "open", symbol=sym,
         title="Kupilem %s %s" % (int(qty), sym),
         why=("Cena przebiła szczyt pierwszych 15 minut (%s) i zamknęła się nad nim. "
-             "Stop chroni mnie %.1f%% nizej, a cel jest tak samo daleko jak stop."
+             "Stop jest %.1f%% pod ceną. Cel tak samo daleko jak stop."
              % (pct_over, (1 - float(plan.get("stop") or 0) / max(fill, 0.01)) * 100)),
         numbers={
             "qty": int(qty), "entry": round(fill, 2), "stop": plan.get("stop"),
@@ -461,8 +461,8 @@ def log_daily_news_summary(sim: dict) -> None:
     book.decide(
         sim, "news_summary",
         title="Dzisiaj przeczytałem %d nagłówków" % n,
-        why=("Zadnego nie uznalem za wystarczajacy powod, żeby zmienić plan."
+        why=("Żadna wiadomość nie była powodem, żeby zmienić plan."
              if not blocked else
-             "%d raz(y) wiadomości wstrzymaly zakup - to tez jest decyzja." % blocked),
+             "Wiadomości wstrzymały zakup %d raz(y). Też decyzja." % blocked),
         read=n, risk=blocked,
     )

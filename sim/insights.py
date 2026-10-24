@@ -84,10 +84,10 @@ def observations(sim: dict) -> list[dict]:
     wr = len(wins) / n * 100
     sr = sum(pnl) / n
     out.append({
-        "title": "Skutecznosc",
+        "title": "Trafione zakupy",
         "value": "%.0f%%" % wr,
-        "text": ("Na %d transakcji %d wyszło na plus. Średni wynik jednej transakcji: %+.0f USD."
-                 % (n, len(wins), sr)),
+        "text": ("%d z %d zakupów na plus. Średnio jeden zakup: %+.0f USD."
+                 % (len(wins), n, sr)),
         "tone": "up" if sum(pnl) > 0 else "down",
         "n": n,
     })
@@ -101,11 +101,11 @@ def observations(sim: dict) -> list[dict]:
     if parts:
         top = reasons.most_common(1)[0]
         out.append({
-            "title": "Jak kończą się transakcje",
+            "title": "Jak kończą się zakupy",
             "value": "%d z %d" % (reasons.get("target", 0), n),
-            "text": "Rozstrzygniecia: %s. Najczestszy scenariusz: %s." % (
-                ", ".join(parts), {"target": "cel", "stop": "stop", "flat_by": "koniec dnia",
-                                   "eod_flat": "awaryjne domkniecie"}.get(top[0], top[0])),
+            "text": "Najczęściej: %s." % {
+                "target": "cel", "stop": "stop", "flat_by": "koniec dnia",
+                "eod_flat": "domknięcie awaryjne"}.get(top[0], top[0]),
             "tone": "up" if reasons.get("target", 0) > reasons.get("stop", 0) else "down",
             "n": n,
         })
@@ -116,10 +116,9 @@ def observations(sim: dict) -> list[dict]:
     if len(rs) >= MIN_N:
         avg_r = sum(rs) / len(rs)
         out.append({
-            "title": "Średni wynik w jednostkach ryzyka",
-            "value": "%+.2f R" % avg_r,
-            "text": ("1R = tyle, ile byłem gotów stracić na jednej transakcji. "
-                     "Średnio wychodze na %s." % ("plus" if avg_r > 0 else "minus")),
+            "title": "Wynik na tle ryzyka",
+            "value": ("%+.2f razy" % avg_r).replace(".", ","),
+            "text": "Ile zarabiam na złotówkę, którą ryzykowałem.",
             "tone": "up" if avg_r > 0 else "down",
             "n": len(rs),
         })
@@ -139,9 +138,9 @@ def observations(sim: dict) -> list[dict]:
         best = max(usable.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))
         worst = min(usable.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))
         out.append({
-            "title": "Pora dnia ma znaczenie",
+            "title": "Pora dnia",
             "value": best[0].split(" ")[0],
-            "text": ("Najlepiej wychodza mi wejścia %s (średnio %+.0f USD), najgorzej %s (%+.0f USD)."
+            "text": ("Najlepiej %s (%+.0f USD), najgorzej %s (%+.0f USD)."
                      % (best[0], sum(best[1]) / len(best[1]), worst[0], sum(worst[1]) / len(worst[1]))),
             "tone": "up",
             "n": sum(len(v) for v in usable.values()),
@@ -155,9 +154,9 @@ def observations(sim: dict) -> list[dict]:
         best = max(per.items(), key=lambda kv: sum(kv[1]))
         worst = min(per.items(), key=lambda kv: sum(kv[1]))
         out.append({
-            "title": "Które spółki mi sluza",
+            "title": "Spółki, które się wyróżniły",
             "value": best[0],
-            "text": "%s dal mi %+.0f USD, %s %+.0f USD." % (
+            "text": "Najlepiej %s (%+.0f USD), najgorzej %s (%+.0f USD)." % (
                 best[0], sum(best[1]), worst[0], sum(worst[1])),
             "tone": "up" if sum(best[1]) >= 0 else "down",
             "n": len(per),
@@ -168,10 +167,9 @@ def observations(sim: dict) -> list[dict]:
     if f["opened"]:
         ratio = (f["skipped"] + f["blocked"]) / f["opened"]
         out.append({
-            "title": "Jak czesto odpuszczam",
-            "value": "%.1f : 1" % ratio,
-            "text": ("Na każda otwarta pozycje przypadaja %.1f odrzucone okazje. "
-                     "Wybiórczosc jest czescia metody, nie awaria." % ratio),
+            "title": "Ile okazji odpuszczam",
+            "value": ("%.1f na 1" % ratio).replace(".", ","),
+            "text": "%s odrzuconych na 1 zakup." % ("%.1f" % ratio).replace(".", ","),
             "tone": "neutral",
             "n": f["checked"],
         })
