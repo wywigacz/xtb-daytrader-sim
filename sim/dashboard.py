@@ -183,7 +183,7 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .chip.risk{background:#FBEAE8;color:var(--down)}
 
 /* ---- kroki ---- */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 24px}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 28px}
 .step .n{font-size:12px;color:var(--faint);letter-spacing:.08em}
 .step .h{font-size:16px;font-weight:600;margin:4px 0 3px}
 .step .d{font-size:14px;color:var(--muted)}
@@ -206,6 +206,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:18px;
 .lastv{font-size:14px;fill:#0C1116;font-weight:600}
 .gx{font-size:12px;fill:#5F6875}
 code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:14px}
+a.lnk{display:inline-block;padding:6px 0;min-height:26px}
 .warn{background:#FFF8EC;border:1px solid #EBD9B4;border-radius:12px;
   padding:16px;font-size:14px;color:#5A4413;margin-top:18px}
 
@@ -640,7 +641,7 @@ def _empty_intro(cfg: dict) -> str:
     Pierwszego dnia handlowego bot wpłaci {pln(s["start_capital_pln"])}, przewalutuje je na
     dolary i zacznie skanować rynek. Pierwsze decyzje pojawiają się po 15:30 czasu polskiego —
     do tego czasu panel jest celowo pusty, nic tu nie jest zmyślane.
-    Jak wygląda po rozegranym dniu: <a href="przykład-panelu.png">przykład-panelu.png</a>.
+    Jak wygląda po rozegranym dniu: <a class="lnk" href="przyklad-panelu.png">przykład-panelu.png</a>.
   </div>
 </div>'''
 
