@@ -29,6 +29,30 @@ wystarczy podmienić wartość.
 z rachunkiem PLN nie wymienia pieniędzy tam i z powrotem co tydzień — trzyma
 USD na koncie i handluje. Gdybyś wypłacał zysk co miesiąc, dołóż drugie 0,5%.
 
+### Dlaczego koszt wychodzi „równo" 50 zł od 10 000 zł
+
+Bo to **procent, nie wynik rynku**: 0,5% z 10 000 zł = 50 zł — zawsze, przy
+każdym kursie. Po wymianie mam 2 534,32 USD, a gdy przeliczę to z powrotem po
+tym samym kursie, wychodzi 9 950 zł. Kurs się skraca (10 000 × 0,995 = 9 950),
+więc kwota wygląda podejrzanie równo. W realnym XTB koszt siedzi w gorszym
+kursie, jaki dostajesz, ale efekt jest ten sam: 0,5%.
+
+### Czy jest sens wymieniać z góry, a nie dopiero przy zakupie?
+
+**Koszt jest identyczny** — 0,5% od wymienianej kwoty, niezależnie od tego,
+kiedy wymieniasz. Jeśli wymieniasz przy każdym zakupie, po pewnym czasie
+i tak przewalisz większość konta (pozycje to do 30% kapitału, do trzech naraz).
+Nie ma więc powodu czekać.
+
+Jest jednak **jedna realna różnica**: trzymając dolary, ponosisz **ryzyko
+kursowe** także na tej części, która leży bezczynnie (bufor gotówki 20%).
+Złotówka lekko się umacnia (założenie: ok. 1% rocznie), więc w przeliczeniu na
+złotówki ta część z czasem traci nieco na wartości. Wymiana „na bieżąco”
+zostawiłaby tę rezerwę w złotówkach i bez tego ryzyka.
+
+Przy 300 dniach różnica jest mała (ułamek procenta), ale jest. Jeśli chcesz,
+da się to zmienić na wersję „wymieniam tylko tyle, ile kupuję” — powiedz.
+
 **Poślizg** to nie spread w rozumieniu CFD. Przy akcjach realnych płacisz
 różnicę między ceną, którą widzisz, a ceną realizacji. 5 pb to ostrożne,
 uczciwe założenie dla płynnych large-capów.

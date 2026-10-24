@@ -523,7 +523,8 @@ def _summary(sim: dict, cfg: dict, equity: list[dict], trades: list[dict],
 
 
 # ------------------------------------------------------------------ szczegoly
-def _positions(sim: dict, trades: list[dict], equity: list[dict] | None = None) -> str:
+def _positions(sim: dict, trades: list[dict], equity: list[dict] | None = None,
+               cfg: dict | None = None) -> str:
     open_pos = sim.get("open") or {}
     if open_pos:
         blocks = []
@@ -553,18 +554,31 @@ def _positions(sim: dict, trades: list[dict], equity: list[dict] | None = None) 
         cash_usd = _f(last.get("cash_usd"))
         fee_usd = sum(_f(x.get("fx_fee_usd")) for x in (sim.get("deposits") or []))
         fee_pln = fee_usd * rate
+        fx = sim.get("fx") or {}
+        c = (cfg or {}).get("costs") or {}
+        pct_fx = _f(c.get("fx_cost_pct"))
         rowsx = [
             ("Gotówka w dolarach", ("%s USD" % num(cash_usd, 2)) if cash_usd else "—"),
             ("To samo w złotówkach", pln(cash_usd * rate) if cash_usd else "—"),
             ("Akcje", "0"),
         ]
         if fee_pln > 0.5:
-            rowsx.append(("Koszt wejścia (wymiana zł na $)", "&minus;" + pln(abs(fee_pln))))
+            rowsx.append(("Koszt wejścia", "%s%% = &minus;%s" % (num(pct_fx, 1), pln(abs(fee_pln)))))
+        if fx.get("rate"):
+            rowsx.append(("Kurs wymiany", "%s (%s)" % (num(fx.get("rate"), 4),
+                                                      esc(str(fx.get("as_of") or "")[:10]))))
         cells = "".join(f'<div><span>{esc(k)}</span><b>{v}</b></div>' for k, v in rowsx)
-        body = ('<div class="costs" style="grid-template-columns:repeat(4,1fr);margin-bottom:12px">'
+        uwaga = ""
+        if fee_pln > 0.5:
+            uwaga = ('<div class="empty" style="margin-top:10px">Koszt to %s%% od wpłacanej kwoty, '
+                     'dlatego wychodzi tyle, ile wychodzi — to procent, nie wynik rynku. Płacę go raz '
+                     'przy wpłacie i trzymam dolary: wymiana dopiero przy zakupie kosztowałaby tyle '
+                     'samo, więc nie ma powodu czekać.</div>') % num(pct_fx, 1)
+        body = ('<div class="costs" style="grid-template-columns:repeat(5,1fr);margin-bottom:12px">'
                 + cells + '</div>'
-                + '<div class="empty">Nie mam żadnych akcji. Cała kwota czeka w dolarach na sygnał.'
-                  ' Dzień zawsze kończę bez akcji.</div>')
+                + uwaga
+                + '<div class="empty" style="margin-top:10px">Nie mam żadnych akcji. Cała kwota '
+                  'czeka w dolarach na sygnał. Dzień zawsze kończę bez akcji.</div>')
 
     day = store.ny_stamp()[:10]
     today = [t for t in trades if str(t.get("close_ts_ny") or "").startswith(day)]
@@ -871,7 +885,7 @@ def build(sim: dict, cfg: dict) -> str:
         body.append(_empty_intro(cfg))
 
     detail = [
-        ("s1", "Co mam teraz", "", _positions(sim, trades, equity)),
+        ("s1", "Co mam teraz", "", _positions(sim, trades, equity, cfg)),
         ("s2", "Spółki, które obserwuję", "", _spolki(decisions, sim)),
         ("s3", "Dlaczego kupił albo sprzedał", "", _decisions(decisions)),
         ("s4", "Od czego do czego", "", _funnel(sim)),
