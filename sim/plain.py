@@ -19,7 +19,7 @@ BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
      "Limit strat na dziś",
      "Straciłem dziś tyle, ile wolno. Koniec na dziś."),
     (("max loss per trade",), "strata",
-     "Za duża strata na jeden zakup",
+     "Za duża strata na zakup",
      "Przy tym stopie straciłbym więcej, niż wolno na jeden zakup."),
     (("reward:risk", "reward : risk"), "cel",
      "Cel za blisko ceny",
