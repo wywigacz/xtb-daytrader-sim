@@ -1,11 +1,11 @@
 """Klocki graficzne panelu: czysty SVG, bez bibliotek, bez JS.
 
-Zasady, ktorymi sie kieruje (research: Microsoft Power BI dashboard tips,
+Zasady, którymi się kieruje (research: Microsoft Power BI dashboard tips,
 WCAG 2.2, praktyka projektowania dashboardow):
   * wykres bez legendy - serie podpisane bezposrednio przy linii,
   * maksymalnie 3 linie siatki, etykiety osi 12 px (nie 10 px),
   * gruba linia danych, cienkie linie pomocnicze (data-ink ratio),
-  * zadnych efektow 3D, kol kolowych ani wskaznikow "zegarowych".
+  * żadnych efektow 3D, kol kolowych ani wskaźników "zegarowych".
 """
 from __future__ import annotations
 
@@ -23,6 +23,16 @@ def esc_attr(x) -> str:
 NBSP = "\u00a0"
 
 
+def pl_plural(n, one: str, few: str, many: str) -> str:
+    """Polska odmiana: 1 wpłata, 2 wpłaty, 5 wpłat, 22 wpłaty, 12 wpłat."""
+    n = abs(int(n))
+    if n == 1:
+        return one
+    if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14):
+        return few
+    return many
+
+
 def pln(x, decimals: int = 0) -> str:
     try:
         v = float(x)
@@ -34,10 +44,10 @@ def pln(x, decimals: int = 0) -> str:
 
 
 def pln_short(x) -> tuple[str, str]:
-    """(krotko, dokladnie): 110400 -> ('110,4 tys. zł', '110 400 zł').
+    """(krótko, dokładnie): 110400 -> ('110,4 tys. zł', '110 400 zł').
 
     Duze liczby skracamy - czytanie '110,4 tys.' jest szybsze niz '110 400',
-    a dokladna wartosc zostaje w drugiej linii.
+    a dokładna wartość zostaje w drugiej linii.
     """
     try:
         v = float(x)
@@ -58,7 +68,7 @@ def usd(x, decimals: int = 2) -> str:
         return "—"
     sign = "-" if v < 0 else ""
     s = ("{:,.%df}" % decimals).format(abs(v)).replace(",", NBSP)
-    return sign + "$" + NBSP + s.replace(".", ",")
+    return sign + "$" + s.replace(".", ",")
 
 
 def pct(x, decimals: int = 1, plus: bool = True) -> str:
@@ -104,17 +114,22 @@ def _pt(x: float, y: float) -> str:
     return "%.1f,%.1f" % (x, y)
 
 
-def line_chart(rows: list[dict], width: int = 1000, height: int = 228,
+def line_chart(rows: list[dict], width: int = 1000, height: int = 176,
                narrow: bool = False) -> str:
-    """Wykres kapitalu: portfel / wplacone / benchmark.
+    """Wykres kapitału: portfel / wpłacone / benchmark.
 
     Bez legendy - serie podpisane przy koncu linii (mniej przewijania okiem).
     """
-    if not rows:
-        return ('<div class="empty">Wykres pojawi sie po pierwszych dniach handlowych. '
-                'Zielona linia to wartosc portfela, przerywana - suma wplat.</div>')
+    if len(rows) < 2:
+        # Jeden punkt to nie linia. Wczesniej rysowal sie pusty wykres z
+        # powtorzonymi etykietami osi Y - wygladalo to jak blad danych.
+        return ('<div class="empty" style="padding:34px 6px;text-align:center">'
+                'Wykres pojawi się po drugim dniu handlowym &mdash; do narysowania linii '
+                'potrzebne są co najmniej dwa punkty.<br>'
+                '<span style="font-size:14px">Zielona linia to wartość portfela, '
+                'przerywana &mdash; suma wpłat.</span></div>')
     # waska wersja ma mniej miejsca na podpisy i mniej etykiet osi
-    pad_l, pad_r, pad_t, pad_b = 10, (72 if narrow else 104), 14, 26
+    pad_l, pad_r, pad_t, pad_b = 10, (84 if narrow else 122), 14, 26
     w = width - pad_l - pad_r
     h = height - pad_t - pad_b
 
@@ -171,16 +186,29 @@ def line_chart(rows: list[dict], width: int = 1000, height: int = 228,
         v = hi - (hi - lo) * k / 2
         grid.append('<line x1="%.0f" y1="%.1f" x2="%.0f" y2="%.1f" stroke="%s" stroke-width="1"/>'
                     % (pad_l, y, pad_l + w, y, LINE))
+        lab = num(v) if hi < 100_000 else num_short(v)
         labels.append('<text x="%.0f" y="%.1f" class="ax" text-anchor="end">%s</text>'
-                      % (width - 2, y + 4, num_short(v).replace(NBSP, " ")))
+                      % (width - 10, y + 4, lab.replace(NBSP, " ")))
 
     xlab = []
     step = max(1, n // (3 if narrow else 5))
+    prev_year = ""
     for i in range(0, n, step):
-        d = str(rows[i].get("date") or "")
-        if len(d) >= 10:
-            xlab.append('<text x="%.1f" y="%.0f" class="ax" text-anchor="middle">%s</text>'
-                        % (X(i), height - 6, esc(d[8:10] + "." + d[5:7])))
+        ds = str(rows[i].get("date") or "")
+        if len(ds) < 10:
+            continue
+        # pierwsza i ostatnia etykieta przy krawedzi - inaczej wychodza za karte
+        anchor, x = "middle", X(i)
+        if i == 0:
+            anchor, x = "start", pad_l
+        elif i + step >= n:
+            anchor, x = "end", pad_l + w
+        label = ds[8:10] + "." + ds[5:7]
+        if ds[0:4] != prev_year:          # symulacja przechodzi przez lata
+            label += "." + ds[2:4]
+            prev_year = ds[0:4]
+        xlab.append('<text x="%.1f" y="%.0f" class="ax" text-anchor="%s">%s</text>'
+                    % (x, height - 6, anchor, esc(label)))
 
     # serie podpisane przy koncu linii - zamiast legendy
     def endlabel(pts, color, text, dy=0.0):
@@ -200,23 +228,23 @@ def line_chart(rows: list[dict], width: int = 1000, height: int = 228,
                  % (x, y, UP, x + 9, y + 4, esc(short)))
 
     return f'''<svg viewBox="0 0 {width} {height}" width="100%" role="img"
-     aria-label="Wartosc portfela w czasie" preserveAspectRatio="none">
+     aria-label="Wartość portfela w czasie" preserveAspectRatio="none">
   {''.join(grid)}{area}
   <path d="{dep_path}" fill="none" stroke="{MUTED}" stroke-width="1.6" stroke-dasharray="5 4"/>
   <path d="{bench_path}" fill="none" stroke="{ACCENT}" stroke-width="1.6" stroke-dasharray="2 4" opacity="0.9"/>
   <path d="{eq_path}" fill="none" stroke="{UP}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
   {lastv}
-  {endlabel(dep, MUTED, "Wplacone", dy=14)}{endlabel(bench, ACCENT, "S&P 500", dy=-8)}
+  {endlabel(dep, MUTED, "Wpłacone", dy=14)}{endlabel(bench, ACCENT, "S&P 500", dy=-8)}
   {''.join(labels)}{''.join(xlab)}
 </svg>'''
 
 
 def r_gauge(stop: float, entry: float, target: float, price: float | None) -> str:
-    """Pasek: stop --- wejscie --- cel, z zaznaczona cena.
+    """Pasek: stop --- wejście --- cel, z zaznaczona cena.
 
     Zrobiony w HTML/CSS, nie w SVG. Powod: SVG z preserveAspectRatio="none"
-    rozciaga sie razem z tekstem i kolka staja sie elipsami - na telefonie
-    wygladalo to zle. Tutaj tekst jest zwyklym tekstem, a kropki zwyklymi
+    rozciaga się razem z tekstem i kolka staja się elipsami - na telefonie
+    wygladalo to źle. Tutaj tekst jest zwyklym tekstem, a kropki zwyklymi
     elementami o stalym rozmiarze.
     """
     try:
@@ -248,7 +276,7 @@ def r_gauge(stop: float, entry: float, target: float, price: float | None) -> st
 
 
 def funnel(steps: list[tuple[str, str, str]]) -> str:
-    """Lejek: liczba + nazwa + jedno zdanie. Szerokosc paska = wielkosc liczby."""
+    """Lejek: liczba + nazwa + jedno zdanie. Szerokosc paska = wielkość liczby."""
     if not steps:
         return ""
     rows = []

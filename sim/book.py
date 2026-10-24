@@ -1,9 +1,9 @@
-"""Papierowy broker symulacji: wplaty PLN, wymiana na USD, kupno/sprzedaz,
-wycena portfela, rezerwa na podatek Belki, dziennik zdarzen.
+"""Papierowy broker symulacji: wpłaty PLN, wymiana na USD, kupno/sprzedaż,
+wycena portfela, rezerwa na podatek Belki, dziennik zdarzeń.
 
 Konto handlowe w USD (plik trader/portfolio.json w formacie skilla, aktualizowany
 przez ticket.py skilla - dzieki temu trader-risk widzi prawdziwe saldo i pozycje).
-Ksiegowosc na poziomie PLN trzymamy we wlasnym pliku sim/state/sim.json.
+Ksiegowosc na poziomie PLN trzymamy we własnym pliku sim/state/sim.json.
 """
 from __future__ import annotations
 
@@ -110,12 +110,12 @@ def deposit(sim: dict, pln: float, rate: float, date_label: str) -> dict:
     except Exception as e:  # noqa: BLE001
         rec["benchmark_error"] = str(e)
     _log(sim, "DEPOSIT", notional_usd=usd, fee_usd=fee,
-         note="wplata %.0f PLN @ %.4f -> %.2f USD" % (pln, rate, usd))
+         note="wpłata %.0f PLN @ %.4f -> %.2f USD" % (pln, rate, usd))
     return rec
 
 
 def month_needs_deposit(sim: dict, today) -> bool:
-    """Czy w tym miesiacu byla juz wplata?"""
+    """Czy w tym miesiacu była już wpłata?"""
     mk = today.strftime("%Y-%m")
     for d in sim.get("deposits", []):
         if str(d["date"]).startswith(mk):
@@ -128,9 +128,9 @@ def record_open(sim: dict, symbol: str, qty: float, price: float, plan: dict,
                 notional: float, fee: float, reason: str, now=None) -> None:
     """Zapisz otwarcie pozycji w stanie symulacji.
 
-    Uwaga: portfolio.json (konto USD) jest juz zaktualizowane przez
+    Uwaga: portfolio.json (konto USD) jest już zaktualizowane przez
     `ticket.py result --status placed --filled-qty ...`. Tutaj NIE wolno
-    powtarzac fillu - inaczej kupno policzy sie dwa razy.
+    powtarzac fillu - inaczej kupno policzy się dwa razy.
     """
     sim.setdefault("open", {})[symbol.upper()] = {
         "symbol": symbol.upper(),
@@ -161,7 +161,7 @@ def close_position(sim: dict, symbol: str, qty: float, price: float, fee: float,
          "--now", store.ny_stamp(now)],
     )
     if rc != 0:
-        raise BookError("ticket.py fill (sprzedaz) nieudane: %s" % (err or out).strip())
+        raise BookError("ticket.py fill (sprzedaż) nieudane: %s" % (err or out).strip())
     gross = qty * (price - entry)
     pnl = round(gross - fee, 2)
     sim["realized_pnl_usd"] = round(float(sim.get("realized_pnl_usd") or 0) + pnl, 2)

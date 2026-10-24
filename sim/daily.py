@@ -1,8 +1,8 @@
 """Rozliczenie dzienne: po zamknieciu sesji USA.
 
-  1. Domknij awaryjnie wszystko, co zostalo otwarte (po ostatniej cenie).
-  2. Zrob wycene i dopisz wiersz do historii kapitalu.
-  3. Zbuduj dashboard (GitHub Pages) i krotkie podsumowanie do logu.
+  1. Domknij awaryjnie wszystko, co zostało otwarte (po ostatniej cenie).
+  2. Zrob wycene i dopisz wiersz do historii kapitału.
+  3. Zbuduj dashboard (GitHub Pages) i krótkie podsumowanie do logu.
 Uruchamiany przez GitHub Actions po 16:00 ET (ok. 21:00-22:00 UTC).
 """
 from __future__ import annotations
@@ -37,13 +37,13 @@ def main() -> int:
         dashboard.build(sim, cfg)
         return 0
     if not ses.is_trading_day(today):
-        print("Dzien wolny - tylko odswiezam dashboard.")
+        print("Dzień wolny - tylko odswiezam dashboard.")
         dashboard.build(sim, cfg)
         return 0
 
     engine.refresh_fx(sim, cfg)
     if engine.maybe_deposit(sim, cfg, today):
-        print("Wplata: razem %.0f PLN" % sim["deposits_pln_total"])
+        print("Wpłata: razem %.0f PLN" % sim["deposits_pln_total"])
 
     if sim.get("last_day") != str(today):
         sim["day_count"] = int(sim.get("day_count") or 0) + 1
@@ -55,8 +55,8 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         closed = []
         print("  (domykanie resztek przerwane: %s: %s)" % (type(e).__name__, e))
-        book.decide(sim, "error", title="Nie udalo sie domknac resztek",
-                    why="Feed nie odpowiedzial. Sprobuje domknac przy nastepnym uruchomieniu.",
+        book.decide(sim, "error", title="Nie udało się domknac resztek",
+                    why="Feed nie odpowiedzial. Sprobuje domknac przy następnym uruchomieniu.",
                     error="%s: %s" % (type(e).__name__, str(e)[:180]))
     for t in closed:
         print("  ZAMKNIETE (koniec dnia) %s %s @ %s | P&L %.2f USD (%s)" % (
@@ -66,7 +66,7 @@ def main() -> int:
     try:
         strategy.log_daily_news_summary(sim)
     except Exception as e:  # noqa: BLE001
-        print("  (podsumowanie wiadomosci pominiete: %s)" % e)
+        print("  (podsumowanie wiadomości pominiete: %s)" % e)
 
     # 2. Wycena
     m = engine.snapshot(sim, cfg)
@@ -77,7 +77,7 @@ def main() -> int:
     wins = [t for t in trades if float(t.get("pnl_usd") or 0) > 0]
     losses = [t for t in trades if float(t.get("pnl_usd") or 0) <= 0]
     dep = float(sim.get("deposits_pln_total") or 0)
-    print("Wplaty: %.0f PLN | Wartosc: %.0f PLN | Zysk: %.0f PLN"%(
+    print("Wpłaty: %.0f PLN | Wartość: %.0f PLN | Zysk: %.0f PLN"%(
         dep, m["equity_pln"], m["equity_pln"] - dep))
     print("Transakcje: %d (wygrane %d / przegrane %d) | P&L USD %.2f | podatek w rezerwie %.2f PLN" % (
         len(trades), len(wins), len(losses), float(sim.get("realized_pnl_usd") or 0),

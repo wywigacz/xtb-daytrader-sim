@@ -1,8 +1,8 @@
 name: daily (rozliczenie po sesji)
 
 # Raz dziennie po zamknieciu sesji USA: domyka resztki, robi wycene, dopisuje
-# punkt do historii kapitalu i przebudowuje panel, ktory GitHub Pages publikuje
-# jako strone z wynikami. Zrzut PNG nie jest juz potrzebny - robi sie go
+# punkt do historii kapitału i przebudowuje panel, który GitHub Pages publikuje
+# jako strone z wynikami. Zrzut PNG nie jest już potrzebny - robi się go
 # recznie tylko wtedy, gdy ktos chce jeden plik do wyslania.
 
 on:
@@ -41,8 +41,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "Bez zmian - nie ma czego commitowac."
           else
-            git commit -m "dzien $(date -u '+%Y-%m-%d')"
-            # -X theirs: przy konflikcie wygrywa swiezo wygenerowana wersja
+            git commit -m "dzień $(date -u '+%Y-%m-%d')"
+            # -X theirs: przy konflikcie wygrywa świeżo wygenerowana wersja
             for i in 1 2 3; do
               git pull --rebase --autostash -X theirs && git push && break
               sleep 3

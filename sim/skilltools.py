@@ -1,8 +1,8 @@
-"""Uruchamianie narzedzi skilla day-trader-skill jako podprocesow.
+"""Uruchamianie narzędzi skilla day-trader-skill jako podprocesow.
 
-Cala logika skanowania, planu wyjscia, wielkosci pozycji i kontroli ryzyka
+Cala logika skanowania, planu wyjścia, wielkości pozycji i kontroli ryzyka
 pochodzi z oryginalnego skilla (folder ../skills). Tu tylko go wywolujemy
-z katalogu glownego repo, zeby narzedzia czytaly i pisaly pliki w trader/.
+z katalogu glownego repo, żeby narzędzia czytaly i pisaly pliki w trader/.
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ class SkillError(RuntimeError):
 def run(tool: str, args: list[str], timeout: int = 300) -> tuple[int, str, str]:
     script = store.p(SKILLS, TOOL[tool])
     if not os.path.exists(script):
-        raise SkillError("brak narzedzia skilla: %s" % script)
+        raise SkillError("brak narzędzia skilla: %s" % script)
     cmd = [sys.executable, script] + [str(a) for a in args]
     pr = subprocess.run(
         cmd, cwd=store.ROOT, capture_output=True, text=True, timeout=timeout
@@ -47,7 +47,7 @@ def run(tool: str, args: list[str], timeout: int = 300) -> tuple[int, str, str]:
 
 
 def extract_json(text: str):
-    """Wyciaga najwiekszy obiekt JSON z tekstu (narzedzia dopisuja linie postepu)."""
+    """Wyciaga największy obiekt JSON z tekstu (narzędzia dopisuja linie postępu)."""
     best = None
     for i, ch in enumerate(text):
         if ch != "{":

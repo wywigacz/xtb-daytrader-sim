@@ -8,7 +8,7 @@ Technicznie XTB udostępnia API, ale wymaga to umowy, kluczy i zgód. Ten
 projekt celowo tego nie robi — najpierw testuje samą metodę.
 
 ### Ile to zarobi?
-Nie wiadomo i nikt tego nie obiecuje. Symulacja pokazuje **jak** podejmowane
+Nie wiadomo i nikt tego nie obiecuję. Symulacja pokazuje **jak** podejmowane
 są decyzje, a nie **ile** da się zarobić. Uczciwe oczekiwanie: day-trading na
 małym koncie, po kosztach i podatku, często kończy się lekko pod kreską.
 300 dni to i tak za mało, żeby mówić o jakiejkolwiek przewadze statystycznej.

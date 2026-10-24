@@ -1,18 +1,18 @@
-"""Panel: jedna strona, ktora tlumaczy co sie stalo i dlaczego.
+"""Panel: jedna strona, która tłumaczy co się stalo i dlaczego.
 
 Projekt oparty na zmierzonych regulach, nie na wyczuciu:
-  * SKALA TYPOGRAFII: dokladnie 6 rozmiarow (12/14/16/20/28/44 px).
-    Wczesniej bylo ich 11, w tym 12,5 px uzywane 53 razy.
-  * JEDEN EKRAN NA PODSUMOWANIE: najwazniejsze liczby, wykres i dzisiejsze
-    decyzje mieszcza sie nad zgieciem (zasada "tell a story on one screen").
-    Szczegoly sa nizej, w dwoch kolumnach.
-  * NAJWAZNIEJSZE NAJWIEKSZE: jedna liczba dominuje (44 px), pozostale sa
-    wyraznie mniejsze - inaczej oko nie wie, na co patrzec.
-  * LICZBY: duze wartosci skracane ("110,4 tys. zl"), dokladne w drugiej linii.
+  * SKALA TYPOGRAFII: dokładnie 6 rozmiarów (12/14/16/20/28/44 px).
+    Wczesniej było ich 11, w tym 12,5 px uzywane 53 razy.
+  * JEDEN EKRAN NA PODSUMOWANIE: najważniejsze liczby, wykres i dzisiejsze
+    decyzje mieszcza się nad zgieciem (zasada "tell a story on one screen").
+    Szczegóły są nizej, w dwoch kolumnach.
+  * NAJWAZNIEJSZE NAJWIEKSZE: jedna liczba dominuje (44 px), pozostale są
+    wyraźnie mniejsze - inaczej oko nie wie, na co patrzec.
+  * LICZBY: duże wartości skracane ("110,4 tys. zl"), dokładne w drugiej linii.
   * KONTRAST: tekst pomocniczy 6,5:1 (WCAG AA wymaga 4,5:1).
-  * TELEFON: brak przewijania w bok (tabele przewijaja sie we wlasnym
-    pojemniku), linki nawigacji maja 44 px wysokosci.
-  * ZERO zewnetrznych bibliotek: SVG + CSS, dziala offline i na zrzucie PNG.
+  * TELEFON: brak przewijania w bok (tabele przewijaja się we własnym
+    pojemniku), linki nawigacji maja 44 px wysokości.
+  * ZERO zewnetrznych bibliotek: SVG + CSS, działa offline i na zrzucie PNG.
 """
 from __future__ import annotations
 
@@ -66,38 +66,46 @@ a:hover{text-decoration:underline}
 .toc a:first-child{color:var(--ink);font-weight:600}
 .toc a:hover{color:var(--ink)}
 
-/* ---- naglowek ---- */
+/* ---- nagłówek ---- */
 .mast{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:flex-end;
-  justify-content:space-between;border-bottom:2px solid var(--ink);padding:26px 0 14px}
-.mast h1{margin:0;font-size:28px;line-height:1.1}
+  justify-content:space-between;border-bottom:1px solid var(--ink);padding:12px 0 12px}
+.mast h1{margin:0;font-size:20px;line-height:1.2;letter-spacing:-.01em}
 .mast .right{font-size:14px;color:var(--muted);line-height:1.5}
-.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;
-  letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);background:#fff}
-.pill.open{border-color:#BEDFCE;background:#EAF6F0;color:var(--up)}
+.stat{display:inline-flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;font-weight:600;color:var(--muted)}
+.stat i{width:8px;height:8px;border-radius:50%;background:#B9B3A6;display:block}
+.stat.open i{background:var(--up);box-shadow:0 0 0 3px rgba(11,107,74,.16)}
+/* pasek postępu symulacji - jedyna metryka z progiem */
+.prog{height:4px;background:var(--soft);border-radius:3px;margin-top:7px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--acc);border-radius:3px}
 
 /* ---- podsumowanie: jeden ekran ---- */
 section{margin-top:32px;scroll-margin-top:60px}
 [id]{scroll-margin-top:60px}
-.sum{margin-top:24px}
+.sum{margin-top:12px}
 .hero{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:0;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.hero > div{padding:14px 20px 14px 0;border-right:1px solid var(--line)}
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:0 22px;margin-top:20px}
+.hero > div{padding:12px 16px 12px 0;border-right:1px solid var(--line)}
 .hero > div:last-child{border-right:0;padding-right:0}
-.hero .v{line-height:1.1;margin-top:4px}
+.hero .v{line-height:1.08;margin-top:3px}
 .hero .n{font-size:14px;color:var(--muted);margin-top:6px}
 .chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:16px 14px 8px;margin-top:18px}
-.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-.card h3{margin:0 0 12px;font-size:20px;font-weight:600}
+  padding:12px 14px 4px;margin-top:12px}
+.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:12px}
+.duo .card{padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
+  min-width:0}   /* bez tego tabela z min-width rozpycha cała karte (pulapka grid min-width:auto) */
+.grid2 > *{min-width:0}
+.card h3{margin:0 0 10px;font-size:20px;font-weight:600}
 .card h4{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--muted);
   letter-spacing:.06em;text-transform:uppercase}
 
 /* ---- os czasu ---- */
 .tl{list-style:none;margin:0;padding:0}
-.tl li{position:relative;padding:0 0 14px 22px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 12px 22px;border-left:1px solid var(--line)}
 .tl li:last-child{border-left-color:transparent;padding-bottom:0}
-.tl li:before{content:"";position:absolute;left:-4.5px;top:6px;width:9px;height:9px;
+.tl li:before{content:"";position:absolute;left:-5.5px;top:5px;width:11px;height:11px;
   border-radius:50%;background:#fff;border:2px solid var(--faint)}
 .tl li.open:before{border-color:var(--up);background:var(--up)}
 .tl li.close:before{border-color:var(--acc);background:var(--acc)}
@@ -107,7 +115,7 @@ section{margin-top:32px;scroll-margin-top:60px}
 .tl .w{font-size:14px;color:var(--muted);margin-top:2px}
 
 /* ---- mini statystyki dnia ---- */
-.mini{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 16px}
 .mini div .v{font-size:20px;font-weight:600;margin-top:2px}
 
 /* ---- pozycje ---- */
@@ -117,7 +125,7 @@ section{margin-top:32px;scroll-margin-top:60px}
 .pos .sym{font-size:20px;font-weight:600}
 .pos .row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
 .pos .row b{color:var(--ink);font-weight:600}
-/* pasek stop-wejscie-cel: HTML/CSS, zeby nic sie nie rozciagalo na telefonie */
+/* pasek stop-wejście-cel: HTML/CSS, żeby nic się nie rozciagalo na telefonie */
 .rg{position:relative;height:28px;margin:4px 0 2px}
 .rg-track{position:absolute;left:2%;right:2%;top:9px;height:5px;background:var(--line);border-radius:3px}
 .rg-seg{position:absolute;top:9px;height:5px}
@@ -129,13 +137,13 @@ section{margin-top:32px;scroll-margin-top:60px}
 .rg-lab{position:absolute;top:17px;font-size:12px;color:var(--faint);transform:translateX(-50%);white-space:nowrap}
 
 /* ---- tabele ---- */
-.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;max-width:100%}
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
 th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
   text-align:left;font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--line)}
 td{padding:10px 12px 10px 0;border-bottom:1px solid var(--soft);white-space:nowrap}
 tr:last-child td{border-bottom:0}
-td.r,th.r{text-align:right;padding-right:0}
+td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 
 /* ---- lejek ---- */
 .fn{display:flex;flex-direction:column;gap:10px}
@@ -164,7 +172,7 @@ td.r,th.r{text-align:right;padding-right:0}
 .obs .v{font-size:28px;font-weight:600;line-height:1.15}
 .obs .t{font-size:14px;color:var(--muted);margin-top:4px}
 
-/* ---- naglowki ---- */
+/* ---- nagłówki ---- */
 .news-item{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:11px 0;
   border-bottom:1px solid var(--soft)}
 .news-item:last-child{border-bottom:0}
@@ -180,14 +188,14 @@ td.r,th.r{text-align:right;padding-right:0}
 .step .h{font-size:16px;font-weight:600;margin:4px 0 3px}
 .step .d{font-size:14px;color:var(--muted)}
 
-/* ---- slowniczek ---- */
+/* ---- słowniczek ---- */
 .gloss{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
 .gloss b{font-size:14px}
 .gloss span{font-size:14px;color:var(--muted)}
 
 /* ---- wspolne ---- */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-/* wykres rysowany w dwoch szerokosciach: kazda w naturalnym rozmiarze,
+/* wykres rysowany w dwoch szerokosciach: każda w naturalnym rozmiarze,
    wiec tekst na osi nigdy nie jest rozciagany ani pomniejszany */
 .chart-narrow{display:none}
 .empty{color:var(--muted);font-size:14px}
@@ -206,10 +214,12 @@ code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:14px}
   .hero > div{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
   .hero > div:nth-last-child(-n+2){border-bottom:0}
   .duo,.grid2,.steps,.gloss{grid-template-columns:1fr}
+  .mini{grid-template-columns:1fr 1fr}
   .chart-wide{display:none}
   .chart-narrow{display:block}
-  .wrap{padding:0 16px 56px}
-  .toc{margin:0 -16px 8px;padding:0 16px}
+  .wrap{padding:0 20px 56px}
+  .toc{margin:0 -20px 8px;padding:0 20px}
+  .card{padding:18px}
 }
 """
 
@@ -219,9 +229,9 @@ TOC = [
     ("s2", "Dlaczego"),
     ("s3", "Lejek"),
     ("s4", "Nauka"),
-    ("s5", "Naglowki"),
-    ("s6", "Jak dziala"),
-    ("s7", "Slowniczek"),
+    ("s5", "Nagłówki"),
+    ("s6", "Jak działa"),
+    ("s7", "Słowniczek"),
 ]
 
 
@@ -282,17 +292,22 @@ def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
     total = int(cfg["simulation"]["days"])
     last = str(_last_row(equity).get("date") or "")
     pretty = (last[8:10] + "." + last[5:7] + "." + last[0:4]) if len(last) >= 10 else "—"
-    pill = ('<span class="pill open">rynek otwarty</span>' if is_open
-            else '<span class="pill">rynek zamkniety</span>')
+    pill = ('<span class="stat open"><i></i>rynek otwarty</span>' if is_open
+            else '<span class="stat"><i></i>rynek zamknięty</span>')
+    # postep symulacji: jedyna metryka z progiem, wiec dostaje pasek
+    prog = max(min(day / max(total, 1) * 100, 100), 0.5)
     return f'''<div class="mast">
   <div>
-    <div class="lab">Dziennik symulacji &middot; rachunek XTB w zlotowkach</div>
+    <div class="lab">Dziennik symulacji &middot; rachunek XTB w złotówkach</div>
     <h1 class="serif">XTB Day Trader</h1>
   </div>
   <div class="right">
-    {pill} &nbsp; dzien <b>{day}</b> z {total}<br>
+    {pill} &nbsp; <b class="t-sm" style="color:var(--ink)">dzień {day} z {total}</b><br>
     dane na {esc(pretty)} &middot; zaktualizowano {esc(now.strftime('%d.%m.%Y %H:%M'))} (czas Nowego Jorku)
   </div>
+</div>
+<div class="prog" role="img" aria-label="Postep symulacji: dzień {day} z {total}">
+  <i style="width:{prog:.1f}%"></i>
 </div>'''
 
 
@@ -307,29 +322,49 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     gain_pct = (gain / dep * 100) if dep else 0.0
     cls = "up" if gain > 0 else ("down" if gain < 0 else "")
     short, exact = pln_short(val) if dep else ("—", "—")
+    # gdy kwota jest mala, skrot rowna sie wartosci dokladnej - nie powtarzamy jej
+    exact_line = exact if (exact != short) else ""
+    tax = _f(sim.get("tax_reserve_pln"))
+    # w karcie ma byc JEDNA liczba - podatek pokazujemy w stopce, nie tutaj
+    sub_text = exact_line if exact_line else "tyle jest na rachunku"
     bench_short, bench_exact = (pln_short(bench) if bench else ("—", "—"))
     bench_delta = (pct((bench - dep) / dep * 100) if bench and dep else "—")
     n_pos = len(sim.get("open") or {})
+    # Wszystko policzone przed f-stringiem: w Pythonie 3.11 zlozone wyrazenia
+    # w nawiasach klamrowych potrafia sie nie sparsowac.
+    h_val = esc(short)
+    h_sub = esc(sub_text)
+    h_gain = esc(pct(gain_pct)) if dep else "—"
+    h_gain_pln = esc(pln(gain)) if dep else "—"
+    h_dep = esc(pln_short(dep)[0]) if dep else "0 zł"
+    h_bench_lab = esc(cfg["benchmark"]["label"])
+    h_bench = esc(bench_short)
+    h_bench_sub = esc(bench_exact + " · " + bench_delta) if bench_exact != bench_short else esc(bench_delta)
+    n_dep = len(sim.get("deposits") or [])
+    h_counts = "%d %s &middot; %d %s &middot; %d %s" % (
+        n_dep, ui.pl_plural(n_dep, "wpłata", "wpłaty", "wpłat"),
+        len(trades), ui.pl_plural(len(trades), "transakcja", "transakcje", "transakcji"),
+        n_pos, ui.pl_plural(n_pos, "otwarta", "otwarte", "otwartych"))
     return f'''<div class="hero">
   <div>
-    <div class="lab">Wartosc portfela</div>
-    <div class="v t-2xl serif">{esc(short)}</div>
-    <div class="n">{esc(exact)} &middot; po odlozeniu podatku {esc(pln(val_net)) if dep else "—"}</div>
+    <div class="lab">Wartość portfela</div>
+    <div class="v t-2xl serif">{h_val}</div>
+    <div class="n">{h_sub}</div>
   </div>
   <div>
     <div class="lab">Zysk / strata</div>
-    <div class="v t-xl {cls}">{esc(pct(gain_pct)) if dep else "—"}</div>
-    <div class="n">{esc(pln(gain)) if dep else "—"} od wplat</div>
+    <div class="v t-xl {cls}">{h_gain}</div>
+    <div class="n">{h_gain_pln} od wpłat</div>
   </div>
   <div>
-    <div class="lab">Wplacone</div>
-    <div class="v t-xl">{esc(pln_short(dep)[0]) if dep else "0 zł"}</div>
-    <div class="n">{len(sim.get("deposits") or [])} wplat &middot; {len(trades)} transakcji &middot; {n_pos} otwartych</div>
+    <div class="lab">Wpłacone</div>
+    <div class="v t-xl">{h_dep}</div>
+    <div class="n">{h_counts}</div>
   </div>
   <div>
-    <div class="lab">{esc(cfg["benchmark"]["label"])} zamiast tego</div>
-    <div class="v t-xl">{esc(bench_short)}</div>
-    <div class="n">{esc(bench_exact)} &middot; {esc(bench_delta)}</div>
+    <div class="lab">{h_bench_lab} dla porównania</div>
+    <div class="v t-xl">{h_bench}</div>
+    <div class="n">{h_bench_sub}</div>
   </div>
 </div>'''
 
@@ -346,8 +381,8 @@ def _day_mini(decisions: list[dict], trades: list[dict]) -> str:
     read = max(read, int((news.today() or {}).get("read") or 0))
     pnl = sum(_f(d.get("numbers", {}).get("pnl")) for d in closed)
     items = [
-        ("Sprawdzone spolki", str(scanned) if scanned else "—"),
-        ("Przeczytane naglowki", str(read) if read else "0"),
+        ("Sprawdzone spółki", str(scanned) if scanned else "—"),
+        ("Przeczytane nagłówki", str(read) if read else "0"),
         ("Kupione", str(len(opened))),
         ("Sprzedane", str(len(closed))),
         ("Odpuszczone okazje", str(len(skipped))),
@@ -358,10 +393,10 @@ def _day_mini(decisions: list[dict], trades: list[dict]) -> str:
     return f'<div class="mini">{cells}</div>'
 
 
-def _timeline(actions: list[dict], limit: int = 4) -> str:
+def _timeline(actions: list[dict], limit: int = 3) -> str:
     if not actions:
-        return ('<div class="empty">Dzis bot nie podjal jeszcze zadnej decyzji. Pierwsze wpisy '
-                'pojawiaja sie po otwarciu sesji w USA (15:30 czasu polskiego).</div>')
+        return ('<div class="empty">Dziś bot nie podjął jeszcze żadnej decyzji. Pierwsze wpisy '
+                'pojawiają się po otwarciu sesji w USA (15:30 czasu polskiego).</div>')
     li = []
     for a in actions[:limit]:
         if not a.get("title"):
@@ -373,8 +408,8 @@ def _timeline(actions: list[dict], limit: int = 4) -> str:
 </li>''')
     more = ""
     if len(actions) > limit:
-        more = ('<div class="empty" style="margin-top:10px">...i %d wiecej zdarzen dzisiaj '
-                '(pelna os czasu ponizej).</div>' % (len(actions) - limit))
+        more = ('<div class="empty" style="margin-top:10px">...i %d więcej zdarzeń dzisiaj '
+                '(pelna oś czasu ponizej).</div>' % (len(actions) - limit))
     return '<ul class="tl">' + "".join(li) + "</ul>" + more
 
 
@@ -384,12 +419,13 @@ def _summary(sim: dict, cfg: dict, equity: list[dict], trades: list[dict],
     return f'''<section id="podsumowanie" class="sum">
   {_hero(sim, cfg, equity, trades)}
   <div class="chart-card">
+    <div class="lab" style="margin:0 0 6px 2px">Wartość w złotych</div>
     <div class="chart-wide">{ui.line_chart(equity)}</div>
     <div class="chart-narrow">{ui.line_chart(equity, width=390, height=250, narrow=True)}</div>
   </div>
   <div class="duo">
     <div class="card">
-      <h3>Dzis w skrocie</h3>
+      <h3>Dziś w skrócie</h3>
       {_timeline(actions)}
     </div>
     <div class="card">
@@ -424,7 +460,7 @@ def _positions(sim: dict, trades: list[dict]) -> str:
 </div>''')
         body = "".join(blocks)
     else:
-        body = ('<div class="empty">Zadnej otwartej pozycji. Bot konczy dzien zawsze na zero — '
+        body = ('<div class="empty">Żadnej otwartej pozycji. Bot kończy dzień zawsze na zero — '
                 'nic nie zostaje na noc.</div>')
 
     day = store.ny_stamp()[:10]
@@ -446,29 +482,29 @@ def _positions(sim: dict, trades: list[dict]) -> str:
             f'<td>{esc(plain.exit_short(t.get("exit_reason")))}</td></tr>')
     total = sum(_f(t.get("pnl_usd")) for t in today)
     tcls = "up" if total > 0 else ("down" if total < 0 else "")
-    return body + f'''<h4 style="margin-top:22px">Zamkniete dzisiaj &nbsp;<span class="{tcls}">{usd(total)}</span></h4>
+    return body + f'''<h4 style="margin-top:22px">Zamknięte dzisiaj &nbsp;<span class="{tcls}">{usd(total)}</span></h4>
 <div class="scroll"><table>
-  <tr><th>Spolka</th><th>Czas</th><th>Cena</th><th>Szt.</th><th class="r">Wynik</th><th class="r">R</th><th>Wyjscie</th></tr>
+  <tr><th>Spółka</th><th>Czas</th><th>Cena</th><th>Szt.</th><th class="r">Wynik</th><th class="r">Zysk w R</th><th>Wyjście</th></tr>
   {''.join(rows)}
 </table></div>'''
 
 
 def _decision_card(d: dict) -> str:
     kind = d.get("decision")
-    badge = {"open": ("buy", "kupno"), "close": ("sell", "sprzedaz"),
-             "deposit": ("", "wplata")}.get(kind, ("", "odpuszczono"))
+    badge = {"open": ("buy", "kupno"), "close": ("sell", "sprzedaż"),
+             "deposit": ("", "wpłata")}.get(kind, ("", "odpuszczono"))
     n = d.get("numbers") or {}
     rows = []
     if kind == "open":
-        rows = [("wejscie", usd(n.get("entry"))), ("stop", usd(n.get("stop"))),
+        rows = [("wejście", usd(n.get("entry"))), ("stop", usd(n.get("stop"))),
                 ("cel", usd(n.get("target"))), ("max strata", usd(n.get("max_loss")))]
     elif kind == "close":
+        # cena wejscia i wyjscia sa w tabeli wyzej - tutaj tylko wynik i R
         r = n.get("r")
-        rows = [("wejscie", usd(n.get("entry"))), ("wyjscie", usd(n.get("exit"))),
-                ("wynik", usd(n.get("pnl"))),
+        rows = [("wynik", usd(n.get("pnl"))),
                 ("w jedn. R", (("%+.2f" % _f(r)).replace(".", ",")) if r not in (None, "") else "—")]
     elif kind == "deposit":
-        rows = [("wplacone", pln(n.get("pln"))), ("kurs USD/PLN", num(n.get("rate"), 4)),
+        rows = [("wpłacone", pln(n.get("pln"))), ("kurs USD/PLN", num(n.get("rate"), 4)),
                 ("otrzymane", usd(n.get("usd")))]
     else:
         return ""
@@ -492,22 +528,22 @@ def _decisions(decisions: list[dict]) -> str:
         picks = [d for d in reversed(decisions) if d.get("decision") in ("open", "close", "deposit")][:2]
     if not picks:
         return ('<div class="empty">Jeszcze nic nie kupiono ani nie sprzedano. Pierwsza decyzja '
-                'pojawi sie tu z powodem w jednym zdaniu.</div>')
+                'pojawi się tu z powodem w jednym zdaniu.</div>')
     return "".join(c for c in (_decision_card(d) for d in picks[:4]) if c)
 
 
 def _funnel(sim: dict) -> str:
     f = insights.funnel(sim)
     steps = [
-        (num(5943), "spolek w USA", "tyle widzi skaner skilla - caly rynek akcji USA"),
-        (num(f["watched"]), "na liscie", "tylko te dostepne w XTB jako akcje realne"),
-        (num(f["signals_total"]), "sygnalow lacznie", "cena przebila poranny szczyt i zamknela sie nad nim"),
-        (num(f["checked"]), "sprawdzonych", "z naglowkami, stopem i limitem straty"),
-        (num(f["trades"]), "transakcji", "tyle przeszlo wszystkie filtry"),
+        (num(5943), "spółek w USA", "tyle widzi skaner skilla - cały rynek akcji USA"),
+        (num(f["watched"]), "na liście", "tylko te dostępne w XTB jako akcje realne"),
+        (num(f["signals_total"]), "sygnałów łącznie", "cena przebiła poranny szczyt i zamknęła się nad nim"),
+        (num(f["checked"]), "sprawdzonych", "z nagłówkami, stopem i limitem straty"),
+        (num(f["trades"]), "transakcji", "tyle przeszło wszystkie filtry"),
     ]
     out = ui.funnel(steps)
     if f["trades"]:
-        out += (f'<div class="empty" style="margin-top:14px">Na kazda transakcje przypadalo '
+        out += (f'<div class="empty" style="margin-top:14px">Na każda transakcje przypadało '
                 f'{f["skipped"] + f["blocked"]} odrzuconych okazji. To nie awaria — to metoda.</div>')
     return out
 
@@ -515,8 +551,8 @@ def _funnel(sim: dict) -> str:
 def _lessons(sim: dict) -> str:
     obs = insights.observations(sim)
     if not obs:
-        return ('<div class="empty">Za malo transakcji, zeby wyciagac wnioski. Obserwacje pojawia '
-                'sie po kilku rozegranych dniach — nie sa zmyslane na zapas.</div>')
+        return ('<div class="empty">Za mało transakcji, żeby wyciągać wnioski. Obserwacje pojawia '
+                'się po kilku rozegranych dniach — nie są zmyślane na zapas.</div>')
     cards = []
     for o in obs[:5]:
         tone = o.get("tone")
@@ -534,7 +570,7 @@ def _news() -> str:
     t = news.today()
     items = list(t.get("items") or [])
     if not items:
-        return ('<div class="empty">Dzis bot nie czytal jeszcze naglowkow. Czyta je dopiero, gdy ma '
+        return ('<div class="empty">Dziś bot nie czytał jeszcze nagłówków. Czyta je dopiero, gdy ma '
                 'kandydata do kupna — nie czyta dla samego czytania.</div>')
     items = sorted(items, key=lambda i: str(i.get("time") or ""), reverse=True)[:6]
     rows = []
@@ -543,7 +579,7 @@ def _news() -> str:
                        for tg in str(it.get("tags") or "").split())
         impact = it.get("impact") or ""
         imp = (f' &middot; <b>{esc(impact)}</b>' if impact and impact != "nie zmienil decyzji"
-               else (' &middot; bez wplywu na decyzje' if impact else ""))
+               else (' &middot; bez wpływu na decyzje' if impact else ""))
         rows.append(f'''<div class="news-item">
   <div class="t-sm faint">{esc(_et_hhmm(it.get("time")))}</div>
   <div>
@@ -552,17 +588,17 @@ def _news() -> str:
   </div>
 </div>''')
     head = (f'<div class="t-sm mut" style="margin-bottom:6px">Przeczytane dzisiaj: '
-            f'<b>{len(t.get("items") or [])}</b> naglowkow'
+            f'<b>{len(t.get("items") or [])}</b> nagłówków'
             + (f', {t.get("blocked")} wstrzymalo zakup' if t.get("blocked") else "") + ".</div>")
     return head + "".join(rows)
 
 
 def _how() -> str:
     steps = [
-        ("01", "Skan", "Przegladam liste spolek i szukam ceny, ktora przebila maksimum pierwszych 15 minut sesji."),
-        ("02", "Naglowki", "Czytam wiadomosci o kandydacie. Realny wstrzas = odpuszczam, zanim zaryzykuje."),
-        ("03", "Plan", "Przed wejsciem ustalam stop (gdzie sie mylilem) i cel (kiedy biore zysk)."),
-        ("04", "Wielkosc", "Licze, ile akcji kupic, zeby maksymalna strata to 1% kapitalu. Nie na oko."),
+        ("01", "Skan", "Przeglądam listę spółek i szukam ceny, która przebiła maksimum pierwszych 15 minut sesji."),
+        ("02", "Nagłówki", "Czytam wiadomości o kandydacie. Realny wstrząs = odpuszczam, zanim zaryzykuję."),
+        ("03", "Plan", "Przed wejściem ustalam stop (gdzie się myliłem) i cel (kiedy biorę zysk)."),
+        ("04", "Wielkość", "Liczę, ile akcji kupić, żeby maksymalna strata to 1% kapitału. Nie na oko."),
         ("05", "Koniec dnia", "Zamykam wszystko przed 16:00 w Nowym Jorku. Zero trzymania na noc."),
     ]
     cells = "".join(f'''<div class="step"><div class="n">{n}</div>
@@ -580,15 +616,16 @@ def _footer(sim: dict, cfg: dict) -> str:
     c = cfg["costs"]
     s = cfg["simulation"]
     return f'''<footer>
-  <b>Jak to policzone.</b> Kapital startowy {pln(s["start_capital_pln"])}, potem
-  {pln(s["monthly_deposit_pln"])} w pierwszym dniu handlowym kazdego miesiaca przez {s["days"]} dni.
-  Koszty: przewalutowanie {num(c["fx_cost_pct"], 1)}%, poslizg {num(c["slippage_bps"], 0)} pb
-  na transakcje, podatek Belki {num(c["tax_on_gains_pct"], 0)}% od zysku (odkladany w rezerwie).
-  Ceny: darmowe, nieoficjalne Yahoo, opoznione o kilkadziesiat sekund.
-  Zlecenia sa <b>symulowane</b> — nic nie idzie do brokera.
+  <b>Jak to policzone.</b> Kapitał startowy {pln(s["start_capital_pln"])}, potem
+  {pln(s["monthly_deposit_pln"])} w pierwszym dniu handlowym każdego miesiąca przez {s["days"]} dni.
+  Koszty: przewalutowanie {num(c["fx_cost_pct"], 1)}%, poślizg {num(c["slippage_bps"], 0)} pb
+  na transakcję, podatek Belki {num(c["tax_on_gains_pct"], 0)}% od zysku.
+  {("Odłożone na podatek: <b>" + pln(sim.get("tax_reserve_pln")) + "</b>. ") if _f(sim.get("tax_reserve_pln")) > 0.5 else ""}
+  Ceny: darmowe, nieoficjalne Yahoo, opóźnione o kilkadziesiąt sekund.
+  Zlecenia są <b>symulowane</b> — nic nie idzie do brokera.
   <br><br>
-  <b>To nie jest porada inwestycyjna.</b> Symulacja pokazuje metode, nie obiecuje wyniku.
-  Wiekszosc osob handlujacych w ciagu dnia traci pieniadze.
+  <b>To nie jest porada inwestycyjna.</b> Symulacja pokazuje metodę, nie obiecuję wyniku.
+  Większość osób handlujących w ciągu dnia traci pieniądze.
   Zalozenia: <code>docs/XTB-ZALOZENIA.md</code> &middot; decyzje:
   <code>sim/state/decisions.jsonl</code> &middot; transakcje: <code>sim/state/trades.csv</code>
 </footer>'''
@@ -600,10 +637,10 @@ def _empty_intro(cfg: dict) -> str:
   <div class="lab">Zanim ruszy</div>
   <div class="serif t-xl" style="margin:6px 0 6px">Symulacja startuje {esc(s["start_date"])}</div>
   <div class="t-sm mut">
-    Pierwszego dnia handlowego bot wplaci {pln(s["start_capital_pln"])}, przewalutuje je na
-    dolary i zacznie skanowac rynek. Pierwsze decyzje pojawiaja sie po 15:30 czasu polskiego —
-    do tego czasu panel jest celowo pusty, nic tu nie jest zmyslane.
-    Jak wyglada po rozegranym dniu: <a href="przyklad-panelu.png">przyklad-panelu.png</a>.
+    Pierwszego dnia handlowego bot wpłaci {pln(s["start_capital_pln"])}, przewalutuje je na
+    dolary i zacznie skanować rynek. Pierwsze decyzje pojawiają się po 15:30 czasu polskiego —
+    do tego czasu panel jest celowo pusty, nic tu nie jest zmyślane.
+    Jak wygląda po rozegranym dniu: <a href="przykład-panelu.png">przykład-panelu.png</a>.
   </div>
 </div>'''
 
@@ -620,15 +657,15 @@ def build(sim: dict, cfg: dict) -> str:
         body.append(_empty_intro(cfg))
 
     detail = [
-        ("s1", "Pozycje", "Co bot trzyma teraz i co zamknal dzisiaj", _positions(sim, trades)),
-        ("s2", "Dlaczego podjal te decyzje", "Kazda decyzja z powodem i liczbami", _decisions(decisions)),
-        ("s3", "Lejek decyzji", "Z tysiecy spolek zostaje kilka transakcji", _funnel(sim)),
-        ("s4", "Czego sie nauczyl", "Wnioski z wlasnych transakcji", _lessons(sim)),
-        ("s5", "Co czytal", "Naglowki i ich wplyw na decyzje", _news()),
-        ("s6", "Jak dziala", "Ta sama petla kazdego dnia handlowego", _how()),
-        ("s7", "Slowniczek", "Kazde pojecie jednym zdaniem", _glossary()),
+        ("s1", "Pozycje", "Co bot trzyma teraz i co zamknął dzisiaj", _positions(sim, trades)),
+        ("s2", "Dlaczego podjął te decyzje", "Każda decyzja z powodem i liczbami", _decisions(decisions)),
+        ("s3", "Lejek decyzji", "Z tysięcy spółek zostaje kilka transakcji", _funnel(sim)),
+        ("s4", "Czego się nauczył", "Wnioski z własnych transakcji", _lessons(sim)),
+        ("s5", "Co czytał", "Nagłówki i ich wpływ na decyzje", _news()),
+        ("s6", "Jak działa", "Ta sama pętla każdego dnia handlowego", _how()),
+        ("s7", "Słowniczek", "Każde pojęcie jednym zdaniem", _glossary()),
     ]
-    body.append('<section><div class="lab" style="margin-bottom:14px">Szczegoly</div>'
+    body.append('<section><div class="lab" style="margin-bottom:14px">Szczegóły</div>'
                 '<div class="grid2">')
     for i, (sid, title, sub, content) in enumerate(detail):
         span = ' style="grid-column:1/-1"' if sid in ("s7", "s6") else ""

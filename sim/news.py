@@ -1,8 +1,8 @@
-"""Warstwa wiadomosci: ile bot przeczytal, co z tego wynika, czy zmienilo decyzje.
+"""Warstwa wiadomości: ile bot przeczytal, co z tego wynika, czy zmienilo decyzje.
 
-Zrodlo: narzedzie trader-news ze skilla (naglowki Yahoo Finance + ruchy ceny).
-Nie wymyslam wiadomosci - biorę to, co realnie wroci z feedu, i zapisuje
-zbiorczo na dany dzien w sim/state/news.json, zeby panel mial co pokazac.
+Zrodlo: narzędzie trader-news że skilla (nagłówki Yahoo Finance + ruchy ceny).
+Nie wymyslam wiadomości - biorę to, co realnie wroci z feedu, i zapisuje
+zbiorczo na dany dzień w sim/state/news.json, żeby panel miał co pokazać.
 """
 from __future__ import annotations
 
@@ -11,13 +11,13 @@ import os
 from . import skilltools, store
 
 RISK_TAGS = {
-    "earnings": ("wyniki", "Publikacja wynikow finansowych"),
+    "earnings": ("wyniki", "Publikacja wyników finansowych"),
     "legal": ("prawo", "Sprawa sadowa lub regulacyjna"),
     "regulatory": ("regulacje", "Decyzja urzedu lub regulatora"),
-    "risk": ("ryzyko", "Sygnal ryzyka w spolce"),
+    "risk": ("ryzyko", "Sygnał ryzyka w spolce"),
     "halt": ("wstrzymanie", "Handel wstrzymany"),
     "capital": ("finansowanie", "Emisja akcji lub zmiana finansowania"),
-    "deal": ("transakcja", "Fuzja, przejecie lub duza umowa"),
+    "deal": ("transakcja", "Fuzja, przejecie lub duża umowa"),
     "people": ("zarzad", "Zmiana w zarzadzie"),
     "analyst": ("analitycy", "Zmiana rekomendacji"),
     "macro": ("makro", "Tlo gospodarcze"),
@@ -57,10 +57,10 @@ def _classify(item: dict) -> tuple[bool, str, list[str]]:
 
 
 def fetch(symbols: list[str], hours: float = 24) -> dict:
-    """Pobierz naglowki dla podanych spolek. Pusty wynik = brak wiadomosci."""
+    """Pobierz nagłówki dla podanych spółek. Pusty wynik = brak wiadomości."""
     symbols = [s.upper() for s in dict.fromkeys(symbols) if s]
     if not symbols:
-        return {"items": [], "moves": [], "count": 0, "ok": True, "note": "brak spolek"}
+        return {"items": [], "moves": [], "count": 0, "ok": True, "note": "brak spółek"}
     args = ["--tickers", *symbols[:6], "--hours", str(hours), "--no-sec", "--dry-run"]
     rc, doc, tail = skilltools.json_run("news", args, timeout=150)
     if not isinstance(doc, dict):

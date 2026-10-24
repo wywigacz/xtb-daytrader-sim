@@ -1,9 +1,9 @@
-"""Tlumaczenie technicznych komunikatow skilla na krotki, prosty polski.
+"""Tlumaczenie technicznych komunikatow skilla na krótki, prosty polski.
 
 Skill (day-trader-skill) pisze po angielsku i technicznie, np.
     "loss: 9 shares x 5.86 risk a share = $52.74 at the stop, over your $50 max loss per trade"
-Panel ma byc zrozumialy dla osoby bez wiedzy finansowej, wiec kazdy powod
-dostaje jeden krotki polski opis + kod (do kolorowania i statystyk).
+Panel ma byc zrozumiały dla osoby bez wiedzy finansowej, wiec każdy powod
+dostaje jeden krótki polski opis + kod (do kolorowania i statystyk).
 """
 from __future__ import annotations
 
@@ -14,37 +14,37 @@ BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
     # kolejnosc ma znaczenie: najpierw wezsze reguly (dzienny limit strat),
     # potem ogolne - inaczej "daily loss:" zostalby rozpoznany jako zwykla strata
     (("daily loss", "daily limit"), "limit-strat",
-     "Dzienny limit strat osiagniety",
-     "Dzisiejsze straty wyczerpaly limit - koniec handlu na dzis."),
+     "Dzienny limit strat osiągnięty",
+     "Dzisiejsze straty wyczerpaly limit - koniec handlu na dziś."),
     (("max loss per trade",), "strata",
-     "Za duza strata na jedna transakcje",
-     "Gdyby cena spadla do stopu, stracilbym wiecej niz moj limit na jedna transakcje."),
+     "Za duża strata na jedna transakcje",
+     "Gdyby cena spadła do stopu, stracilbym więcej niz moj limit na jedna transakcje."),
     (("reward:risk", "reward : risk"), "cel",
-     "Cel zbyt blisko ceny wejscia",
-     "Do celu zostalo mniej niz do stopu, wiec gra nie byla warta ryzyka."),
+     "Cel zbyt blisko ceny wejścia",
+     "Do celu zostało mniej niz do stopu, wiec gra nie była warta ryzyka."),
     (("position cap", "position:"), "koncentracja",
-     "Za duza pozycja w jednej spolce",
-     "Jedna spolka mialaby za duzy udzial w calym portfelu."),
-    (("cash buffer", "cash:"), "gotowka",
-     "Za malo gotowki zostaloby na koncie",
-     "Zlamalbym zasade trzymania bufora gotowki."),
+     "Za duża pozycja w jednej spolce",
+     "Jedna spółka mialaby za duży udział w calym portfelu."),
+    (("cash buffer", "cash:"), "gotówka",
+     "Za mało gotówki zostaloby na koncie",
+     "Zlamalbym zasade trzymania bufora gotówki."),
     (("window", "before ", "after "), "godziny",
-     "Za wczesnie albo za pozno na wejscie",
-     "Poza godzinami, w ktorych ta metoda pozwala otwierac nowe pozycje."),
+     "Za wczesnie albo za pozno na wejście",
+     "Poza godzinami, w których ta metoda pozwala otwierac nowe pozycje."),
     (("trades per day", "trades:"), "limit",
      "Wyczerpany dzienny limit transakcji",
-     "Mialem juz tyle transakcji dzisiaj, ile pozwalaja zasady."),
+     "Mialem już tyle transakcji dzisiaj, ile pozwalaja zasady."),
     (("duplicate",), "duplikat",
-     "Ta spolka byla juz dzis grana",
-     "Nie dokladam do pozycji, ktora juz otworzylem tego dnia."),
+     "Ta spółka była już dziś grana",
+     "Nie dokladam do pozycji, która już otworzylem tego dnia."),
     (("blocked",), "zakaz",
-     "Spolka na liscie wykluczonych",
-     "Ta spolka jest recznie zablokowana w ustawieniach."),
+     "Spółka na liście wykluczonych",
+     "Ta spółka jest recznie zablokowana w ustawieniach."),
     (("stop",), "stop",
      "Brak zabezpieczenia (stop-loss)",
-     "Nie kupuje bez z gory ustalonego poziomu wyjscia ze straty."),
-    (("short",), "krotka",
-     "Krotka sprzedaz niedozwolona",
+     "Nie kupuję bez z góry ustalonego poziomu wyjścia że straty."),
+    (("short",), "krótka",
+     "Krotka sprzedaż niedozwolona",
      "Ta symulacja gra tylko na wzrosty."),
     (("option", "crypto", "asset"), "typ",
      "Niedozwolony typ instrumentu",
@@ -53,31 +53,31 @@ BLOCK_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
      "Blednie zbudowane zlecenie",
      "Zlecenie nie mialo poprawnego ksztaltu - odrzucone technicznie."),
     (("min order", "under your minimum"), "minimum",
-     "Zlecenie za male",
-     "Pozycja bylaby mniejsza niz minimalna wartosc zlecenia."),
+     "Zlecenie za małe",
+     "Pozycja bylaby mniejsza niz minimalna wartość zlecenia."),
 ]
 
 SIZE_RULES: list[tuple[tuple[str, ...], str, str, str]] = [
     (("reward:risk", "the move it was waiting for", "the move has already happened",
       "not above the entry"), "cel",
-     "Cena juz odjechala - nie gonie",
-     "Cena poszla wyzej, niz mialem w planie, zanim zdazylem kupic. Do celu nie ma juz miejsca."),
+     "Cena już odjechala - nie gonie",
+     "Cena poszła wyzej, niz miałem w planie, zanim zdazylem kupić. Do celu nie ma już miejsca."),
     (("too far away", "zero shares", "no order"), "strata",
      "Stop zbyt daleko jak na limit straty",
-     "Przy tym stopie nawet 1 akcja ryzykuje wiecej, niz pozwalaja zasady."),
+     "Przy tym stopie nawet 1 akcja ryzykuję więcej, niz pozwalaja zasady."),
     (("not fresh", "older than", "stale"), "dane",
-     "Cena z rynku byla nieaktualna",
-     "Nie ufam nieaktualnej cenie - odczekalem na swieza."),
+     "Cena z rynku była nieaktualna",
+     "Nie ufam nieaktualnej cenie - odczekalem na świeża."),
     (("refus", "refused"), "odmowa",
      "Plan nie spelnil warunkow",
-     "Plan wejscia nie przeszedl kontroli - wolalem odpuscic."),
+     "Plan wejścia nie przeszedl kontroli - wolalem odpuscic."),
 ]
 
 EXIT_PL = {
-    "target": ("Cel osiagniety", "Cena doszla do zalozonego celu - zamkniete z zyskiem."),
-    "stop": ("Stop-loss zadzialal", "Cena spadla do poziomu, ktorym chronilem kapital - zamkniete ze strata."),
-    "flat_by": ("Koniec dnia", "Zamkniete przed zamknieciem gieldy - nic nie zostaje na noc."),
-    "eod_flat": ("Awaryjne domkniecie", "Po sesji zostala pozycja, wiec domknalem ja po ostatniej cenie."),
+    "target": ("Cel osiągnięty", "Cena doszła do zalozonego celu - zamknięte z zyskiem."),
+    "stop": ("Stop-loss zadziałał", "Cena spadła do poziomu, którym chronilem kapitał - zamknięte że strata."),
+    "flat_by": ("Koniec dnia", "Zamknięte przed zamknięciem giełdy - nic nie zostaje na noc."),
+    "eod_flat": ("Awaryjne domkniecie", "Po sesji została pozycja, wiec domknalem ja po ostatniej cenie."),
 }
 
 EXIT_SHORT = {"target": "cel", "stop": "stop", "flat_by": "koniec dnia", "eod_flat": "awaryjnie"}
@@ -88,7 +88,7 @@ def classify(text: str, rules) -> tuple[str, str, str]:
     for keys, code, title, meaning in rules:
         if any(k in low for k in keys):
             return code, title, meaning
-    return "inne", "Odrzucone przez kontrole ryzyka", "Zlecenie nie przeszlo kontroli."
+    return "inne", "Odrzucone przez kontrole ryzyka", "Zlecenie nie przeszło kontroli."
 
 
 def block_reason(text: str) -> tuple[str, str, str]:
@@ -100,7 +100,7 @@ def size_reason(text: str) -> tuple[str, str, str]:
 
 
 def exit_reason(code: str) -> tuple[str, str]:
-    return EXIT_PL.get(code, ("Zamkniete", "Pozycja zamknieta."))
+    return EXIT_PL.get(code, ("Zamknięte", "Pozycja zamknięta."))
 
 
 def exit_short(code: str) -> str:
@@ -112,27 +112,27 @@ def exit_short(code: str) -> str:
 # inaczej slowa typu "size" albo "news" przeszkadzalyby w dopasowaniu
 # komunikatow skilla.
 CODE_ONLY: list[tuple[str, str, str]] = [
-    ("cena-pod-stopem", "Cena zdazyla zjechac pod stop",
-     "Po sygnale cena spadla ponizej poziomu, na ktorym mialem sie wycofac. "
-     "Wejscie teraz to strata ustawiona z gory."),
+    ("cena-pod-stopem", "Cena zdążyła zjechac pod stop",
+     "Po sygnale cena spadła ponizej poziomu, na którym miałem się wycofać. "
+     "Wejście teraz to strata ustawiona z góry."),
     ("news", "Wiadomosci wstrzymaly zakup",
      "Naglowek o realnym wstrzasie (wstrzymanie handlu, upadlosc, dochodzenie, krach). "
-     "Nie kupuje, gdy cena moze skoczyc w obie strony."),
-    ("cel", "Cel zbyt blisko ceny wejscia",
-     "Do zysku zostalo mniej miejsca niz do straty, wiec gra nie byla warta ryzyka."),
-    ("plan", "Nie udalo sie ustalic stopu i celu",
-     "Bez z gory ustalonego wyjscia nie wchodze - plan musi istniec przed zakupem."),
-    ("size", "Kalkulator nie znalazl bezpiecznego rozmiaru",
-     "Przy tak ustawionym stopie zadna liczba akcji nie miescila sie w limicie straty."),
-    ("fill", "Nie udalo sie zapisac wykonania",
-     "Zlecenie przeszlo kontrole, ale zapis realizacji sie nie powiodl."),
+     "Nie kupuję, gdy cena może skoczyc w obie strony."),
+    ("cel", "Cel zbyt blisko ceny wejścia",
+     "Do zysku zostało mniej miejsca niz do straty, wiec gra nie była warta ryzyka."),
+    ("plan", "Nie udało się ustalic stopu i celu",
+     "Bez z góry ustalonego wyjścia nie wchodze - plan musi istniec przed zakupem."),
+    ("size", "Kalkulator nie znalazł bezpiecznego rozmiaru",
+     "Przy tak ustawionym stopie żadna liczba akcji nie miescila się w limicie straty."),
+    ("fill", "Nie udało się zapisać wykonania",
+     "Zlecenie przeszło kontrole, ale zapis realizacji się nie powiodl."),
     ("dane", "Brak wiarygodnej ceny",
-     "Feed nie dal ceny, ktorej moglbym zaufac - nie ryzykowalem."),
+     "Feed nie dal ceny, której moglbym zaufac - nie ryzykowalem."),
 ]
 
 
 def has_code(code: str) -> bool:
-    """Czy kod ma wlasne, napisane po polsku wyjasnienie?"""
+    """Czy kod ma własne, napisane po polsku wyjaśnienie?"""
     return any(c == code for c, _title, _meaning in CODE_ONLY)
 
 
@@ -145,7 +145,7 @@ def meaning_for(code: str) -> str:
     for c, _title, meaning in CODE_ONLY:
         if c == code:
             return meaning
-    return "Zlecenie nie przeszlo kontroli."
+    return "Zlecenie nie przeszło kontroli."
 
 
 def title_for(code: str) -> str:
@@ -160,15 +160,15 @@ def title_for(code: str) -> str:
 
 
 GLOSSARY = [
-    ("Stop-loss", "Poziom ceny, przy ktorym automatycznie sprzedaje, zeby ograniczyc strate. Jak hamulec bezpieczenstwa."),
-    ("Cel (target)", "Poziom ceny, przy ktorym biore zysk. Ustawiony z gory, przed wejsciem."),
-    ("R", "Jednostka ryzyka. 1R = tyle, ile moge stracic na jednej transakcji. Wynik +1R = zarobilem tyle, ile bylem gotow stracic."),
-    ("Opening range", "Zakres cen z pierwszych 15 minut sesji. Jego przebicie to sygnal, ktorego szuka bot."),
-    ("Pozycja", "Akcje, ktore w danej chwili posiadam."),
-    ("Gotowka", "Pieniadze na koncie, ktore nie sa zainwestowane."),
-    ("Poslizg", "Roznica miedzy cena, ktora widze, a cena, po ktorej naprawde kupuje. Zawsze troche na moja niekorzysc."),
-    ("Podatek Belki", "19% podatku od zysku ze sprzedazy akcji. Odkladam go z gory, zeby nie zniknal z wyniku."),
-    ("Benchmark", "Wzorzec do porownania. Tu: co by bylo, gdybym te same wplaty wrzucil w indeks S&P 500."),
+    ("Stop-loss", "Poziom ceny, przy którym automatycznie sprzedaję, żeby ograniczyć stratę. Jak hamulec bezpieczeństwa."),
+    ("Cel (target)", "Poziom ceny, przy którym biorę zysk. Ustawiony z góry, przed wejściem."),
+    ("R", "Jednostka ryzyka. 1R = tyle, ile mogę stracić na jednej transakcji. Wynik +1R = zarobiłem tyle, ile byłem gotów stracić."),
+    ("Opening range", "Zakres cen z pierwszych 15 minut sesji. Jego przebicie to sygnał, którego szuka bot."),
+    ("Pozycja", "Akcje, które w danej chwili posiadam."),
+    ("Gotówka", "Pieniądze na koncie, które nie są zainwestowane."),
+    ("Poślizg", "Różnica między ceną, którą widzę, a ceną, po której naprawdę kupuję. Zawsze trochę na moją niekorzyść."),
+    ("Podatek Belki", "19% podatku od zysku ze sprzedaży akcji. Odkładam go z góry, żeby nie zniknął z wyniku."),
+    ("Benchmark", "Wzorzec do porównania. Tu: co by było, gdybym te same wpłaty wrzucił w indeks S&P 500."),
 ]
 
 
@@ -211,7 +211,7 @@ def day_month(ts: str) -> str:
         return str(ts)[:10]
 
 
-DOW = ["poniedzialek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela"]
+DOW = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "niedziela"]
 
 
 def weekday_pl(ts: str) -> str:

@@ -1,8 +1,8 @@
-"""Dane rynkowe z darmowego Yahoo (nieoficjalne, opoznione). Tylko stdlib.
+"""Dane rynkowe z darmowego Yahoo (nieoficjalne, opóźnione). Tylko stdlib.
 
-To ten sam endpoint, z ktorego korzysta skill day-trader-skill
+To ten sam endpoint, z którego korzysta skill day-trader-skill
 (query2.finance.yahoo.com/v8/finance/chart). Tu mamy wlasny, lekki klient,
-zeby silnik symulacji nie zalezal od wewnetrznej logiki skilla.
+żeby silnik symulacji nie zalezal od wewnetrznej logiki skilla.
 """
 from __future__ import annotations
 
@@ -132,12 +132,12 @@ def bars_for_day(symbol: str, day: date, interval: str = "5m") -> list[dict]:
 def last_price(symbol: str, as_of=None) -> tuple[float, float]:
     """(cena, znacznik czasu epoch) ostatniej ZAMKNIETEJ swiecy 5m.
 
-    Dlaczego tylko zamkniete: swieca w trakcie formowania ma cene zmieniajaca
-    sie z sekundy na sekunde i nie jest jeszcze faktem. Poza tym przy
+    Dlaczego tylko zamknięte: swieca w trakcie formowania ma cene zmieniajaca
+    się z sekundy na sekunde i nie jest jeszcze faktem. Poza tym przy
     odtwarzaniu przeszlego dnia (SIM_NOW) naiwne "ostatnia swieca" bralo cene
     ZAMKNIECIA DNIA, a nie cene z odtwarzanej godziny - co falszowalo wyniki
-    testow (np. zlecenia "odrzucone, bo cena pod stopem", ktore w rzeczywistosci
-    bylyby wazne).
+    testów (np. zlecenia "odrzucone, bo cena pod stopem", które w rzeczywistosci
+    bylyby ważne).
     """
     now = ses.now_ny(as_of)
     # Zapytanie o zakres: "1d" daje tylko dzisiejsze swiece. Przy odtwarzaniu
@@ -161,11 +161,11 @@ def last_price(symbol: str, as_of=None) -> tuple[float, float]:
 
 
 def live_price(symbol: str) -> tuple[float, float]:
-    """Cena, po ktorej REALNIE wykonaloby sie zlecenie rynkowe.
+    """Cena, po której REALNIE wykonaloby się zlecenie rynkowe.
 
-    Przy prawdziwym zegarze: ostatni tick z meta Yahoo (to jest cena, ktora
-    widzi trader). Przy odtwarzaniu przeszlego dnia: ostatnia zamknieta swieca,
-    bo meta zwraca wtedy cene konca dnia - czyli przyszlosc wzgledem
+    Przy prawdziwym zegarze: ostatni tick z meta Yahoo (to jest cena, która
+    widzi trader). Przy odtwarzaniu przeszlego dnia: ostatnia zamknięta swieca,
+    bo meta zwraca wtedy cene końca dnia - czyli przyszlosc względem
     odtwarzanej godziny.
     """
     if os.environ.get("SIM_NOW"):

@@ -7,7 +7,7 @@ automatycznie po każdym rozliczeniu dnia. Nie wymaga logowania ani instalowania
 niczego.
 
 Podgląd wypełnionego panelu (z przebiegu testowego) jest w
-`docs/przyklad-panelu.png`.
+`docs/przykład-panelu.png`.
 
 ---
 

@@ -1,11 +1,11 @@
-"""Zrzut panelu HTML do PNG - zeby dalo sie go obejrzec w prywatnym repo.
+"""Zrzut panelu HTML do PNG - żeby dalo się go obejrzec w prywatnym repo.
 
-Repo jest prywatne, wiec GitHub Pages nie jest dostepne (na darmowym planie
-strony sa tylko publiczne). GitHub natomiast wyswietla obrazy w plikach repo,
+Repo jest prywatne, wiec GitHub Pages nie jest dostępne (na darmowym planie
+strony są tylko publiczne). GitHub natomiast wyświetla obrazy w plikach repo,
 wiec codzienny zrzut panelu jest najprostszym prywatnym "ekranem".
 
 Uzywa Playwrighta z zainstalowana przegladarka Chrome (na runnerach GitHuba
-jest gotowa), wiec nie trzeba pobierac calej przegladarki. Kazdy blad jest
+jest gotowa), wiec nie trzeba pobierac calej przegladarki. Każdy błąd jest
 niekrytyczny - symulacja ma dzialac dalej bez zrzutu.
 """
 from __future__ import annotations
@@ -43,8 +43,8 @@ def find_browser() -> str | None:
 
 
 def _shrink(path: str, colors: int = 96) -> None:
-    """Zmniejsz PNG bez widocznej straty: projekt jest plaski, wiec paleta
-    ~96 kolorow wystarcza, a plik jest ok. 3x mniejszy (wazne dla historii git)."""
+    """Zmniejsz PNG bez widocznej straty: projekt jest płaski, wiec paleta
+    ~96 kolorow wystarcza, a plik jest ok. 3x mniejszy (ważne dla historii git)."""
     try:
         from PIL import Image
     except ImportError:
@@ -89,7 +89,7 @@ def to_png(html_path: str, png_path: str, width: int = VIEWPORT, scale: int = SC
         print("render: zapisano %s (%.1f kB)" % (png_path, size / 1024))
         return size > 5000
     except Exception as e:  # noqa: BLE001
-        print("render: nie udalo sie (%s: %s)" % (type(e).__name__, e), file=sys.stderr)
+        print("render: nie udało się (%s: %s)" % (type(e).__name__, e), file=sys.stderr)
         return False
 
 

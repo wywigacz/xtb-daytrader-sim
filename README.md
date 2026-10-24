@@ -19,7 +19,7 @@ ile okazji odrzucił i z jakiego powodu, co przeczytał i czego się nauczył.
 Napisany prostym językiem, bez żargonu — wszystkie pojęcia w słowniczku.
 
 Panel jest pusty z wyjaśnieniem do pierwszego dnia handlowego (26.10.2026).
-Podgląd, jak wygląda wypełniony, jest w `docs/przyklad-panelu.png`.
+Podgląd, jak wygląda wypełniony, jest w `docs/przykład-panelu.png`.
 
 ## Jak działa bot
 
@@ -29,7 +29,7 @@ Podgląd, jak wygląda wypełniony, jest w `docs/przyklad-panelu.png`.
    handlu, upadłość, dochodzenie, krach) → odpuszcza. Zwykłe wzmianki
    o wynikach nie blokują handlu.
 3. **Planuje wyjście przed wejściem**: stop = środek porannego zakresu,
-   cel = 1R (tyle samo, ile ryzykuje).
+   cel = 1R (tyle samo, ile ryzykuję).
 4. **Liczy wielkość pozycji** tak, by maksymalna strata na transakcji to
    1% kapitału.
 5. **Kontroluje ryzyko**: limity strat dnia, liczba transakcji, warunki wejścia.
@@ -59,7 +59,7 @@ złotówki po bieżącym kursie USD/PLN — to realne ryzyko walutowe, nie błą
 
 Nie łączy się z żadnym kontem, nie wysyła prawdziwych zleceń, nie handluje
 opcjami, kryptowalutami, na dźwigni ani na krótko, nie trzyma pozycji przez
-noc, nie obiecuje zysku.
+noc, nie obiecuję zysku.
 
 Sekcja „Czego się nauczył” w panelu to **statystyka z własnych transakcji**,
 nie uczenie maszynowe. Przy małej liczbie transakcji panel mówi wprost

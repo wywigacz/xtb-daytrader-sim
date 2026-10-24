@@ -1,7 +1,7 @@
-"""Zegar gieldy USA w czasie Nowego Jorku. Tylko biblioteka standardowa.
+"""Zegar giełdy USA w czasie Nowego Jorku. Tylko biblioteka standardowa.
 
-Sesja: 9:30-16:00 ET (w dni skrocone 13:00 ET). Weekendy i swieta NYSE zamkniete.
-Uzywane przez caly silnik: tick srodzienny, rozliczenie dzienne, flat-by.
+Sesja: 9:30-16:00 ET (w dni skrocone 13:00 ET). Weekendy i święta NYSE zamknięte.
+Uzywane przez cały silnik: tick srodzienny, rozliczenie dzienne, flat-by.
 """
 from __future__ import annotations
 
@@ -55,7 +55,7 @@ def now_ny(now: datetime | None = None) -> datetime:
     """Teraz w Nowym Jorku (albo podany moment, jesli naiwny -> traktowany jako NY).
 
     Zmienna srodowiskowa SIM_NOW (format "YYYY-MM-DD HH:MM", czas NY) pozwala
-    'zamrozic' zegar - uzywane do testow i odtwarzania sesji.
+    'zamrozic' zegar - uzywane do testów i odtwarzania sesji.
     Poza testami: ustawiana przez tick.py/daily.py z argumentu --now.
     """
     if now is None:
@@ -149,7 +149,7 @@ def label_ny(now: datetime | None = None) -> str:
 if __name__ == "__main__":  # szybki podglad
     n = now_ny()
     print("Teraz w NY:", label_ny(n))
-    print("Dzien handlowy:", is_trading_day(n.date()))
+    print("Dzień handlowy:", is_trading_day(n.date()))
     print("Sesja otwarta:", is_open(n))
     print("Nastepne otwarcie:", next_open(n).isoformat())
     print("Flat by:", flat_by(n.date()).isoformat())

@@ -80,4 +80,4 @@ powstanie na nowo, z wpłatą startową.
 | Kilka dni bez transakcji | Normalne — sygnał jest wybiórczy. | Panel pokazuje, ile okazji odrzucono i dlaczego. |
 | Wartość spadła | Strata na transakcji albo kurs USD/PLN. | Sekcje 03 i 04 panelu. |
 | Czerwony wpis, „rate limit” | Yahoo ograniczyło darmowe dane. | Poczekaj — następny tick próbuje sam. |
-| „Symulacja zakonczona” | Minęło 300 dni. | Zwiększ `days` w `sim/config.json`. |
+| „Symulacja zakończona” | Minęło 300 dni. | Zwiększ `days` w `sim/config.json`. |

@@ -37,7 +37,7 @@ uczciwe założenie dla płynnych large-capów.
 
 * 19% od **zrealizowanego** zysku (nie od niezrealizowanego).
 * Kwota podatku jest odejmowana od wyniku i pokazywana osobno jako
-  „podatek w rezerwie”. Nie znika po cichu ze statystyk.
+  „podatek w rezerwie”. Nie znika po cichu że statystyk.
 * Strata z jednej transakcji **nie** obniża podatku od zysku w tej symulacji
   (uproszczenie — w Polsce rozlicza się to narastająco w roku).
 * Nie modeluję podatku od dywidend (spółki w symulacji dywidend nie wypłacają

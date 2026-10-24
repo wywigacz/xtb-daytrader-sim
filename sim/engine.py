@@ -18,7 +18,7 @@ EQUITY_COLS = [
 
 
 def ensure_init(sim: dict, cfg: dict) -> dict:
-    """Zainicjuj stan symulacji i pierwsza wplate."""
+    """Zainicjuj stan symulacji i pierwsza wpłatę."""
     sc = cfg["simulation"]
     if not sim.get("start_date"):
         sim["start_date"] = sc["start_date"]
@@ -41,8 +41,8 @@ def refresh_fx(sim: dict, cfg: dict) -> float:
         rate = float(sim.get("fx", {}).get("rate") or cfg.get("fx_fallback", 3.65))
     prev = float((sim.get("fx") or {}).get("rate") or 0)
     if prev and abs(rate - prev) / prev > 0.0015:
-        book.decide(sim, "fx", title="Kurs USD/PLN sie zmienil",
-                    why="Przelicznik walutowy zmienil sie o %.2f%%, wiec wartosc portfela w zlotowkach tez."
+        book.decide(sim, "fx", title="Kurs USD/PLN się zmienil",
+                    why="Przelicznik walutowy zmienil się o %.2f%%, wiec wartość portfela w złotówkach tez."
                         % ((rate / prev - 1) * 100),
                     numbers={"rate": round(rate, 4), "was": round(prev, 4)})
     sim["fx"] = {"rate": round(rate, 4), "as_of": store.ny_stamp()}
@@ -50,8 +50,8 @@ def refresh_fx(sim: dict, cfg: dict) -> float:
 
 
 def maybe_deposit(sim: dict, cfg: dict, today) -> bool:
-    """Wplata startowa (przy pierwszym uruchomieniu) + miesieczna 10 000 PLN
-    w pierwszym dniu handlowym miesiaca."""
+    """Wpłata startowa (przy pierwszym uruchomieniu) + miesięczna 10 000 PLN
+    w pierwszym dniu handlowym miesiąca."""
     sc = cfg["simulation"]
     if str(today) < str(sim["start_date"]):
         return False
@@ -66,9 +66,9 @@ def maybe_deposit(sim: dict, cfg: dict, today) -> bool:
     rec = book.deposit(sim, pln, rate, ses.iso_day(today))
     book.decide(
         sim, "deposit",
-        title="Wplata %s zl" % ("{:,.0f}".format(pln).replace(",", " ")),
-        why=("Pierwsza wplata startowa, przewalutowana na dolary po kursie %.4f." % rate) if first
-            else ("Kolejna wplata miesieczna, przewalutowana na dolary po kursie %.4f." % rate),
+        title="Wpłata %s zl" % ("{:,.0f}".format(pln).replace(",", " ")),
+        why=("Pierwsza wpłata startowa, przewalutowana na dolary po kursie %.4f." % rate) if first
+            else ("Kolejna wpłata miesięczna, przewalutowana na dolary po kursie %.4f." % rate),
         numbers={"pln": pln, "rate": round(rate, 4), "usd": rec["usd"],
                  "fee": rec.get("fx_fee_usd"), "first": first},
     )
@@ -76,7 +76,7 @@ def maybe_deposit(sim: dict, cfg: dict, today) -> bool:
 
 
 def first_trading_day_of_month(d) -> bool:
-    """Czy dzisiaj jest pierwszy dzien handlowy tego miesiaca?"""
+    """Czy dzisiaj jest pierwszy dzień handlowy tego miesiąca?"""
     probe = d.replace(day=1)
     while probe <= d:
         if ses.is_trading_day(probe):
@@ -86,7 +86,7 @@ def first_trading_day_of_month(d) -> bool:
 
 
 def snapshot(sim: dict, cfg: dict, prices: dict[str, float] | None = None) -> dict:
-    """Wycena + wiersz historii kapitalu (+ benchmark)."""
+    """Wycena + wiersz historii kapitału (+ benchmark)."""
     if prices is None:
         syms = list(book.holdings().keys())
         prices = {s: p for s, (p, _t) in strategy.quotes_for(syms).items()}
@@ -132,6 +132,6 @@ def _rewrite_csv(path: str, rows: list[dict], cols: list[str]) -> None:
 
 def day_line(sim: dict) -> str:
     d = sim.get("deposits_pln_total") or 0
-    return "dzien %s/%s | otwarte: %d | wplaty: %.0f PLN" % (
+    return "dzień %s/%s | otwarte: %d | wpłaty: %.0f PLN" % (
         sim.get("day_count", 0), book.load_cfg()["simulation"]["days"],
         len(sim.get("open") or {}), d)

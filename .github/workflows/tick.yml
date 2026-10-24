@@ -1,9 +1,9 @@
 name: tick (sesja USA)
 
-# Skrypt sam sprawdza, czy gielda jest naprawde otwarta (czas Nowego Jorku,
-# swieta, DST) - poza sesja konczy sie w kilkanascie sekund, nic nie robiac.
+# Skrypt sam sprawdza, czy giełda jest naprawdę otwarta (czas Nowego Jorku,
+# święta, DST) - poza sesja kończy się w kilkanascie sekund, nic nie robiac.
 #
-# Dwa harmonogramy, bo metoda dziala najswiezej zaraz po otwarciu:
+# Dwa harmonogramy, bo metoda działa najswiezej zaraz po otwarciu:
 #   * 13:00-16:50 UTC co 10 minut - to okno 9:45-11:30 czasu Nowego Jorku
 #     (w obu wariantach czasu letniego/zimowego),
 #   * 17:00-21:50 UTC co 30 minut - reszta sesji.
@@ -46,7 +46,7 @@ jobs:
           else
             git commit -m "tick $(date -u '+%Y-%m-%d %H:%MZ')"
             # -X theirs: przy konflikcie (np. plik obrazka zmieniony po obu
-            # stronach) wygrywa swiezo wygenerowana wersja z tego przebiegu
+            # stronach) wygrywa świeżo wygenerowana wersja z tego przebiegu
             for i in 1 2 3; do
               git pull --rebase --autostash -X theirs && git push && break
               sleep 3

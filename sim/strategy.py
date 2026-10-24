@@ -1,14 +1,14 @@
 """Strategia: zarzadzanie otwartymi pozycjami i szukanie wejsc.
 
 Metodyka pochodzi z day-trader-skill:
-  skan ORB -> wiadomosci -> entry (pierwsza swieca 5m zamykajaca sie nad szczytem
+  skan ORB -> wiadomości -> entry (pierwsza swieca 5m zamykajaca się nad szczytem
   zakresu) -> exit (stop = srodek zakresu, target = 1R) -> size (pod limit straty)
   -> kontrola ryzyka (PASS/BLOCK).
-Roznica: nie ma czlowieka, ktory powie "tak". Symulator sam potwierdza
+Różnica: nie ma czlowieka, który powie "tak". Symulator sam potwierdza
 zatwierdzenie (auto-yes) i sam wykonuje symulowana transakcje po cenie
-z rynku powiekszonej o poslizg. To jest cala idea tego repo.
+z rynku powiekszonej o poślizg. To jest cała idea tego repo.
 
-Kazda decyzja trafia do dziennika razem z polskim tytulem, jednym zdaniem
+Każda decyzja trafia do dziennika razem z polskim tytulem, jednym zdaniem
 "dlaczego" i liczbami - z tego powstaje panel.
 """
 from __future__ import annotations
@@ -21,13 +21,13 @@ from . import book, market, news, plain, session as ses, skilltools, store, xtb
 
 
 def _clock_args(now=None) -> list[str]:
-    """Jesli zegar jest zamrozony (SIM_NOW), przekaz go rowniez narzedziom skilla."""
+    """Jesli zegar jest zamrozony (SIM_NOW), przekaz go również narzedziom skilla."""
     stamp = store.ny_stamp(now) if now is not None else os.environ.get("SIM_NOW")
     return ["--now", stamp] if stamp else []
 
 
 def build_risk_config(sim: dict, equity_usd: float) -> dict:
-    """Wygeneruj trader/config.json (limity skilla) proporcjonalnie do kapitalu."""
+    """Wygeneruj trader/config.json (limity skilla) proporcjonalnie do kapitału."""
     cfg = book.load_cfg()
     rf = cfg["risk_from_equity"]
     eq = max(float(equity_usd), 50.0)
@@ -62,7 +62,7 @@ def build_risk_config(sim: dict, equity_usd: float) -> dict:
 
 def write_prices(quotes: dict[str, tuple[float, float]], merge: bool = True) -> None:
     """Zapisz trader/prices.json: {SYM: (cena, epoch)}. Domyslnie dopisuje do
-    istniejacego pliku (ceny innych spolek zostaja)."""
+    istniejacego pliku (ceny innych spółek zostaja)."""
     now_utc = datetime.utcnow()
     old = store.read_json(store.PRICES) if merge else None
     prices = dict((old or {}).get("prices") or {})
@@ -102,8 +102,8 @@ def _opened_epoch(op: dict) -> int:
 
 
 def manage(sim: dict, now=None, force_close_all: bool = False) -> list[dict]:
-    """Przejdz po otwartych pozycjach po swiecach 5m i zamknij te, ktore trafily
-    w stop / target / czas 'flat by'. Zwraca liste zamknietych transakcji."""
+    """Przejdz po otwartych pozycjach po swiecach 5m i zamknij te, które trafily
+    w stop / target / czas 'flat by'. Zwraca listę zamknietych transakcji."""
     cfg = book.load_cfg()
     costs = cfg["costs"]
     slip = float(costs["slippage_bps"])
@@ -128,7 +128,7 @@ def manage(sim: dict, now=None, force_close_all: bool = False) -> list[dict]:
         except Exception as e:  # noqa: BLE001
             book.decide(sim, "manage_error", symbol=symbol,
                         title="Brak danych o %s" % symbol,
-                        why="Nie moglem pobrac swiec - sprawdze przy nastepnym uruchomieniu.",
+                        why="Nie moglem pobrać swiec - sprawdze przy następnym uruchomieniu.",
                         error=str(e))
             continue
 
@@ -210,19 +210,19 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
     rc, doc, tail = skilltools.json_run("scan", args + _clock_args(now), timeout=240)
     if not doc:
         book.decide(sim, "scan_empty",
-                    title="Skan nie zwrocil wynikow",
-                    why="Feed z rynku nie odpowiedzial albo nie bylo jeszcze danych z sesji.",
+                    title="Skan nie zwrocil wyników",
+                    why="Feed z rynku nie odpowiedzial albo nie było jeszcze danych z sesji.",
                     note=tail[:300], rc=rc)
         return []
     hits = doc.get("hits") or []
     top = [h.get("symbol") for h in hits[:12]]
     book.decide(
         sim, "scan",
-        title="Przejrzalem %s spolek" % doc.get("scanned"),
-        why=("Szukalem ceny, ktora przebila maksimum pierwszych 15 minut sesji i zamknela sie nad nim. "
-             "Znalazlem %d takich spolek." % len(hits)) if hits else
-            ("Szukalem ceny, ktora przebila maksimum pierwszych 15 minut sesji. "
-             "Zadna spolka nie dala sygnalu - nie kupuje na sile."),
+        title="Przejrzalem %s spółek" % doc.get("scanned"),
+        why=("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji i zamknęła się nad nim. "
+             "Znalazlem %d takich spółek." % len(hits)) if hits else
+            ("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji. "
+             "Zadna spółka nie dala sygnału - nie kupuję na sile."),
         numbers={"scanned": doc.get("scanned"), "hits": len(hits), "top": top},
         as_of=doc.get("as_of"),
     )
@@ -230,7 +230,7 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
 
 
 def try_enter(sim: dict, now=None) -> dict | None:
-    """Jedno wejscie na tick, jesli sa wolne miejsca i wszystko przejdzie."""
+    """Jedno wejście na tick, jesli są wolne miejsca i wszystko przejdzie."""
     cfg = book.load_cfg()
     sim_cfg = cfg["simulation"]
     costs = cfg["costs"]
@@ -242,7 +242,7 @@ def try_enter(sim: dict, now=None) -> dict | None:
     if len(sim.get("open") or {}) >= int(sim_cfg["max_concurrent_positions"]):
         book.decide(sim, "skip", code="miejsca",
                     title="Brak wolnego miejsca",
-                    why="Mam juz maksymalna liczbe otwartych pozycji naraz (%d)."
+                    why="Mam już maksymalna liczbę otwartych pozycji naraz (%d)."
                         % int(sim_cfg["max_concurrent_positions"]))
         return None
 
@@ -262,8 +262,8 @@ def try_enter(sim: dict, now=None) -> dict | None:
              and str(h.get("symbol", "")).upper() not in already]
     if not cands:
         book.decide(sim, "skip", code="duplikat",
-                    title="Wszystkie sygnaly juz wykorzystane",
-                    why="Te spolki juz trzymam albo gralem nimi dzisiaj. Nie dokladam do tej samej pozycji.")
+                    title="Wszystkie sygnały już wykorzystane",
+                    why="Te spółki już trzymam albo gralem nimi dzisiaj. Nie dokladam do tej samej pozycji.")
         return None
 
     for h in cands[:3]:
@@ -275,18 +275,18 @@ def try_enter(sim: dict, now=None) -> dict | None:
 
 
 def _news_gate(sim: dict, sym: str, now_dt) -> dict:
-    """Sprawdz wiadomosci. Sam wpis do dziennika robi wywolujacy (tylko gdy cos zmienia)."""
+    """Sprawdz wiadomości. Sam wpis do dziennika robi wywolujacy (tylko gdy cos zmienia)."""
     doc = news.fetch([sym], hours=24)
     risk_items = [i for i in (doc.get("items") or []) if i.get("risk")]
     news.record(sim, doc,
-                impact="wstrzymal zakup" if risk_items else "nie zmienil decyzji",
+                impact="wstrzymał zakup" if risk_items else "nie zmienil decyzji",
                 symbol=sym)
     return {"blocked": bool(risk_items), "items": doc.get("items") or [],
             "count": doc.get("count") or 0, "risk_items": risk_items}
 
 
 def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
-    """Sciezka jednego wejscia: wiadomosci -> entry -> exit -> size -> risk -> fill."""
+    """Sciezka jednego wejścia: wiadomości -> entry -> exit -> size -> risk -> fill."""
     slip = float(costs["slippage_bps"])
     comm = float(costs["commission_pct"])
     comm_min = float(costs.get("commission_min_usd") or 0.0)
@@ -297,11 +297,11 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         hit = gate["risk_items"][0]
         book.decide(
             sim, "block", symbol=sym, code="news",
-            title="Odpuscilem %s przez wiadomosci" % sym,
+            title="Odpuscilem %s przez wiadomości" % sym,
             why='Naglowek: "%s". Po takiej informacji cena potrafi skoczyc w obie strony, '
                 'a ja nie zgaduje kierunku.' % str(hit.get("title") or "")[:110],
-            numbers={"naglowek": str(hit.get("title") or "")[:160],
-                     "zrodlo": hit.get("source") or "", "naglowkow": gate["count"]},
+            numbers={"nagłówek": str(hit.get("title") or "")[:160],
+                     "źródło": hit.get("source") or "", "nagłówków": gate["count"]},
         )
         return None
 
@@ -311,8 +311,8 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         px_fill, t_fill = market.live_price(sym)  # to, co zobaczylby trader
     except Exception as e:  # noqa: BLE001
         book.decide(sim, "skip", symbol=sym, code="dane",
-                    title="Brak swiezej ceny %s" % sym,
-                    why="Nie mialem wiarygodnej ceny, wiec nie ryzykowalem.", error=str(e))
+                    title="Brak świeżej ceny %s" % sym,
+                    why="Nie miałem wiarygodnej ceny, wiec nie ryzykowalem.", error=str(e))
         return None
     write_prices({sym: (px, _t)})
 
@@ -321,9 +321,9 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     entry_doc = store.read_json(store.ENTRY) or {}
     status = str(entry_doc.get("status") or "")
     if rc != 0 or "trigger" not in status.lower():
-        book.decide(sim, "skip", symbol=sym, code="brak-sygnalu",
-                    title="%s nie potwierdzil sygnalu" % sym,
-                    why="Cena nie zamknela sie nad porannym szczytem w sposob, ktory wymaga metoda.",
+        book.decide(sim, "skip", symbol=sym, code="brak-sygnału",
+                    title="%s nie potwierdzil sygnału" % sym,
+                    why="Cena nie zamknęła się nad porannym szczytem w sposób, który wymaga metoda.",
                     status=status)
         return None
 
@@ -338,8 +338,8 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     plan = store.read_json(store.PLAN) or {}
     if str(plan.get("symbol", "")).upper() != sym:
         book.decide(sim, "skip", symbol=sym, code="plan",
-                    title="Plan dotyczyl innej spolki",
-                    why="Plan wyjscia nie pasowal do tej spolki - odpuszczam.")
+                    title="Plan dotyczyl innej spółki",
+                    why="Plan wyjścia nie pasowal do tej spółki - odpuszczam.")
         return None
 
     # 4. Budget Manager: ile akcji.
@@ -355,14 +355,14 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     if not olist:
         book.decide(sim, "block", symbol=sym, code="size",
                     title="%s: zlecenie nie powstalo" % sym,
-                    why="Kalkulator wielkosci pozycji nie znalazl bezpiecznego rozmiaru.")
+                    why="Kalkulator wielkości pozycji nie znalazł bezpiecznego rozmiaru.")
         return None
     order = olist[0]
     qty = float(order.get("qty") or 0)
     if qty <= 0:
         book.decide(sim, "block", symbol=sym, code="size",
                     title="%s: zero akcji" % sym,
-                    why="Przy tym stopie nie da sie kupic nawet jednej akcji w limicie straty.")
+                    why="Przy tym stopie nie da się kupić nawet jednej akcji w limicie straty.")
         return None
 
     # 5. Kontrola ryzyka: PASS albo BLOCK.
@@ -387,7 +387,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     if stop_lvl and fill <= stop_lvl:
         book.decide(
             sim, "block", symbol=sym, code="cena-pod-stopem",
-            title="%s: cena zdazyla zjechac pod stop" % sym,
+            title="%s: cena zdążyła zjechac pod stop" % sym,
             why=plain.meaning_for("cena-pod-stopem"),
             numbers={"cena": round(fill, 2), "stop": stop_lvl},
         )
@@ -395,9 +395,9 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     if target_lvl and fill >= target_lvl:
         book.decide(
             sim, "block", symbol=sym, code="cel",
-            title="%s: ruch juz sie wydarzyl" % sym,
-            why="Cena poszla wyzej, niz byl moj cel, zanim zdazylem kupic. "
-                "Do celu nie ma juz miejsca, wiec gra nie jest warta ryzyka.",
+            title="%s: ruch już się wydarzyl" % sym,
+            why="Cena poszła wyzej, niz był moj cel, zanim zdazylem kupić. "
+                "Do celu nie ma już miejsca, wiec gra nie jest warta ryzyka.",
             numbers={"cena": round(fill, 2), "cel": target_lvl},
         )
         return None
@@ -416,8 +416,8 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     )
     if rc != 0:
         book.decide(sim, "error", symbol=sym, code="fill",
-                    title="Nie udalo sie zaksiiegowac kupna %s" % sym,
-                    why="Zlecenie przeszlo kontrole, ale zapis wykonania sie nie powiodl.",
+                    title="Nie udało się zaksiiegowac kupna %s" % sym,
+                    why="Zlecenie przeszło kontrole, ale zapis wykonania się nie powiodl.",
                     detail=(err or out).strip()[:160])
         return None
 
@@ -437,7 +437,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     book.decide(
         sim, "open", symbol=sym,
         title="Kupilem %s %s" % (int(qty), sym),
-        why=("Cena przebila szczyt pierwszych 15 minut (%s) i zamknela sie nad nim. "
+        why=("Cena przebiła szczyt pierwszych 15 minut (%s) i zamknęła się nad nim. "
              "Stop chroni mnie %.1f%% nizej, a cel jest tak samo daleko jak stop."
              % (pct_over, (1 - float(plan.get("stop") or 0) / max(fill, 0.01)) * 100)),
         numbers={
@@ -452,7 +452,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
 
 
 def log_daily_news_summary(sim: dict) -> None:
-    """Na koniec dnia: ile lacznie przeczytal i czy to zmienilo decyzje."""
+    """Na koniec dnia: ile łącznie przeczytal i czy to zmienilo decyzje."""
     t = news.today()
     n = int(t.get("read") or 0)
     if not n:
@@ -460,9 +460,9 @@ def log_daily_news_summary(sim: dict) -> None:
     blocked = int(t.get("blocked") or 0)
     book.decide(
         sim, "news_summary",
-        title="Dzisiaj przeczytalem %d naglowkow" % n,
-        why=("Zadnego nie uznalem za wystarczajacy powod, zeby zmienic plan."
+        title="Dzisiaj przeczytałem %d nagłówków" % n,
+        why=("Zadnego nie uznalem za wystarczajacy powod, żeby zmienić plan."
              if not blocked else
-             "%d raz(y) wiadomosci wstrzymaly zakup - to tez jest decyzja." % blocked),
+             "%d raz(y) wiadomości wstrzymaly zakup - to tez jest decyzja." % blocked),
         read=n, risk=blocked,
     )

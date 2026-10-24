@@ -1,13 +1,13 @@
-"""Model kosztow brokera XTB (Polska) dla symulacji. Tylko stdlib.
+"""Model kosztów brokera XTB (Polska) dla symulacji. Tylko stdlib.
 
 ZALOZENIA (wszystkie konfigurowalne w sim/config.json, patrz docs/XTB-ZALOZENIA.md):
   * Rachunek w PLN, handel akcjami realnymi USA (XTB: 0% prowizji do limitu
     obrotu w miesiacu; powyzej limitu prowizja procentowa).
   * Przewalutowanie PLN->USD po kursie XTB; narzut (spread) domyslnie 0.5%.
     W symulacji wymieniamy raz, przy wplacie - dalej srodki zostaja w USD
-    (tak robi trader, ktory nie wyprowadza zyskow co miesiac).
-  * Poslizg (slippage) rynkowy: domyslnie 5 pkt bazowych (0.05%) na niekorzysc.
-  * Podatek Belki 19% od zrealizowanych zyskow, odkladany do rezerwy.
+    (tak robi trader, który nie wyprowadza zyskow co miesiąc).
+  * Poślizg (slippage) rynkowy: domyslnie 5 pkt bazowych (0.05%) na niekorzyść.
+  * Podatek Belki 19% od zrealizowanych zyskow, odkładany do rezerwy.
 """
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ def commission_usd(notional_usd: float, commission_pct: float, min_usd: float = 
 
 
 def slippage_price(price: float, side: str, slippage_bps: float) -> float:
-    """Cena po poslizgu: kupno drozej, sprzedaz taniej."""
+    """Cena po poślizgu: kupno drozej, sprzedaż taniej."""
     adj = price * (slippage_bps / 10000.0)
     return round(price + adj, 4) if side == "buy" else round(price - adj, 4)
 

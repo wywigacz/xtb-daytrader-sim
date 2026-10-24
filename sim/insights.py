@@ -1,8 +1,8 @@
-"""Lejek decyzji + obserwacje z wlasnych transakcji ("czego bot sie nauczyl").
+"""Lejek decyzji + obserwacje z własnych transakcji ("czego bot się nauczył").
 
 Uczciwie: to NIE jest uczenie maszynowe. To zwykla statystyka z dziennika
-wlasnych transakcji. Pokazujemy tylko wnioski, na ktore sa dane (n >= 5),
-a przy mniejszej probie mowimy wprost "za malo danych".
+własnych transakcji. Pokazujemy tylko wnioski, na które są dane (n >= 5),
+a przy mniejszej probie mowimy wprost "za mało danych".
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ def _read_decisions() -> list[dict]:
 
 
 def funnel(sim: dict) -> dict:
-    """Lejek: ile swiata -> ile obserwowanych -> ile sygnalow -> ile transakcji."""
+    """Lejek: ile swiata -> ile obserwowanych -> ile sygnałów -> ile transakcji."""
     dec = _read_decisions()
     trades = store.read_csv(store.TRADES)
     scans = [d for d in dec if d.get("decision") == "scan" and d.get("scanned")]
@@ -86,7 +86,7 @@ def observations(sim: dict) -> list[dict]:
     out.append({
         "title": "Skutecznosc",
         "value": "%.0f%%" % wr,
-        "text": ("Na %d transakcji %d wyszlo na plus. Sredni wynik jednej transakcji: %+.0f USD."
+        "text": ("Na %d transakcji %d wyszło na plus. Średni wynik jednej transakcji: %+.0f USD."
                  % (n, len(wins), sr)),
         "tone": "up" if sum(pnl) > 0 else "down",
         "n": n,
@@ -101,7 +101,7 @@ def observations(sim: dict) -> list[dict]:
     if parts:
         top = reasons.most_common(1)[0]
         out.append({
-            "title": "Jak koncza sie transakcje",
+            "title": "Jak kończą się transakcje",
             "value": "%d z %d" % (reasons.get("target", 0), n),
             "text": "Rozstrzygniecia: %s. Najczestszy scenariusz: %s." % (
                 ", ".join(parts), {"target": "cel", "stop": "stop", "flat_by": "koniec dnia",
@@ -116,10 +116,10 @@ def observations(sim: dict) -> list[dict]:
     if len(rs) >= MIN_N:
         avg_r = sum(rs) / len(rs)
         out.append({
-            "title": "Sredni wynik w jednostkach ryzyka",
+            "title": "Średni wynik w jednostkach ryzyka",
             "value": "%+.2f R" % avg_r,
-            "text": ("1R = tyle, ile bylem gotow stracic na jednej transakcji. "
-                     "Srednio wychodze na %s." % ("plus" if avg_r > 0 else "minus")),
+            "text": ("1R = tyle, ile byłem gotów stracić na jednej transakcji. "
+                     "Średnio wychodze na %s." % ("plus" if avg_r > 0 else "minus")),
             "tone": "up" if avg_r > 0 else "down",
             "n": len(rs),
         })
@@ -141,7 +141,7 @@ def observations(sim: dict) -> list[dict]:
         out.append({
             "title": "Pora dnia ma znaczenie",
             "value": best[0].split(" ")[0],
-            "text": ("Najlepiej wychodza mi wejscia %s (srednio %+.0f USD), najgorzej %s (%+.0f USD)."
+            "text": ("Najlepiej wychodza mi wejścia %s (średnio %+.0f USD), najgorzej %s (%+.0f USD)."
                      % (best[0], sum(best[1]) / len(best[1]), worst[0], sum(worst[1]) / len(worst[1]))),
             "tone": "up",
             "n": sum(len(v) for v in usable.values()),
@@ -155,7 +155,7 @@ def observations(sim: dict) -> list[dict]:
         best = max(per.items(), key=lambda kv: sum(kv[1]))
         worst = min(per.items(), key=lambda kv: sum(kv[1]))
         out.append({
-            "title": "Ktore spolki mi sluza",
+            "title": "Które spółki mi sluza",
             "value": best[0],
             "text": "%s dal mi %+.0f USD, %s %+.0f USD." % (
                 best[0], sum(best[1]), worst[0], sum(worst[1])),
@@ -170,7 +170,7 @@ def observations(sim: dict) -> list[dict]:
         out.append({
             "title": "Jak czesto odpuszczam",
             "value": "%.1f : 1" % ratio,
-            "text": ("Na kazda otwarta pozycje przypadaja %.1f odrzucone okazje. "
+            "text": ("Na każda otwarta pozycje przypadaja %.1f odrzucone okazje. "
                      "Wybiórczosc jest czescia metody, nie awaria." % ratio),
             "tone": "neutral",
             "n": f["checked"],
@@ -179,7 +179,7 @@ def observations(sim: dict) -> list[dict]:
 
 
 def skipped_reasons(sim: dict, limit: int = 5) -> list[dict]:
-    """Najczestsze powody odpuszczenia - do sekcji 'dlaczego nie kupil'."""
+    """Najczestsze powody odpuszczenia - do sekcji 'dlaczego nie kupił'."""
     dec = [d for d in _read_decisions() if d.get("decision") in ("skip", "block")]
     cnt = Counter((d.get("code") or "inne") for d in dec)
     titles = {}
@@ -190,10 +190,10 @@ def skipped_reasons(sim: dict, limit: int = 5) -> list[dict]:
 
 
 def today_actions(sim: dict) -> list[dict]:
-    """Os czasu dzisiejszych dzialan: chronologicznie, max 10 wpisow.
+    """Os czasu dzisiejszych działań: chronologicznie, max 10 wpisow.
 
     Pomijamy drobnice (kursy walut, powtarzane "odpuszczam bo brak miejsca"),
-    zeby os byla czytelna, a nie byla sciana tekstu.
+    żeby os była czytelna, a nie była sciana tekstu.
     """
     day = store.ny_stamp()[:10]
     keep = {"deposit", "scan", "open", "close", "block", "scan_empty", "news_summary"}
@@ -225,7 +225,7 @@ def today_actions(sim: dict) -> list[dict]:
                 slot["count"],
                 "e" if slot["count"] == 1 else "i",
                 plain.title_for(slot["code"]).lower()),
-            "why": "%s Sprawdzone spolki: %s." % (
+            "why": "%s Sprawdzone spółki: %s." % (
                 plain.meaning_for(slot["code"]),
                 ", ".join(slot["symbols"][:5]) if slot["symbols"] else "kilka"),
             "symbol": "",
