@@ -171,6 +171,7 @@ GLOSSARY = [
     ("Pozycja", "Akcje, które mam teraz."),
     ("Gotówka", "Pieniądze poza akcjami."),
     ("Poślizg", "Różnica między ceną widzianą a zapłaconą."),
+    ("Wymiana waluty", "Zamiana złotówek na dolary. W XTB kosztuje 0,5%. Płacę przy każdej wpłacie."),
     ("Podatek", "19% od rocznego zysku. Płacę do 30 kwietnia."),
     ("S&P 500", "Wzorzec: te same wpłaty w indeks."),
 ]

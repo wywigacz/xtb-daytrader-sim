@@ -4,7 +4,9 @@ Autonomiczny symulator handlu akcjami USA w ciągu dnia, oparty na metodyce
 [**day-trader-skill**](https://github.com/Jakeschincariol/day-trader-skill),
 z kosztami i podatkami jak na polskim rachunku **XTB**.
 
-* Kapitał startowy **10 000 zł wpłacany od razu** — portfel ma wartość już
+* Kapitał startowy **10 000 zł wpłacany od razu**, po wymianie na dolary
+  (koszt 0,5%) w portfelu zostaje ok. 9 950 zł. To nie strata na akcjach —
+  to koszt wejścia, widoczny w sekcji „Co mam teraz". — portfel ma wartość już
   pierwszego dnia, a nie zero. Potem **+10 000 zł co miesiąc**.
 * Horyzont: **300 dni**.
 * Handel **tylko w ciągu dnia** — wszystkie pozycje zamknięte przed końcem sesji.

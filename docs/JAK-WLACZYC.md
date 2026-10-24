@@ -65,6 +65,17 @@ Zmiany działają od następnego uruchomienia.
 
 ---
 
+## Podgląd panelu na danych przykładowych
+
+Zanim symulacja ruszy (albo gdy chcesz zobaczyć, jak wygląda po miesiącach):
+
+```
+python tools/przyklad.py
+```
+
+Tworzy panel i obrazek `docs/przyklad-panelu.png` na **wymyślonych** danych
+(rok podatkowy 2026 → 2027). Nic nie dotyka prawdziwego stanu symulacji.
+
 ## Reset symulacji od zera
 
 W terminalu, w folderze projektu:
