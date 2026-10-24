@@ -29,84 +29,109 @@ else:
     from . import insights, market, news, plain, session as ses, store, ui
     from .ui import esc, num, pct, pln, pln_short, usd
 
-CSS = """
+CSS = """/* Paleta i styl wzorowane na darmowym pliku Figma
+   "Free Crypto Dashboard - RecehTok Dark": ciemny granatowo-fioletowy motyw,
+   karty z promieniem 12 px i miekkim cieniem, akcenty ograniczone do trzech
+   kolorow. Wartosci kolorow pobrane z pikseli wzorca. */
 :root{
-  --paper:#FAF9F6; --ink:#0C1116; --muted:#55606E; --faint:#5F6875;
-  --line:#E2DED5; --soft:#F3F1EB; --card:#FFFFFF;
-  --up:#0B6B4A; --down:#A32017; --acc:#1D3F8F;
+  --bg:#141231; --bg2:#18163C; --card:#201D47; --card2:#26214D;
+  --line:#33305A; --grid:#3A365B; --soft:#2A2750;
+  --ink:#FFFFFF; --ink2:#E7E5F2; --muted:#B4B1C7; --faint:#8E8BA3;
+  --up:#38D9A9; --down:#F06595; --acc:#A389F4;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);
+body{margin:0;background:var(--bg);color:var(--ink);
   font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px 72px}
-a{color:var(--acc);text-decoration:none}
+a{color:var(--up);text-decoration:none}
 a:hover{text-decoration:underline}
 .serif{font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
+.up{color:var(--up)}.down{color:var(--down)}.mut{color:var(--muted)}.faint{color:var(--faint)}
 
 /* ---- skala typografii: 12 / 14 / 16 / 20 / 28 / 44 ---- */
-.t-xs{font-size:12px}
-.t-sm{font-size:14px}
-.t-md{font-size:16px}
-.t-lg{font-size:20px}
-.t-xl{font-size:28px}
-.t-2xl{font-size:44px}
-.up{color:var(--up)}.down{color:var(--down)}.mut{color:var(--muted)}.faint{color:var(--faint)}
-.lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.t-xs{font-size:12px}.t-sm{font-size:14px}.t-md{font-size:16px}
+.t-lg{font-size:20px}.t-xl{font-size:28px}.t-2xl{font-size:44px}
+.lab{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.kpi .v{font-weight:700;letter-spacing:-.02em}
+.kpi .n{font-weight:400;color:var(--muted)}
 
-/* ---- pasek nawigacji ---- */
-.toc{position:sticky;top:0;z-index:30;background:rgba(250,249,246,.96);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:center;
-  overflow-x:auto;padding:0 20px;margin:0 -20px 8px;scrollbar-width:none}
-.toc::-webkit-scrollbar{display:none}
-.toc a{font-size:14px;color:var(--muted);white-space:nowrap;
-  display:flex;align-items:center;min-height:44px;padding:0 2px}
-.toc a:first-child{color:var(--ink);font-weight:600}
-.toc a:hover{color:var(--ink)}
+/* ---- szkielet: panel boczny + tresc ---- */
+.app{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:100vh}
+.side{background:var(--bg2);border-right:1px solid var(--line);padding:20px 14px;
+  position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.side .brand{font-size:16px;font-weight:700;color:var(--ink);padding:6px 12px 14px;letter-spacing:-.01em}
+.side .brand span{display:block;font-size:12px;font-weight:400;color:var(--faint);
+  letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 12px;
+  border-radius:10px;color:var(--faint);font-size:14px}
+.side nav a svg{flex:0 0 auto;color:var(--acc);opacity:.75}
+.side nav a:hover svg,.side nav a.on svg{opacity:1;color:var(--up)}
+.side .brand:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:var(--up);margin-right:8px;box-shadow:0 0 10px rgba(56,217,169,.8)}
+.side nav a:hover{background:var(--card);color:var(--ink2);text-decoration:none}
+.side nav a.on{background:var(--card2);color:var(--ink);font-weight:600}
+.side .foot{margin-top:auto;padding:12px;font-size:12px;color:var(--faint);line-height:1.5}
+.main{padding:30px 38px 72px;max-width:1200px;min-width:0}
 
-/* ---- nagłówek ---- */
-.mast{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:flex-end;
-  justify-content:space-between;border-bottom:1px solid var(--ink);padding:12px 0 12px}
-.mast h1{margin:0;font-size:20px;line-height:1.2;letter-spacing:-.01em}
-.mast .right{font-size:14px;color:var(--muted);line-height:1.5}
-.stat{display:inline-flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.06em;
-  text-transform:uppercase;font-weight:600;color:var(--muted)}
-.stat i{width:8px;height:8px;border-radius:50%;background:#B9B3A6;display:block}
-.stat.open i{background:var(--up);box-shadow:0 0 0 3px rgba(11,107,74,.16)}
-/* pasek postępu symulacji - jedyna metryka z progiem */
-.prog{height:4px;background:var(--soft);border-radius:3px;margin-top:7px;overflow:hidden}
+/* ---- gorny pasek ---- */
+.topbar{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:flex-start;
+  justify-content:space-between;margin-bottom:20px}
+.topbar h1{margin:4px 0 0;font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.015em}
+.topbar .right{font-size:14px;color:var(--muted);line-height:1.6;text-align:right}
+.stat{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.stat i{width:8px;height:8px;border-radius:50%;background:var(--faint);display:block}
+.stat.shut i{background:var(--down);box-shadow:0 0 0 3px rgba(240,101,149,.18)}
+.stat.shut{color:var(--down)}
+.stat.open i{background:var(--up);box-shadow:0 0 0 3px rgba(56,217,169,.18)}
+.prog{height:4px;background:var(--soft);border-radius:3px;margin-bottom:18px;overflow:hidden}
 .prog i{display:block;height:100%;background:var(--acc);border-radius:3px}
 
-/* ---- podsumowanie: jeden ekran ---- */
-section{margin-top:32px;scroll-margin-top:60px}
-[id]{scroll-margin-top:60px}
-.sum{margin-top:12px}
-.hero{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:0;
-  background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:0 22px;margin-top:20px}
-.hero > div{padding:12px 16px 12px 0;border-right:1px solid var(--line)}
-.hero > div:last-child{border-right:0;padding-right:0}
-.hero .v{line-height:1.08;margin-top:3px}
-.hero .n{font-size:14px;color:var(--muted);margin-top:6px}
-.chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:12px 14px 4px;margin-top:12px}
-.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:12px}
-.duo .card{padding:16px}
+/* ---- karty metryk (osobne karty, jak we wzorcu) ---- */
+.kpis{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:16px}
+.kpi{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 62%),
+    var(--card);
+  border:1px solid rgba(163,137,244,.14);border-radius:12px;padding:16px;
+  min-width:0;
+  /* na ciemnym tle czarny cien jest niewidoczny - glebie daje jasny gorny przeblysk
+     i delikatny ciemny cien pod karta */
+  box-shadow:0 12px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.07)}
+.kpi.lead .v{text-shadow:0 0 22px rgba(56,217,169,.42)}
+.kpi.lead{background:linear-gradient(168deg,rgba(56,217,169,.62),rgba(56,217,169,.10) 40%,
+  rgba(163,137,244,.10) 58%,rgba(30,27,66,.98) 84%);border-color:rgba(56,217,169,.42);
+  box-shadow:0 12px 28px rgba(0,0,0,.45), 0 0 0 1px rgba(56,217,169,.22),
+    0 0 34px rgba(56,217,169,.12), inset 0 1px 0 rgba(255,255,255,.10)}
+.kpi .n + svg, .kpi svg[role="img"]{margin-top:6px}
+.kpi .n{color:var(--muted)}
+.kpi .v{margin-top:6px;line-height:1.08;font-weight:700}
+.kpi .n{font-size:14px;color:var(--muted);margin-top:7px}
+
+/* ---- sekcje ---- */
+section{margin-top:30px;scroll-margin-top:18px}
+[id]{scroll-margin-top:18px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
-  min-width:0}   /* bez tego tabela z min-width rozpycha cała karte (pulapka grid min-width:auto) */
+  box-shadow:0 12px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);min-width:0}
 .grid2 > *{min-width:0}
-.card h3{margin:0 0 10px;font-size:20px;font-weight:600}
-.card h4{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--muted);
-  letter-spacing:.06em;text-transform:uppercase}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card h3{margin:0 0 4px;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.card .sub{font-size:14px;color:var(--muted);margin:0 0 14px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 12px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  padding:14px 14px 6px;margin-top:14px;box-shadow:0 8px 20px rgba(0,0,0,.20)}
+.chart-card svg{display:block}
+.chart-narrow{display:none}
+.duo{display:grid;grid-template-columns:1.45fr 1fr;gap:16px;margin-top:16px}
+.duo .card{padding:18px}
 
 /* ---- os czasu ---- */
 .tl{list-style:none;margin:0;padding:0}
-.tl li{position:relative;padding:0 0 12px 22px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 13px 22px;border-left:1px solid var(--line)}
 .tl li:last-child{border-left-color:transparent;padding-bottom:0}
 .tl li:before{content:"";position:absolute;left:-5.5px;top:5px;width:11px;height:11px;
-  border-radius:50%;background:#fff;border:2px solid var(--faint)}
+  border-radius:50%;background:var(--bg);border:2px solid var(--faint)}
 .tl li.open:before{border-color:var(--up);background:var(--up)}
 .tl li.close:before{border-color:var(--acc);background:var(--acc)}
 .tl li.deposit:before{border-color:var(--ink);background:var(--ink)}
@@ -114,125 +139,138 @@ section{margin-top:32px;scroll-margin-top:60px}
 .tl .a{font-size:16px;font-weight:600}
 .tl .w{font-size:14px;color:var(--muted);margin-top:2px}
 
-/* ---- mini statystyki dnia ---- */
-.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 16px}
-.mini div .v{font-size:20px;font-weight:600;margin-top:2px}
+/* ---- mini statystyki ---- */
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 16px}
+.mini .v{font-size:20px;font-weight:600;margin-top:3px}
 
 /* ---- pozycje ---- */
-.pos{display:flex;flex-direction:column;gap:8px}
 .pos + .pos{margin-top:16px;padding-top:16px;border-top:1px solid var(--soft)}
-.pos .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.pos .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .pos .sym{font-size:20px;font-weight:600}
-.pos .row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
-.pos .row b{color:var(--ink);font-weight:600}
-/* pasek stop-wejście-cel: HTML/CSS, żeby nic się nie rozciagalo na telefonie */
-.rg{position:relative;height:28px;margin:4px 0 2px}
-.rg-track{position:absolute;left:2%;right:2%;top:9px;height:5px;background:var(--line);border-radius:3px}
-.rg-seg{position:absolute;top:9px;height:5px}
+.pos .row{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted)}
+.pos .row b{color:var(--ink2);font-weight:600}
+.rg{position:relative;height:28px;margin:6px 0 2px}
+.rg-track{position:absolute;left:2%;right:2%;top:9px;height:5px;background:var(--soft);border-radius:3px}
+.rg-seg{position:absolute;top:9px;height:5px;opacity:.55}
 .rg-dot{position:absolute;top:6px;width:10px;height:10px;border-radius:50%;transform:translateX(-50%)}
-.rg-entry{position:absolute;top:5px;width:13px;height:13px;border-radius:50%;background:#fff;
-  border:2px solid var(--muted);transform:translateX(-50%)}
-.rg-price{position:absolute;top:3px;width:17px;height:17px;border-radius:50%;border:2px solid #fff;
+.rg-entry{position:absolute;top:5px;width:13px;height:13px;border-radius:50%;background:var(--card);
+  border:2px solid var(--faint);transform:translateX(-50%)}
+.rg-price{position:absolute;top:3px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bg);
   transform:translateX(-50%)}
-.rg-lab{position:absolute;top:17px;font-size:12px;color:var(--faint);transform:translateX(-50%);white-space:nowrap}
+.rg-lab{position:absolute;top:18px;font-size:12px;color:var(--faint);transform:translateX(-50%);white-space:nowrap}
 
 /* ---- tabele ---- */
-.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;max-width:100%}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
-th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
-  text-align:left;font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--line)}
-td{padding:10px 12px 10px 0;border-bottom:1px solid var(--soft);white-space:nowrap}
+th{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);
+  text-align:left;padding:0 12px 10px 0;border-bottom:1px solid var(--line)}
+td{padding:11px 12px 11px 0;border-bottom:1px solid var(--soft);white-space:nowrap;color:var(--ink2)}
 tr:last-child td{border-bottom:0}
 td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 
 /* ---- lejek ---- */
 .fn{display:flex;flex-direction:column;gap:10px}
-.fn-bar{background:#1A4731;color:#fff;border-radius:8px;padding:10px 14px;
-  display:flex;align-items:baseline;gap:10px;min-width:140px}
-.fn-val{font-size:20px;font-weight:600}
-.fn-lab{font-size:14px;opacity:.92}
+.fn-bar{background:rgba(56,217,169,.14);border:1px solid rgba(56,217,169,.32);
+  border-radius:9px;padding:10px 14px;display:flex;align-items:baseline;gap:10px;
+  min-width:150px;font-weight:600;color:#EAFBF5}
+.fn-val{font-size:20px;font-weight:700;color:#FFFFFF}
+.fn-lab{font-size:14px;color:#A7E8D2}
 .fn-note{font-size:14px;color:var(--muted);margin-top:5px}
 
 /* ---- karty decyzji ---- */
-.dec{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+.dec{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:16px}
 .dec + .dec{margin-top:12px}
 .dec .hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .dec .ttl{font-size:16px;font-weight:600;margin:10px 0 4px}
 .dec .why{font-size:14px;color:var(--muted)}
 .nums{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--soft)}
-.nums div{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-.nums b{display:block;font-size:16px;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:2px}
-.tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;
-  border-radius:6px;border:1px solid var(--line);color:var(--muted)}
-.tag.buy{border-color:#BEDFCE;background:#EAF6F0;color:var(--up)}
-.tag.sell{border-color:#CBD6F0;background:#EDF1FB;color:var(--acc)}
+.nums div{font-size:12px;color:var(--faint);letter-spacing:.05em;text-transform:uppercase}
+.nums b{display:block;font-size:16px;color:var(--ink);letter-spacing:0;text-transform:none;margin-top:3px}
+.tag{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;
+  border-radius:7px;border:1px solid var(--line);color:var(--faint)}
+.tag.buy{border-color:rgba(56,217,169,.35);background:rgba(56,217,169,.12);color:var(--up)}
+.tag.sell{border-color:rgba(163,137,244,.35);background:rgba(163,137,244,.14);color:var(--acc)}
 
 /* ---- obserwacje ---- */
-.obs{border-left:3px solid var(--line);padding-left:14px;margin-bottom:18px}
-.obs .v{font-size:28px;font-weight:600;line-height:1.15}
+.obs{border-left:3px solid var(--soft);padding-left:14px;margin-bottom:18px}
+.obs .v{font-size:28px;font-weight:700;line-height:1.15}
 .obs .t{font-size:14px;color:var(--muted);margin-top:4px}
 
-/* ---- nagłówki ---- */
-.news-item{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:11px 0;
+/* ---- naglowki z prasy ---- */
+.news-item{display:grid;grid-template-columns:46px 1fr;gap:12px;padding:11px 0;
   border-bottom:1px solid var(--soft)}
 .news-item:last-child{border-bottom:0}
-.news-item .ti{font-size:14px;line-height:1.45}
+.news-item .ti{font-size:14px;line-height:1.45;color:var(--ink2)}
 .news-item .mt{font-size:12px;color:var(--faint);margin-top:3px}
-.chip{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;
+.chip{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--soft);color:var(--muted);margin-right:6px}
-.chip.risk{background:#FBEAE8;color:var(--down)}
+.chip.risk{background:rgba(240,101,149,.16);color:var(--down)}
 
 /* ---- kroki ---- */
-.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 28px}
-.step .n{font-size:12px;color:var(--faint);letter-spacing:.08em}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 26px}
+.step .n{font-size:12px;color:var(--acc);letter-spacing:.09em;font-weight:700}
 .step .h{font-size:16px;font-weight:600;margin:4px 0 3px}
 .step .d{font-size:14px;color:var(--muted)}
 
-/* ---- słowniczek ---- */
+/* ---- slowniczek ---- */
 .gloss{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
-.gloss b{font-size:14px}
+.gloss b{font-size:14px;color:var(--ink)}
 .gloss span{font-size:14px;color:var(--muted)}
 
 /* ---- wspolne ---- */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-/* wykres rysowany w dwoch szerokosciach: każda w naturalnym rozmiarze,
-   wiec tekst na osi nigdy nie jest rozciagany ani pomniejszany */
-.chart-narrow{display:none}
 .empty{color:var(--muted);font-size:14px}
-footer{margin-top:48px;border-top:1px solid var(--line);padding-top:18px;
-  font-size:14px;color:var(--muted);line-height:1.6}
-.ax{font-size:12px;fill:#5F6875}
-.sv{font-size:12px}
-.lastv{font-size:14px;fill:#0C1116;font-weight:600}
-.gx{font-size:12px;fill:#5F6875}
-code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:14px}
-a.lnk{display:inline-block;padding:6px 0;min-height:26px}
-.warn{background:#FFF8EC;border:1px solid #EBD9B4;border-radius:12px;
-  padding:16px;font-size:14px;color:#5A4413;margin-top:18px}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--muted);line-height:1.65}
+code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:14px;color:var(--ink2)}
+a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
+.ax{font-size:12px;fill:var(--faint)}
+.sv{font-size:12px;font-weight:600}
+.lastv{font-size:14px;fill:#FFFFFF;font-weight:700}
+/* poswiata linii portfela - we wzorcu linie swieca, nie sa tylko kreskami */
+.glow{filter:drop-shadow(0 0 5px rgba(56,217,169,.55))}
+.hero-note{background:var(--card2);border:1px solid var(--line);border-radius:12px;
+  padding:16px;margin-top:16px}
 
-@media (max-width:760px){
-  .hero{grid-template-columns:1fr 1fr}
-  .hero > div{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
-  .hero > div:nth-last-child(-n+2){border-bottom:0}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:sticky;top:0;z-index:30;height:auto;flex-direction:row;align-items:center;
+    gap:6px;padding:8px 12px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .side .brand,.side .foot{display:none}
+  .side nav{flex-direction:row;gap:4px}
+  .side nav a{white-space:nowrap;padding:0 12px}
+  .main{padding:20px 18px 56px}
+  .topbar .right{text-align:left}
+  .kpis{grid-template-columns:1fr 1fr;gap:12px}
+  .kpi.lead{grid-column:1/-1}
   .duo,.grid2,.steps,.gloss{grid-template-columns:1fr}
   .mini{grid-template-columns:1fr 1fr}
+  .card{padding:16px}
   .chart-wide{display:none}
   .chart-narrow{display:block}
-  .wrap{padding:0 20px 56px}
-  .toc{margin:0 -20px 8px;padding:0 20px}
-  .card{padding:18px}
 }
 """
 
+# (id, etykieta, ikona) - ikony rysowane linia, w stylu wzorca
+_ICONS = {
+    "pulse": '<path d="M3 12h5l2.5 6L15 5l2 7h4"/>',
+    "layers": '<path d="M4 18V10M10 18V5M16 18v-6M22 18H2"/>',
+    "bulb": '<circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.6 2.6 0 1 1 3.4 2.5V13"/><circle cx="12" cy="16.4" r=".7"/>',
+    "funnel": '<path d="M3 4h18l-7 8v6l-4-2v-4z"/>',
+    "book": '<path d="M4 5h6.5a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-5.5a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2H20z"/>',
+    "lines": '<path d="M4 6h16M4 11h16M4 16h10"/>',
+    "play": '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/>',
+    "abc": '<path d="M5 4h8l3 3v13H5z"/><path d="M8 9h5M8 13h5"/>',
+}
+
 TOC = [
-    ("podsumowanie", "Podsumowanie"),
-    ("s1", "Pozycje"),
-    ("s2", "Dlaczego"),
-    ("s3", "Lejek"),
-    ("s4", "Nauka"),
-    ("s5", "Nagłówki"),
-    ("s6", "Jak działa"),
-    ("s7", "Słowniczek"),
+    ("podsumowanie", "Podsumowanie", "pulse"),
+    ("s1", "Pozycje", "layers"),
+    ("s2", "Dlaczego", "bulb"),
+    ("s3", "Lejek", "funnel"),
+    ("s4", "Nauka", "book"),
+    ("s5", "Nagłówki", "lines"),
+    ("s6", "Jak działa", "play"),
+    ("s7", "Słowniczek", "abc"),
 ]
 
 
@@ -281,9 +319,21 @@ def _price(sym: str):
 
 
 # ------------------------------------------------------------------ naglowek
-def _toc() -> str:
-    return ('<nav class="toc">' + "".join('<a href="#%s">%s</a>' % (i, esc(t)) for i, t in TOC)
-            + "</nav>")
+def _sidebar() -> str:
+    """Panel boczny jak we wzorcu: marka + lista sekcji, na telefonie pasek poziomy."""
+    def _icon(name):
+        return ('<svg viewBox="0 0 24 24" width="15" height="15" fill="none" '
+                'stroke="currentColor" stroke-width="1.7" stroke-linecap="round" '
+                'stroke-linejoin="round" aria-hidden="true">%s</svg>' % _ICONS[name])
+
+    links = "".join('<a href="#%s">%s<span>%s</span></a>' % (i, _icon(ic), esc(t))
+                    for i, t, ic in TOC)
+    return (f'<aside class="side">'
+            f'<div class="brand">XTB Day Trader<span>dziennik symulacji</span></div>'
+            f'<nav>{links}</nav>'
+            f'<div class="foot">Symulacja na danych historycznych.<br>'
+            f'Nic nie idzie do brokera.</div>'
+            f'</aside>')
 
 
 def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
@@ -294,20 +344,20 @@ def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
     last = str(_last_row(equity).get("date") or "")
     pretty = (last[8:10] + "." + last[5:7] + "." + last[0:4]) if len(last) >= 10 else "—"
     pill = ('<span class="stat open"><i></i>rynek otwarty</span>' if is_open
-            else '<span class="stat"><i></i>rynek zamknięty</span>')
+            else '<span class="stat shut"><i></i>rynek zamknięty</span>')
     # postep symulacji: jedyna metryka z progiem, wiec dostaje pasek
     prog = max(min(day / max(total, 1) * 100, 100), 0.5)
-    return f'''<div class="mast">
+    return f'''<div class="topbar">
   <div>
-    <div class="lab">Dziennik symulacji &middot; rachunek XTB w złotówkach</div>
-    <h1 class="serif">XTB Day Trader</h1>
+    <div class="lab">Podsumowanie</div>
+    <h1>Wyniki symulacji</h1>
   </div>
   <div class="right">
-    {pill} &nbsp; <b class="t-sm" style="color:var(--ink)">dzień {day} z {total}</b><br>
+    {pill} &nbsp; <b style="color:var(--ink2)">dzień {day} z {total}</b><br>
     dane na {esc(pretty)} &middot; zaktualizowano {esc(now.strftime('%d.%m.%Y %H:%M'))} (czas Nowego Jorku)
   </div>
 </div>
-<div class="prog" role="img" aria-label="Postep symulacji: dzień {day} z {total}">
+<div class="prog" role="img" aria-label="Postęp symulacji: dzień {day} z {total}">
   <i style="width:{prog:.1f}%"></i>
 </div>'''
 
@@ -339,6 +389,10 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
     h_gain_pln = esc(pln(gain)) if dep else "—"
     h_dep = esc(pln_short(dep)[0]) if dep else "0 zł"
     h_bench_lab = esc(cfg["benchmark"]["label"])
+    # mini-wykresy na kartach (we wzorcu kazda karta ma swoj)
+    sp_eq = ui.sparkline([_f(r.get("equity_pln")) for r in equity], ui.UP, gid="sp-eq")
+    sp_dep = ui.sparkline([_f(r.get("deposits_pln_total")) for r in equity], ui.FAINT, gid="sp-dep")
+    sp_ben = ui.sparkline([_f(r.get("bench_pln")) for r in equity], ui.ACCENT, gid="sp-ben")
     h_bench = esc(bench_short)
     h_bench_sub = esc(bench_exact + " · " + bench_delta) if bench_exact != bench_short else esc(bench_delta)
     n_dep = len(sim.get("deposits") or [])
@@ -346,26 +400,29 @@ def _hero(sim: dict, cfg: dict, equity: list[dict], trades: list[dict]) -> str:
         n_dep, ui.pl_plural(n_dep, "wpłata", "wpłaty", "wpłat"),
         len(trades), ui.pl_plural(len(trades), "transakcja", "transakcje", "transakcji"),
         n_pos, ui.pl_plural(n_pos, "otwarta", "otwarte", "otwartych"))
-    return f'''<div class="hero">
-  <div>
+    return f'''<div class="kpis">
+  <div class="kpi lead">
     <div class="lab">Wartość portfela</div>
-    <div class="v t-2xl serif">{h_val}</div>
+    <div class="v t-2xl">{h_val}</div>
     <div class="n">{h_sub}</div>
+    {sp_eq}
   </div>
-  <div>
+  <div class="kpi">
     <div class="lab">Zysk / strata</div>
     <div class="v t-xl {cls}">{h_gain}</div>
     <div class="n">{h_gain_pln} od wpłat</div>
   </div>
-  <div>
+  <div class="kpi">
     <div class="lab">Wpłacone</div>
-    <div class="v t-xl">{h_dep}</div>
+    <div class="n">{h_dep}</div>
+    {sp_dep}
     <div class="n">{h_counts}</div>
   </div>
-  <div>
-    <div class="lab">{h_bench_lab} dla porównania</div>
+  <div class="kpi">
+    <div class="lab">{h_bench_lab}</div>
     <div class="v t-xl">{h_bench}</div>
     <div class="n">{h_bench_sub}</div>
+    {sp_ben}
   </div>
 </div>'''
 
@@ -426,11 +483,11 @@ def _summary(sim: dict, cfg: dict, equity: list[dict], trades: list[dict],
   </div>
   <div class="duo">
     <div class="card">
-      <h3>Dziś w skrócie</h3>
+      <div class="lab" style="margin-bottom:10px">Dziś w skrócie</div>
       {_timeline(actions)}
     </div>
     <div class="card">
-      <h3>Bilans dnia</h3>
+      <div class="lab" style="margin-bottom:10px">Bilans dnia</div>
       {_day_mini(decisions, trades)}
     </div>
   </div>
@@ -634,9 +691,9 @@ def _footer(sim: dict, cfg: dict) -> str:
 
 def _empty_intro(cfg: dict) -> str:
     s = cfg["simulation"]
-    return f'''<div class="card" style="margin-top:18px;background:#FCFBF7">
+    return f'''<div class="hero-note">
   <div class="lab">Zanim ruszy</div>
-  <div class="serif t-xl" style="margin:6px 0 6px">Symulacja startuje {esc(s["start_date"])}</div>
+  <div class="t-xl" style="margin:6px 0 6px;font-weight:700">Symulacja startuje {esc(s["start_date"])}</div>
   <div class="t-sm mut">
     Pierwszego dnia handlowego bot wpłaci {pln(s["start_capital_pln"])}, przewalutuje je na
     dolary i zacznie skanować rynek. Pierwsze decyzje pojawiają się po 15:30 czasu polskiego —
@@ -653,7 +710,7 @@ def build(sim: dict, cfg: dict) -> str:
     decisions = _load_decisions()
     dep = _f(sim.get("deposits_pln_total"))
 
-    body = [_toc(), _masthead(sim, cfg, equity), _summary(sim, cfg, equity, trades, decisions)]
+    body = [_masthead(sim, cfg, equity), _summary(sim, cfg, equity, trades, decisions)]
     if not dep and not trades:
         body.append(_empty_intro(cfg))
 
@@ -666,7 +723,8 @@ def build(sim: dict, cfg: dict) -> str:
         ("s6", "Jak działa", "Ta sama pętla każdego dnia handlowego", _how()),
         ("s7", "Słowniczek", "Każde pojęcie jednym zdaniem", _glossary()),
     ]
-    body.append('<section><div class="lab" style="margin-bottom:14px">Szczegóły</div>'
+    body.append('<section><div class="sec-h"><div class="lab">Szczegóły</div>'
+                '<div class="t-sm mut">7 sekcji &middot; rozwiń, żeby zobaczyć powody decyzji</div></div>'
                 '<div class="grid2">')
     for i, (sid, title, sub, content) in enumerate(detail):
         span = ' style="grid-column:1/-1"' if sid in ("s7", "s6") else ""
@@ -684,8 +742,11 @@ def build(sim: dict, cfg: dict) -> str:
 <meta name="description" content="Dziennik symulacji inwestowania: co bot zrobil i dlaczego.">
 <title>XTB Day Trader — dziennik symulacji</title>
 <style>{CSS}</style></head>
-<body><div class="wrap">
+<body><div class="app">
+{_sidebar()}
+<main class="main">
 {''.join(body)}
+</main>
 </div></body></html>'''
 
     out = store.p(store.ROOT, "docs", "index.html")

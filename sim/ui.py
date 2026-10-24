@@ -100,21 +100,39 @@ def num_short(x) -> str:
 
 
 # ------------------------------------------------------------------ paleta
-INK = "#0C1116"        # tekst glowny  (kontrast ~18:1 na papierze)
-MUTED = "#55606E"      # tekst pomocniczy (kontrast ~6,5:1)
-FAINT = "#5F6875"      # etykiety i godziny - 5,3:1 na papierze (WCAG AA)
-LINE = "#E2DED5"
-UP = "#0B6B4A"
-DOWN = "#A32017"
-ACCENT = "#1D3F8F"
-PAPER = "#FAF9F6"
+INK = "#FFFFFF"        # tekst glowny na ciemnym tle
+MUTED = "#B4B1C7"      # tekst pomocniczy
+FAINT = "#8E8BA3"      # etykiety, osie wykresu
+LINE = "#33305A"       # obramowania i siatka
+UP = "#38D9A9"         # zysk
+DOWN = "#F06595"       # strata
+ACCENT = "#A389F4"     # akcent dodatkowy
+PAPER = "#141231"      # tlo strony
 
 
 def _pt(x: float, y: float) -> str:
     return "%.1f,%.1f" % (x, y)
 
 
-def line_chart(rows: list[dict], width: int = 1000, height: int = 176,
+def _smooth(pts: list[tuple[float, float]]) -> str:
+    """Gladka krzywa (Catmull-Rom -> Bezier), jak we wzorcu. Prosta lamana
+    wyglada technicznie; gladka linia to jeden z sygnalow 'dopracowania'."""
+    if len(pts) < 2:
+        return ""
+    if len(pts) == 2:
+        return "M " + " L ".join(_pt(*p) for p in pts)
+    out = "M " + _pt(*pts[0])
+    for i in range(len(pts) - 1):
+        p0 = pts[i - 1] if i > 0 else pts[i]
+        p1, p2 = pts[i], pts[i + 1]
+        p3 = pts[i + 2] if i + 2 < len(pts) else p2
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6.0, p1[1] + (p2[1] - p0[1]) / 6.0)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6.0, p2[1] - (p3[1] - p1[1]) / 6.0)
+        out += " C %s %s %s" % (_pt(*c1), _pt(*c2), _pt(*p2))
+    return out
+
+
+def line_chart(rows: list[dict], width: int = 1000, height: int = 148,
                narrow: bool = False) -> str:
     """Wykres kapitału: portfel / wpłacone / benchmark.
 
@@ -169,15 +187,21 @@ def line_chart(rows: list[dict], width: int = 1000, height: int = 176,
         return pts
 
     def path(pts) -> str:
-        return "M " + " L ".join(_pt(*p) for p in pts) if len(pts) >= 2 else ""
+        return _smooth(pts)
 
     eq, dep, bench = points("equity_pln"), points("deposits_pln_total"), points("bench_pln")
     eq_path, dep_path, bench_path = path(eq), path(dep), path(bench)
 
     area = ""
     if eq_path:
-        area = ('<path d="%s L %.1f,%.1f L %.1f,%.1f Z" fill="%s" fill-opacity="0.10" stroke="none"/>'
-                % (eq_path, X(n - 1), pad_t + h, pad_l, pad_t + h, UP))
+        # gradient pod linia zamiast plaskiego wypelnienia - daje glebie
+        gid = "eqg-n" if narrow else "eqg-w"
+        area = ('<defs><linearGradient id="%s" x1="0" y1="0" x2="0" y2="1">'
+                '<stop offset="0%%" stop-color="%s" stop-opacity="0.42"/>'
+                '<stop offset="100%%" stop-color="%s" stop-opacity="0"/>'
+                '</linearGradient></defs>'
+                '<path d="%s L %.1f,%.1f L %.1f,%.1f Z" fill="url(#%s)" stroke="none"/>'
+                % (gid, UP, UP, eq_path, X(n - 1), pad_t + h, pad_l, pad_t + h, gid))
 
     # 3 linie siatki, etykiety 12 px, bez zbednych liczb
     grid, labels = [], []
@@ -232,7 +256,8 @@ def line_chart(rows: list[dict], width: int = 1000, height: int = 176,
   {''.join(grid)}{area}
   <path d="{dep_path}" fill="none" stroke="{MUTED}" stroke-width="1.6" stroke-dasharray="5 4"/>
   <path d="{bench_path}" fill="none" stroke="{ACCENT}" stroke-width="1.6" stroke-dasharray="2 4" opacity="0.9"/>
-  <path d="{eq_path}" fill="none" stroke="{UP}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path class="glow" d="{eq_path}" fill="none" stroke="{UP}" stroke-width="2.6"
+        stroke-linejoin="round" stroke-linecap="round"/>
   {lastv}
   {endlabel(dep, MUTED, "Wpłacone", dy=14)}{endlabel(bench, ACCENT, "S&P 500", dy=-8)}
   {''.join(labels)}{''.join(xlab)}
@@ -273,6 +298,32 @@ def r_gauge(stop: float, entry: float, target: float, price: float | None) -> st
         f'<div class="rg-lab" style="left:{max(xs, 9):.1f}%">stop</div>'
         f'<div class="rg-lab" style="left:{min(xt, 91):.1f}%">cel</div>'
         '</div>')
+
+
+def sparkline(values: list[float], color: str = UP, width: int = 150, height: int = 26,
+              gid: str = "sp") -> str:
+    """Mini-wykres na karcie metryki. We wzorcu kazda karta portfela ma taki."""
+    vals = [float(v) for v in values if v not in (None, "")]
+    if len(vals) < 2:
+        return '<div style="height:%dpx"></div>' % height
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1.0
+    n = len(vals)
+    pts = []
+    for i, v in enumerate(vals):
+        x = 2 + (width - 4) * i / (n - 1)
+        y = 3 + (height - 6) * (1 - (v - lo) / span)
+        pts.append((x, y))
+    d = _smooth(pts)
+    area = ('<path d="%s L %.1f,%.1f L %.1f,%.1f Z" fill="url(#%s)" stroke="none"/>'
+            % (d, pts[-1][0], height, pts[0][0], height, gid))
+    return (f'<svg viewBox="0 0 {width} {height}" width="100%" height="{height}" '
+            f'preserveAspectRatio="none" role="img" aria-label="Wykres zmian">'
+            f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0%" stop-color="{color}" stop-opacity="0.30"/>'
+            f'<stop offset="100%" stop-color="{color}" stop-opacity="0"/></linearGradient></defs>'
+            f'{area}<path d="{d}" fill="none" stroke="{color}" stroke-width="2" '
+            f'stroke-linejoin="round" stroke-linecap="round"/></svg>')
 
 
 def funnel(steps: list[tuple[str, str, str]]) -> str:
