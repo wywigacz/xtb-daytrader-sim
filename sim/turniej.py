@@ -263,7 +263,7 @@ def warianty(kosz: dict[str, set[str]]) -> list[dict]:
                                 for kk in nazwy_kosz:
                                     zasoby.append(_w_reg(None, rodzina, k, c, r, i, okno, dzw, kk))
     rng.shuffle(zasoby)
-    docel = CEL_WARIANTÓW - len(w) - LOSOWYCH - 1
+    docel = CEL_WARIANTÓW - len(w) - LOSOWYCH      # dokładnie tyle, ile obiecuje stała
     wybrane = zasoby[:docel]
     for n, x in enumerate(wybrane, 1):
         x["id"] = "S%03d" % n
