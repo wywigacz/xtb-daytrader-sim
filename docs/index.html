@@ -256,7 +256,7 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   </div>
   <div class="right">
     <span class="stat open"><i></i>rynek otwarty</span> &nbsp; <b style="color:var(--ink2)">dzień 1 z 300</b><br>
-    dane z 26.10.2026 &middot; 12:18 czasu Nowego Jorku
+    dane z 26.10.2026 &middot; 12:20 czasu Nowego Jorku
   </div>
 </div>
 <div class="prog" role="img" aria-label="Postęp symulacji: dzień 1 z 300">
@@ -302,8 +302,8 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   <div class="w">Szukałem ceny, która wyszła nad szczyt pierwszych 15 minut i zamknęła się nad nim. Znalazlem 29 takich spółek.</div>
 </li><li class="error">
   <div class="t">12:12</div>
-  <div class="a">Nie udało się sprawdzić rynku</div>
-  <div class="w">Yahoo albo feed wiadomości nie odpowiedzial. Nic nie kupiłem; sprobuje przy następnym uruchomieniu (za kilka minut).</div>
+  <div class="a">Błąd w programie symulacji</div>
+  <div class="w">Nie kupiłem, bo program zgłosił błąd (brakowało importu w kodzie). Naprawione tego samego dnia: kupno JPM nastąpiło o 12:16.</div>
 </li><li class="scan">
   <div class="t">12:16</div>
   <div class="a">Przejrzalem 40 spółek</div>
@@ -320,10 +320,10 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   <div class="t-sm mut" style="margin:-6px 0 14px"></div>
   <div class="pos">
   <div class="top"><span class="sym">JPM</span>
-    <span class="down t-md" style="font-weight:600">-$0,53</span></div>
+    <span class="up t-md" style="font-weight:600">$0,08</span></div>
   <div class="row"><span>2 szt. &middot; kupione po $334,57</span>
-    <b>$334,30</b></div>
-  <div class="rg" role="img" aria-label="Odleglosc ceny od stopu i celu"><div class="rg-track"></div><div class="rg-seg" style="left:2.0%;width:8.4%;background:var(--down)"></div><div class="rg-seg" style="left:10.4%;width:87.6%;background:var(--up)"></div><div class="rg-dot" style="left:2.0%;background:var(--down)"></div><div class="rg-dot" style="left:98.0%;background:var(--up)"></div><div class="rg-entry" style="left:10.4%"></div><div class="rg-price" style="left:2.9%;background:var(--down)"></div><div class="rg-lab" style="left:9.0%">stop</div><div class="rg-lab" style="left:91.0%">cel</div></div>
+    <b>$334,61</b></div>
+  <div class="rg" role="img" aria-label="Odleglosc ceny od stopu i celu"><div class="rg-track"></div><div class="rg-seg" style="left:2.0%;width:8.4%;background:var(--down)"></div><div class="rg-seg" style="left:10.4%;width:87.6%;background:var(--up)"></div><div class="rg-dot" style="left:2.0%;background:var(--down)"></div><div class="rg-dot" style="left:98.0%;background:var(--up)"></div><div class="rg-entry" style="left:10.4%"></div><div class="rg-price" style="left:11.5%;background:var(--up)"></div><div class="rg-lab" style="left:9.0%">stop</div><div class="rg-lab" style="left:91.0%">cel</div></div>
   <div class="row"><span>gdy spadnie do stopu</span><b class="down">-$0,59</b></div>
   <div class="row"><span>gdy dojdzie do celu</span><b class="up">$6,17</b></div>
 </div>
@@ -342,10 +342,10 @@ a.lnk{display:inline-block;padding:6px 0;min-height:26px;font-weight:600}
   <div class="nums"><div>kupno<b>$334,57</b></div><div>stop<b>$334,27</b></div><div>cel<b>$337,65</b></div><div>maks. strata<b>$3,38</b></div><div>przychody<b>+28% r/r</b></div><div>marża zysku<b>37%</b></div></div>
 </div><div class="dec">
   <div class="hd"><span class="tag ">odpuszczono</span>
-    <span class="t-xs faint">12:12</span></div>
-  <div class="ttl">Nie udało się sprawdzić rynku</div>
-  <div class="why">Yahoo albo feed wiadomości nie odpowiedzial. Nic nie kupiłem; sprobuje przy następnym uruchomieniu (za kilka minut).</div>
-  <div class="nums"></div>
+    <span class="t-xs faint">12:16</span></div>
+  <div class="ttl">C: cena zdążyła zjechac pod stop</div>
+  <div class="why">Po sygnale cena zjechała poniżej poziomu wyjścia. Kupno oznaczałoby stratę z góry.</div>
+  <div class="nums"><div>cena<b>121.8</b></div><div>stop<b>122.03</b></div></div>
 </div>
 </div><div class="card" id="s4">
   <h3>Od czego do czego</h3>
