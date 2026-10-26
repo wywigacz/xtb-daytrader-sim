@@ -379,7 +379,7 @@ def _masthead(sim: dict, cfg: dict, equity: list[dict]) -> str:
   </div>
   <div class="right">
     {pill} &nbsp; <b style="color:var(--ink2)">dzień {day} z {total}</b><br>
-    dane z {esc(pretty)} &middot; {esc(now.strftime('%H:%M'))} czasu Nowego Jorku
+    zaktualizowano {esc(pretty)} &middot; {esc(now.strftime('%H:%M'))} czasu Nowego Jorku
   </div>
 </div>
 <div class="prog" role="img" aria-label="Postęp symulacji: dzień {day} z {total}">
@@ -511,6 +511,21 @@ def _ostrzezenie_o_automacie(decisions: list[dict]) -> str:
     day = store.ny_stamp()[:10]
     today = [d for d in decisions if str(d.get("ts_ny", "")).startswith(day)]
     sprawdzenia = [d for d in today if d.get("decision") == "scan"]
+
+    # 1) Czy panel w ogóle się odświeża? Nikt tego nie pilnuje, więc panel musi
+    #    sam powiedzieć, jeśli stoi w miejscu od dni (automat padł).
+    if decisions:
+        ostatni = max(str(d.get("ts_ny") or "") for d in decisions)
+        try:
+            kiedy = datetime.strptime(ostatni[:16], "%Y-%m-%d %H:%M")
+            dni = (ses.now_ny().replace(tzinfo=None) - kiedy).days
+        except ValueError:
+            dni = 0
+        if dni >= 3 and ses.now_ny().weekday() < 5:
+            return ('<div class="uwaga">Panel nie był odświeżany od <b>%d dni</b> '
+                    '(ostatni wpis %s) — automat prawdopodobnie nie działa.</div>'
+                    % (dni, esc(ostatni[:10])))
+
     if sprawdzenia:
         return ""
     try:
