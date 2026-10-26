@@ -237,6 +237,7 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
 .costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
 .fine{font-size:14px;color:var(--muted);margin:6px 0 0;max-width:64ch}
+a.lnk{display:inline-block;padding:3px 0}
 .uwaga{margin:0 0 20px;padding:12px 14px;border-radius:10px;font-size:14px;
 background:rgba(240,101,149,.12);border:1px solid rgba(240,101,149,.42);color:#FBD9E5;
 max-width:64ch}
@@ -919,6 +920,10 @@ def _footer(sim: dict, cfg: dict, equity: list[dict] | None = None) -> str:
   <p class="fine">
     Ceny z Yahoo, opóźnione. Zlecenia wymyślone &mdash; nic nie idzie do brokera.
     <b>To nie porada inwestycyjna.</b>
+  </p>
+  <p class="fine">
+    Osobno: <a class="lnk" href="turniej.html">turniej ~1000 wariantów tej metody</a> &mdash; które reguły
+    wypadają lepiej, a ile wyniku to przypadek.
   </p>
 </footer>'''
 

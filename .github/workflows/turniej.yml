@@ -1,0 +1,45 @@
+name: turniej (raz w tygodniu)
+
+# Liczy ~1000 wariantów metody na świecach 5-minutowych z ostatnich ~60 dni.
+# Wynik: docs/turniej.json + docs/turniej.html (podgląd na GitHub Pages).
+#
+# UWAGA: to jest BACKTEST na jednym okresie, nie obietnica na przyszłość.
+# Wybór najlepszego wariantu po fakcie jest łatwy i zwykle bezużyteczny -
+# dlatego raport pokazuje też wynik na oknie, którego warianty nie widziały.
+on:
+  schedule:
+    - cron: "23 6 * * 6"        # sobota, 6:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sim-state            # ten sam stan co tick/daily - nie mogą się bić
+  cancel-in-progress: false
+
+jobs:
+  turniej:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Policz turniej
+        run: python sim/turniej.py --swiezo
+
+      - name: Zapisz wynik
+        run: |
+          git config user.name  "xtb-daytrader-sim"
+          git config user.email "xtb-daytrader-sim@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then echo "bez zmian"; exit 0; fi
+          git commit -m "turniej $(date -u '+%Y-%m-%d')"
+          for i in 1 2 3; do
+            git pull --rebase --autostash -X theirs && git push && break
+            sleep 3
+          done

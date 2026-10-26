@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Turniej wariantów — 999 wariantów</title>
+<style>
+ :root{--bg:#141231;--card:#201D47;--line:#33305A;--ink:#EDEBFF;--mut:#A9A6CC;
+       --up:#38D9A9;--down:#F06595;--acc:#A389F4}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);
+      font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+ .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:28px;margin:0 0 6px} h2{font-size:20px;margin:34px 0 12px}
+ p{color:var(--mut);max-width:66ch;margin:8px 0}
+ a{color:var(--acc)}
+ .kafle{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:20px 0}
+ .kaf{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+ .kaf span{display:block;color:var(--mut);font-size:13px;margin-bottom:4px}
+ .kaf b{font-size:20px}
+ .up{color:var(--up)} .down{color:var(--down)} .faint{color:var(--mut);font-size:14px}
+ a.wroc{display:inline-block;padding:3px 0}
+ table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;
+        overflow:hidden;font-size:14px}
+ th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+ th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+ td.r,th.r{text-align:right}
+ tr:last-child td{border-bottom:0}
+ .uwaga{background:rgba(240,101,149,.12);border:1px solid rgba(240,101,149,.42);
+        border-radius:10px;padding:14px;color:#FBD9E5;margin:16px 0;max-width:70ch}
+ .dobra{background:rgba(56,217,169,.10);border:1px solid rgba(56,217,169,.38);
+        border-radius:10px;padding:14px;color:#D5FBEE;margin:16px 0;max-width:70ch}
+</style></head><body><div class="wrap">
+<p><a class="wroc" href="index.html">&larr; panel symulacji</a></p>
+<h1>Turniej wariantów</h1>
+<p>999 wariantów na tych samych danych: 60 dni sesyjnych
+(2026-08-03 → 2026-10-26), 50 spółek, 1649 sygnałów
+przebicia i 1640 powrotu do średniej.</p>
+
+<div class="kafle">
+ <div class="kaf"><span>Najlepszy wariant</span><b class="up">+60.6%</b></div>
+ <div class="kaf"><span>Indeks S&amp;P 500</span><b>-0.0%</b></div>
+ <div class="kaf"><span>Nic nie robię</span><b>-0.5%</b></div>
+ <div class="kaf"><span>Rozrzut przy tych samych regułach</span><b class="down">30.7 pkt</b></div>
+</div>
+
+<div class="uwaga"><b>Najważniejsza liczba.</b> 845 wariantów reguł,
+a tylko 25 (3%) było na plusie w <b>każdym</b>
+z 3 okien czasowych. Reszta wygrywała raz i przegrywała raz — a to nie przewaga, tylko szum.</div>
+
+<div class="dobra"><b>Uczciwy test.</b> Warianty wybrane na pierwszych dwóch oknach wypadły
+na trzecim (nieznanym) oknie średnio <b>+1.34%</b>, przy medianie
+wszystkich <b>-3.18%</b>. Wybór <i>coś</i> daje — ale o wiele mniej,
+niż sugeruje tabela.</div>
+
+<h2>Najlepsze 20 (cały okres)</h2>
+<table><tr><th class="r">#</th><th>Wariant</th><th class="r">Wynik</th><th>Okna 1/2/3</th>
+<th class="r">Transakcji</th><th class="r">Skuteczność</th><th class="r">Śr. R</th>
+<th class="r">Maks. spadek</th><th>Reguły</th></tr>
+<tr><td class='r'>1</td><td><b>S752</b></td><td class='r up'>+60.57%</td><td class='faint'>+30.0% +36.6% +16.5%</td><td class='r'>117</td><td class='r'>51.3%</td><td class='r'>+0.53</td><td class='r'>13.1%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 2% | pozycji 2 | okno 3 | dźwignia 5:1 | zmienne</td></tr><tr><td class='r'>2</td><td><b>S257</b></td><td class='r up'>+29.81%</td><td class='faint'>+27.9% +31.1% +14.0%</td><td class='r'>94</td><td class='r'>41.5%</td><td class='r'>+0.33</td><td class='r'>16.5%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 4% | pozycji 2 | okno 1 | dźwignia 3:1 | zmienne</td></tr><tr><td class='r'>3</td><td><b>S433</b></td><td class='r up'>+26.61%</td><td class='faint'>+2.2% +18.1% +16.8%</td><td class='r'>186</td><td class='r'>39.8%</td><td class='r'>+0.38</td><td class='r'>7.3%</td><td>stop 0.25×zakres | cel 3×R | ryzyko 1% | pozycji 5 | okno 3 | dźwignia 5:1 | zmienne</td></tr><tr><td class='r'>4</td><td><b>S337</b></td><td class='r up'>+25.84%</td><td class='faint'>+14.0% +15.8% +7.0%</td><td class='r'>161</td><td class='r'>43.5%</td><td class='r'>+0.30</td><td class='r'>7.1%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 1% | pozycji 3 | okno 2 | dźwignia 3:1 | zmienne</td></tr><tr><td class='r'>5</td><td><b>S593</b></td><td class='r up'>+20.28%</td><td class='faint'>+23.8% +34.9% +0.2%</td><td class='r'>149</td><td class='r'>40.9%</td><td class='r'>+0.14</td><td class='r'>15.8%</td><td>stop 0.5×zakres | cel 2×R | ryzyko 2% | pozycji 3 | okno 1 | dźwignia 5:1 | zmienne</td></tr><tr><td class='r'>6</td><td><b>S170</b></td><td class='r up'>+19.17%</td><td class='faint'>-13.6% +21.1% +8.4%</td><td class='r'>214</td><td class='r'>47.2%</td><td class='r'>+0.12</td><td class='r'>21.7%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 4% | pozycji 5 | okno 3 | dźwignia 5:1 | wszystkie</td></tr><tr><td class='r'>7</td><td><b>S726</b></td><td class='r up'>+18.04%</td><td class='faint'>+11.3% +24.4% +0.8%</td><td class='r'>116</td><td class='r'>63.8%</td><td class='r'>+0.24</td><td class='r'>8.8%</td><td>stop 0.5×zakres | cel 1×R | ryzyko 2% | pozycji 2 | okno 2 | dźwignia 5:1 | zmienne</td></tr><tr><td class='r'>8</td><td><b>S755</b></td><td class='r up'>+17.53%</td><td class='faint'>+1.8% +0.8% -5.5%</td><td class='r'>92</td><td class='r'>41.3%</td><td class='r'>+0.06</td><td class='r'>10.4%</td><td>stop 0.5×zakres | cel 2×R | ryzyko 4% | pozycji 3 | okno 1 | dźwignia 5:1 | tech</td></tr><tr><td class='r'>9</td><td><b>S809</b></td><td class='r up'>+15.41%</td><td class='faint'>+1.1% +10.3% +8.8%</td><td class='r'>111</td><td class='r'>43.2%</td><td class='r'>+0.59</td><td class='r'>3.3%</td><td>stop 0.25×zakres | cel 3×R | ryzyko 0.5% | pozycji 2 | okno 1 | dźwignia 5:1 | zmienne</td></tr><tr><td class='r'>10</td><td><b>S007</b></td><td class='r up'>+14.44%</td><td class='faint'>+5.0% +17.8% +3.9%</td><td class='r'>100</td><td class='r'>51.0%</td><td class='r'>+0.21</td><td class='r'>10.1%</td><td>stop 0.5×zakres | cel 1.5×R | ryzyko 4% | pozycji 2 | okno 2 | dźwignia 3:1 | zmienne</td></tr><tr><td class='r'>11</td><td><b>S351</b></td><td class='r up'>+13.20%</td><td class='faint'>-9.3% +12.3% +3.2%</td><td class='r'>60</td><td class='r'>53.3%</td><td class='r'>+0.13</td><td class='r'>13.0%</td><td>stop 0.5×zakres | cel 2×R | ryzyko 4% | pozycji 1 | okno 2 | dźwignia 5:1 | wszystkie</td></tr><tr><td class='r'>12</td><td><b>S410</b></td><td class='r up'>+13.20%</td><td class='faint'>-3.6% +12.6% +6.3%</td><td class='r'>60</td><td class='r'>55.0%</td><td class='r'>+0.10</td><td class='r'>10.7%</td><td>stop 0.5×zakres | cel 1×R | ryzyko 4% | pozycji 1 | okno 2 | dźwignia 3:1 | wszystkie</td></tr><tr><td class='r'>13</td><td><b>S086</b></td><td class='r up'>+11.63%</td><td class='faint'>+3.1% +10.1% +2.9%</td><td class='r'>60</td><td class='r'>71.7%</td><td class='r'>+0.12</td><td class='r'>10.1%</td><td>stop 0.5×zakres | cel 0.5×R | ryzyko 4% | pozycji 1 | okno 2 | dźwignia 3:1 | zmienne</td></tr><tr><td class='r'>14</td><td><b>S438</b></td><td class='r up'>+10.80%</td><td class='faint'>-4.4% +14.2% -5.3%</td><td class='r'>180</td><td class='r'>47.2%</td><td class='r'>+0.09</td><td class='r'>11.7%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 2% | pozycji 3 | okno 2 | dźwignia 5:1 | wszystkie</td></tr><tr><td class='r'>15</td><td><b>S138</b></td><td class='r up'>+10.66%</td><td class='faint'>+6.6% +19.9% -0.1%</td><td class='r'>113</td><td class='r'>59.3%</td><td class='r'>+0.16</td><td class='r'>7.6%</td><td>stop 0.5×zakres | cel 1×R | ryzyko 2% | pozycji 2 | okno 3 | dźwignia 3:1 | zmienne</td></tr><tr><td class='r'>16</td><td><b>S509</b></td><td class='r up'>+10.01%</td><td class='faint'>-1.1% +23.4% +7.0%</td><td class='r'>154</td><td class='r'>46.8%</td><td class='r'>+0.05</td><td class='r'>16.1%</td><td>stop 0.5×zakres | cel 4×R | ryzyko 4% | pozycji 3 | okno 1 | dźwignia 3:1 | wszystkie</td></tr><tr><td class='r'>17</td><td><b>S157</b></td><td class='r up'>+9.89%</td><td class='faint'>+10.0% +7.2% +2.6%</td><td class='r'>124</td><td class='r'>51.6%</td><td class='r'>+0.11</td><td class='r'>6.0%</td><td>stop 1×zakres | cel 1.5×R | ryzyko 4% | pozycji 5 | okno 3 | dźwignia 1:1 | zmienne</td></tr><tr><td class='r'>18</td><td><b>S541</b></td><td class='r up'>+9.58%</td><td class='faint'>-1.0% +6.4% +2.9%</td><td class='r'>108</td><td class='r'>53.7%</td><td class='r'>+0.09</td><td class='r'>7.9%</td><td>stop 0.5×zakres | cel 1×R | ryzyko 4% | pozycji 5 | okno 3 | dźwignia 1:1 | zmienne</td></tr><tr><td class='r'>19</td><td><b>S163</b></td><td class='r up'>+9.49%</td><td class='faint'>-0.6% +4.8% +7.3%</td><td class='r'>118</td><td class='r'>46.6%</td><td class='r'>+0.03</td><td class='r'>6.7%</td><td>stop 0.5×zakres | cel 1.5×R | ryzyko 4% | pozycji 3 | okno 2 | dźwignia 1:1 | wszystkie</td></tr><tr><td class='r'>20</td><td><b>S008</b></td><td class='r up'>+9.36%</td><td class='faint'>-3.7% +10.8% +1.6%</td><td class='r'>60</td><td class='r'>53.3%</td><td class='r'>+0.18</td><td class='r'>6.5%</td><td>stop 0.5×zakres | cel 3×R | ryzyko 2% | pozycji 1 | okno 3 | dźwignia 5:1 | wszystkie</td></tr>
+</table>
+
+<h2>Wzorce odniesienia</h2>
+<p>Punkt odniesienia: <b>-0.01%</b> daje samo trzymanie indeksu, a <b>-0.50%</b> —
+nic nie robienie (tyle kosztuje wymiana waluty).</p>
+<table><tr><th class="r">#</th><th>Wariant</th><th class="r">Wynik</th><th>Okna 1/2/3</th>
+<th colspan="5">Co robi</th></tr>
+<tr><td></td><td><b>B1</b></td><td class='r down'>-0.01%</td><td class='faint'>+2.0% -0.4% -1.1%</td><td colspan='5'>Indeks S&P 500 — kup i trzymaj</td></tr><tr><td></td><td><b>B0</b></td><td class='r down'>-0.50%</td><td class='faint'>-0.5% -0.5% -0.5%</td><td colspan='5'>Nic nie robię (gotówka)</td></tr><tr><td></td><td><b>B2</b></td><td class='r down'>-0.70%</td><td class='faint'>+4.9% +2.1% -4.9%</td><td colspan='5'>Te same spółki — kup i trzymaj</td></tr><tr><td></td><td><b>B3</b></td><td class='r down'>-7.24%</td><td class='faint'>+1.4% -9.1% -0.4%</td><td colspan='5'>Bez sygnału: losowe spółki, stop 1,5%</td></tr>
+</table>
+
+<h2>Rozkład szczęścia</h2>
+<p>150 wariantów ma <b>identyczne reguły</b> i różni się tylko tym, które sygnały wybrały.
+Wynik od <b>-26.89%</b> do <b>+3.77%</b> —
+rozrzut <b>30.66 pkt proc.</b> przy <i>tych samych</i> regułach.
+Tyle w tym eksperymencie wynosi czysty traf.</p>
+
+<h2>Czego ten turniej nie mówi</h2>
+<p>To <b>jeden okres i jeden rynek</b>. Wybór najlepszego wariantu po fakcie jest łatwy i zwykle
+bezużyteczny — dlatego liczy się kolumna „okna" i test na nieznanym oknie. Koszty są policzone
+(wymiana waluty 0,5%, poślizg 5 pb na stronę, podatek 19%), ale <b>bez prowizji CFD</b> — nie znam
+stawki. Pozycje zamykam tego samego dnia, więc swapu nie ma.</p>
+<p class="faint">Policzone 2026-10-26 13:57 czasu Nowego Jorku. Dane: Yahoo, świece 5-minutowe.
+To nie porada inwestycyjna.</p>
+</div></body></html>
