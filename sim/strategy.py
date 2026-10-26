@@ -221,9 +221,9 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
     top = [h.get("symbol") for h in hits[:12]]
     book.decide(
         sim, "scan",
-        title="Przejrzalem %s spółek" % doc.get("scanned"),
+        title="Przejrzałem %s spółek" % doc.get("scanned"),
         why=("Szukałem ceny, która wyszła nad szczyt pierwszych 15 minut i zamknęła się nad nim. "
-             "Znalazlem %d takich spółek." % len(hits)) if hits else
+             "Znalazłem %d takich spółek." % len(hits)) if hits else
             ("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji. "
              "Zadna spółka nie dala sygnału - nie kupuję na sile."),
         numbers={"scanned": doc.get("scanned"), "hits": len(hits), "top": top},
@@ -448,7 +448,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         pass
     book.decide(
         sim, "open", symbol=sym,
-        title="Kupilem %s %s" % (int(qty), sym),
+        title="Kupiłem %s %s" % (int(qty), sym),
         why=("Cena przebiła szczyt pierwszych 15 minut (%s) i zamknęła się nad nim. "
              "Stop jest %.1f%% pod ceną. Cel tak samo daleko jak stop."
              % (pct_over, (1 - float(plan.get("stop") or 0) / max(fill, 0.01)) * 100)),
