@@ -63,8 +63,8 @@ def refresh_fx(sim: dict, cfg: dict) -> float:
         rate = float(sim.get("fx", {}).get("rate") or cfg.get("fx_fallback", 3.65))
     prev = float((sim.get("fx") or {}).get("rate") or 0)
     if prev and abs(rate - prev) / prev > 0.0015:
-        book.decide(sim, "fx", title="Kurs USD/PLN się zmienil",
-                    why="Przelicznik walutowy zmienil się o %.2f%%, wiec wartość portfela w złotówkach tez."
+        book.decide(sim, "fx", title="Kurs USD/PLN się zmienił",
+                    why="Przelicznik walutowy zmienił się o %.2f%%, więc wartość portfela w złotówkach też."
                         % ((rate / prev - 1) * 100),
                     numbers={"rate": round(rate, 4), "was": round(prev, 4)})
     sim["fx"] = {"rate": round(rate, 4), "as_of": store.ny_stamp()}

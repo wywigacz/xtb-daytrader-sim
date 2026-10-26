@@ -1,4 +1,4 @@
-"""Strategia: zarzadzanie otwartymi pozycjami i szukanie wejsc.
+"""Strategia: zarzadzanie otwartymi pozycjami i szukanie wejść.
 
 Metodyka pochodzi z day-trader-skill:
   skan ORB -> wiadomości -> entry (pierwsza swieca 5m zamykajaca się nad szczytem
@@ -225,7 +225,7 @@ def scan_candidates(sim: dict, now=None) -> list[dict]:
         why=("Szukałem ceny, która wyszła nad szczyt pierwszych 15 minut i zamknęła się nad nim. "
              "Znalazłem %d takich spółek." % len(hits)) if hits else
             ("Szukalem ceny, która przebiła maksimum pierwszych 15 minut sesji. "
-             "Zadna spółka nie dala sygnału - nie kupuję na sile."),
+             "Żadna spółka nie dała sygnału — nie kupuję na siłę."),
         numbers={"scanned": doc.get("scanned"), "hits": len(hits), "top": top},
         as_of=doc.get("as_of"),
     )
@@ -392,7 +392,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     # 5b. Kontrola sensu ceny. Miedzy sygnalem a wykonaniem cena mogla pojsc
     #     w zla strone. Jesli juz jest pod stopem (setup sie zepsul) albo nad
     #     celem (ruch sie wydarzyl) - nie wchodze. Bez tego wychodzily
-    #     absurdalne transakcje: "stop" z zyskiem, bo stop byl nad wejsciem.
+    #     absurdalne transakcje: "stop" z zyskiem, bo stop byl nad wejśćiem.
     fill = xtb.slippage_price(px_fill, "buy", slip)
     stop_lvl = float(plan.get("stop") or 0)
     target_lvl = float(plan.get("target") or 0)
@@ -465,7 +465,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
 
 
 def log_daily_news_summary(sim: dict) -> None:
-    """Na koniec dnia: ile łącznie przeczytal i czy to zmienilo decyzje."""
+    """Na koniec dnia: ile łącznie przeczytal i czy to zmieniło decyzje."""
     t = news.today()
     n = int(t.get("read") or 0)
     if not n:

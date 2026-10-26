@@ -107,7 +107,7 @@ def _pl_date(iso: str) -> str:
 
 
 def _cash_add(usd: float) -> None:
-    """Zmienia saldo gotowki w USD (np. zaplata podatku)."""
+    """Zmienia saldo gotówki w USD (np. zaplata podatku)."""
     pf = portfolio()
     pf["cash"] = round(float(pf.get("cash") or 0) + usd, 2)
     store.write_json(store.PORTFOLIO, pf)

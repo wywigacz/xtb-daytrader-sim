@@ -66,7 +66,7 @@ def main() -> int:
     try:
         strategy.log_daily_news_summary(sim)
     except Exception as e:  # noqa: BLE001
-        print("  (podsumowanie wiadomości pominiete: %s)" % e)
+        print("  (podsumowanie wiadomości pominięte: %s)" % e)
 
     # 2. Wycena
     m = engine.snapshot(sim, cfg)

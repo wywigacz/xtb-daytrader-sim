@@ -53,7 +53,7 @@ def main() -> int:
     print("  wpłacone:        %10s zl" % ("{:,.0f}".format(float(fresh.get("deposits_pln_total") or 0)).replace(",", " ")))
     print("  w portfelu:      %10s zl (po koszcie wymiany waluty)"
           % ("{:,.0f}".format(float(m.get("equity_pln") or 0)).replace(",", " ")))
-    print("  gotowka w USD:   %10s" % ("{:,.2f}".format(float(m.get("cash_usd") or 0))))
+    print("  gotówka w USD:   %10s" % ("{:,.2f}".format(float(m.get("cash_usd") or 0))))
     print("  pozycje:         %10s" % (len(fresh.get("open") or {})))
     return 0
 

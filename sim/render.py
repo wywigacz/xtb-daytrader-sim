@@ -53,7 +53,7 @@ def _shrink(path: str, colors: int = 96) -> None:
         im = Image.open(path).convert("RGB")
         im.convert("P", palette=Image.ADAPTIVE, colors=colors).save(path, optimize=True)
     except Exception as e:  # noqa: BLE001
-        print("render: optymalizacja pominieta (%s)" % e, file=sys.stderr)
+        print("render: optymalizacja pominięta (%s)" % e, file=sys.stderr)
 
 
 def to_png(html_path: str, png_path: str, width: int = VIEWPORT, scale: int = SCALE) -> bool:

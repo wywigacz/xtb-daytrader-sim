@@ -1,4 +1,4 @@
-"""Warstwa wiadomości: ile bot przeczytal, co z tego wynika, czy zmienilo decyzje.
+"""Warstwa wiadomości: ile bot przeczytal, co z tego wynika, czy zmieniło decyzje.
 
 Zrodlo: narzędzie trader-news że skilla (nagłówki Yahoo Finance + ruchy ceny).
 Nie wymyslam wiadomości - biorę to, co realnie wroci z feedu, i zapisuje
@@ -104,10 +104,10 @@ def record(sim: dict, doc: dict, impact: str = "", symbol: str = "") -> None:
         known.add(key)
         rec = dict(it)
         if symbol and rec.get("ticker") == symbol.upper():
-            rec["impact"] = impact or "nie zmienil decyzji"
+            rec["impact"] = impact or "nie zmienił decyzji"
         slot["items"].append(rec)
     slot["read"] = len(slot["items"])
-    if impact and impact != "nie zmienil decyzji":
+    if impact and impact != "nie zmienił decyzji":
         slot["blocked"] = int(slot.get("blocked") or 0) + 1
     # trzymamy 10 dni
     for old in sorted(days)[:-10]:

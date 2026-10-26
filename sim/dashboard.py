@@ -6,7 +6,7 @@ Projekt oparty na zmierzonych regulach, nie na wyczuciu:
   * JEDEN EKRAN NA PODSUMOWANIE: najważniejsze liczby, wykres i dzisiejsze
     decyzje mieszcza się nad zgieciem (zasada "tell a story on one screen").
     Szczegóły są nizej, w dwoch kolumnach.
-  * NAJWAZNIEJSZE NAJWIEKSZE: jedna liczba dominuje (44 px), pozostale są
+  * NAJWAŻNIEJSZE NAJWIEKSZE: jedna liczba dominuje (44 px), pozostale są
     wyraźnie mniejsze - inaczej oko nie wie, na co patrzec.
   * LICZBY: duże wartości skracane ("110,4 tys. zl"), dokładne w drugiej linii.
   * KONTRAST: tekst pomocniczy 6,5:1 (WCAG AA wymaga 4,5:1).
@@ -505,7 +505,7 @@ def _timeline(actions: list[dict], limit: int = 3) -> str:
 def _ostrzezenie_o_automacie(decisions: list[dict]) -> str:
     """Jesli danego dnia automat nie sprawdzil rynku, powiedz to wprost.
 
-    GitHub potrafi pominac uruchomienia z harmonogramu. Dzien bez sprawdzen
+    GitHub potrafi pominąć uruchomienia z harmonogramu. Dzien bez sprawdzen
     daje niepelny wynik i nie moze wygladac jak normalny.
     """
     day = store.ny_stamp()[:10]

@@ -76,7 +76,7 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         opened = None
         kind = type(e).__name__
-        print("  (szukanie wejsc przerwane: %s: %s)" % (kind, e))
+        print("  (szukanie wejść przerwane: %s: %s)" % (kind, e))
         # Nie zwalamy kazdego bledu na siec. Blad w kodzie (np. NameError)
         # musi byc widoczny jako blad w kodzie - inaczej szukamy winy w Yahoo,
         # a symulacja milczy. Tak wlasnie przepadl dzien 2026-10-26.
@@ -100,7 +100,7 @@ def main() -> int:
             opened["symbol"], opened["qty"], opened["fill"], p.get("stop"),
             p.get("target"), p.get("risk_per_share")))
     elif not closed:
-        print("  Brak nowych wejsc (brak sygnału / limity / brak miejsc).")
+        print("  Brak nowych wejść (brak sygnału / limity / brak miejsc).")
 
     m = engine.snapshot(sim, cfg)
     book.save_sim(sim)

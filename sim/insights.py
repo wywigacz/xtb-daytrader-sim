@@ -220,7 +220,7 @@ def today_actions(sim: dict) -> list[dict]:
         blocks.append({
             "time": slot["time"][11:16],
             "kind": "block",
-            "title": "Odpuscilem %d okazj%s: %s" % (
+            "title": "Odpuściłem %d okazj%s: %s" % (
                 slot["count"],
                 "e" if slot["count"] == 1 else "i",
                 plain.title_for(slot["code"]).lower()),
