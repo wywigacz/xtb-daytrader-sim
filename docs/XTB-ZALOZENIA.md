@@ -99,13 +99,42 @@ Przykład z 26.10.2026 (JPM): stop wypadł tylko **0,09% pod ceną wejścia**.
 „1% ryzyka" wymagałoby wtedy 84 akcji (~28 000 USD) przy koncie 2 534 USD.
 Limit 30% kupił **2 akcje**. Faktyczne ryzyko: **0,02% konta**.
 
-Mówię to wprost: **przy koncie tej wielkości metoda nie jest w stanie
-zaryzykować 1%.** Jej transakcje to ruchy rzędu 0,1% konta, więc wynik dnia
-jest mały z arytmetyki, nie z awarii.
+Mówię to wprost: **bez dźwigni metoda nie jest w stanie zaryzykować 1%** na tym
+koncie — jej transakcje to ruchy rzędu 0,1% konta. *(Z dźwignią 5:1 to się
+zmienia — patrz sekcja 2c.)*
 
 Reszta pieniędzy leży w gotówce, bo tak działa ta metoda — czeka na sygnał,
 a regulaminowo trzyma jeszcze **20% bufora**. Gotówka **nie procentuje**;
 leży w dolarach, więc zmienia się tylko jej wartość w złotówkach po kursie.
+
+## 2c. Dźwignia — pożyczka od brokera (5:1)
+
+Bez dźwigni zasada „ryzykuj 1% kapitału" była **niewykonalna**: stop leży blisko
+ceny wejścia, więc 1% ryzyka wymagałoby pozycji wartej **2× całe konto**. Efekt
+był taki, że transakcja ryzykowała **0,02%** konta — czyli nic.
+
+Dlatego symulacja używa **dźwigni 5:1** (taką XTB daje dla akcji): za 1 zł
+depozytu można kupić akcje za 5 zł, resztę pożycza broker.
+
+| | Bez dźwigni | Z dźwignią 5:1 |
+| --- | --- | --- |
+| Akcje | 2 | **15** |
+| Wartość pozycji | 0,26× konta | **1,99× konta** |
+| Ryzyko na transakcję | 0,02% | **1,00%** |
+
+Dźwignia ma jednak trzy realne konsekwencje, których nie ukrywam:
+
+1. **Straty rosną tak samo jak zyski.** Stop jest respektowany, ale z dźwignią
+   każdy ruch liczy się od pozycji ~2× większej niż gotówka.
+2. **Pożyczka ma limit.** Zastaw = wartość pozycji ÷ 5. Symulacja pilnuje, żeby
+   po zakupie został **wolny depozyt ≥ 20% kapitału** (inaczej XTB zamyka
+   pozycje). Przy dźwigni 5:1 zmieści się ~2 pozycje na raz, nie 3.
+3. **Prowizji CFD jeszcze nie liczę.** `margin.commission_pct = 0` oznacza, że NIE
+   odejmuję prowizji XTB od kontraktów CFD na akcje. To upraszczanie — realnie
+   obniża wynik. Jeśli znasz swoją stawkę, można ją wpisać w `sim/config.json`.
+
+Dźwignia **nie jest** sposobem na więcej zysku z niczego — zwiększa rozmiar
+pozycji tak, żeby reguła 1% ryzyka w ogóle działała.
 
 ## 3. Podatek — tak, jak na polskim rachunku maklerskim
 

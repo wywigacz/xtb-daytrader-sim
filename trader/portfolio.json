@@ -1,17 +1,4 @@
 {
-  "cash": 1865.19,
-  "positions": [
-    {
-      "ticker": "JPM",
-      "shares": 2.0,
-      "lots": [
-        {
-          "id": "JPM-1",
-          "date": "2026-10-26",
-          "shares": 2.0,
-          "cost": 669.13
-        }
-      ]
-    }
-  ]
+  "cash": 2527.18,
+  "positions": []
 }

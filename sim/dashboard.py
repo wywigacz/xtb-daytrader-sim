@@ -572,6 +572,24 @@ def _positions(sim: dict, trades: list[dict], equity: list[dict] | None = None,
   <div class="row"><span>gdy dojdzie do celu</span><b class="up">{usd((target - entry) * qty)}</b></div>
 </div>''')
         body = "".join(blocks)
+        # Z dźwignią gotówka może być ujemna — to pożyczka od brokera.
+        last = _last_row(equity or [])
+        cash_usd = _f(last.get("cash_usd"))
+        rate = _f(sim.get("fx", {}).get("rate")) or 1.0
+        lev = _f(((cfg or {}).get("margin") or {}).get("leverage"))
+        info = []
+        if cash_usd < -0.5:
+            info.append(("Pożyczka od brokera",
+                         "&minus;%s USD (%s)" % (num(abs(cash_usd), 2), pln(abs(cash_usd) * rate))))
+        else:
+            info.append(("Gotówka wolna", "%s USD" % num(cash_usd, 2)))
+        if lev > 1:
+            pos_usd = _f(last.get("positions_usd"))
+            info.append(("Dźwignia", "%s:1" % int(lev)))
+            info.append(("Zastaw (depozyt)", "%s USD" % num(pos_usd / lev, 2)))
+        body += ('<div class="costs" style="grid-template-columns:repeat(3,1fr);margin-top:14px">'
+                 + "".join('<div><span>%s</span><b>%s</b></div>' % (esc(k), v) for k, v in info)
+                 + '</div>')
     else:
         # Pytanie "skoro nic nie kupiono, skad strata 50 zl?" jest naturalne.
         # Pokazujemy, GDZIE sa pieniadze i skad bierze sie koszt wejscia.
@@ -593,6 +611,9 @@ def _positions(sim: dict, trades: list[dict], equity: list[dict] | None = None,
         if fx.get("rate"):
             rowsx.append(("Kurs wymiany", "%s (%s)" % (num(fx.get("rate"), 4),
                                                       esc(str(fx.get("as_of") or "")[:10]))))
+        lev = _f(((cfg or {}).get("margin") or {}).get("leverage"))
+        if lev > 1:
+            rowsx.append(("Dźwignia", "%s:1 (od brokera)" % int(lev)))
         cells = "".join(f'<div><span>{esc(k)}</span><b>{v}</b></div>' for k, v in rowsx)
         uwaga = ""
         if fee_pln > 0.5:

@@ -1,44 +1,45 @@
 {
   "date": "2026-10-26",
-  "now_new_york": "2026-10-26 12:15",
+  "now_new_york": "2026-10-26 12:57",
   "paper": true,
   "results": [
     {
       "index": 1,
-      "symbol": "JPM",
+      "symbol": "TEST",
       "side": "buy",
       "kind": "entry",
-      "amount": "2 shares",
-      "value_usd": 671.92,
-      "entry_ref": 335.96,
+      "amount": "15 shares",
+      "value_usd": 5025.0,
+      "entry_ref": 335.0,
       "entry_ref_from": "plan",
-      "stop": 334.27,
-      "target": 337.65,
-      "risk_per_share": 1.69,
-      "max_loss": 3.38,
+      "stop": 333.32,
+      "target": 336.68,
+      "risk_per_share": 1.68,
+      "max_loss": 25.2,
       "reward_risk": 1.0,
-      "fingerprint": "12733c3e07008f20",
+      "fingerprint": "4fecd76c718184ef",
       "verdict": "PASS",
       "reasons": [],
-      "warnings": [],
+      "warnings": [
+        "the TEST price in trader/prices.json is older than 15 minutes: not used"
+      ],
       "info": [
-        "entry 335.96 (the plan's entry), stop 334.27, target 337.65: risk 1.69 a share",
-        "max loss $3.38 (limit $25.34), reward:risk 1.00 (min 1)",
-        "today before this: 0 of 3 trades, $0 of $76.03 daily loss"
+        "entry 335.00 (the plan's entry), stop 333.32, target 336.68: risk 1.68 a share",
+        "max loss $25.20 (limit $25.28), reward:risk 1.00 (min 1)",
+        "today before this: 1 of 3 trades, $3.38 of $75.83 daily loss"
       ]
     }
   ],
   "pass": 1,
   "block": 0,
   "warnings": [],
-  "cash_after": 1862.4,
+  "cash_after": -2497.44,
   "today": {
-    "orders_placed": 0,
-    "entries_placed": 0,
-    "loss_at_risk": 0.0,
+    "orders_placed": 1,
+    "entries_placed": 1,
+    "loss_at_risk": 3.38,
     "day_trades_5d": null
   },
-  "prices_as_of": "2026-10-26T16:16:05Z",
-  "checked_at": "2026-10-26T16:16:05Z",
+  "checked_at": "2026-10-26T16:57:17Z",
   "orders_file": "trader/orders.json"
 }

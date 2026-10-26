@@ -44,5 +44,11 @@
   "entry": {
     "max_signal_age_min": 30,
     "opis": "Wchodzę zaraz po przebiciu porannego szczytu. Jeśli od sygnału minęło więcej niż 30 minut, odpuszczam - późne wejście wypacza stop i wielkość pozycji."
+  },
+  "margin": {
+    "leverage": 5.0,
+    "min_free_margin_pct": 20.0,
+    "commission_pct": 0.0,
+    "opis": "Dźwignia jak w XTB dla akcji: 5 zł pozycji za 1 zł depozytu (1:5). Bez dźwigni zasada 'ryzykuj 1% kapitału' była nieosiągalna - stop leży blisko ceny, więc 1% ryzyka wymagałoby pozycji wartej 2x konto. UWAGA: commission_pct = 0 znaczy, że NIE liczę prowizji XTB od kontraktów CFD na akcje - jeśli ją znasz, wpisz stawkę w procentach. Dźwignia powiększa straty tak samo jak zyski."
   }
 }

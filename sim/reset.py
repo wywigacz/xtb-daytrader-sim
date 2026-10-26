@@ -40,7 +40,10 @@ def main() -> int:
         return 1
 
     paths = [store.SIM_JSON, store.EQUITY, store.TRADES, store.DECISIONS,
-             store.LEDGER, store.NEWS_STATE, store.PORTFOLIO]
+             store.LEDGER, store.NEWS_STATE, store.PORTFOLIO,
+             # resztki planu i zlecen z poprzedniego konta — bez nich start jest
+             # naprawdę czysty (inaczej panel potrafi pokazac stara spółkę)
+             store.PLAN, store.ENTRY, store.ORDERS]
     removed = [os.path.basename(p) for p in paths if _remove(p)]
 
     cfg = book.load_cfg()

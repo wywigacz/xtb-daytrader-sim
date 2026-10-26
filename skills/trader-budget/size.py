@@ -358,7 +358,10 @@ def size_trade(plan, cfg, budget=None, limit=None, price=None, cash=None, today=
     cash_buffer = round(budget * buf_pct / 100.0, 2)
     available = budget - cash_buffer
     cash_note = "budget %s minus the %s cash buffer" % (money(budget), money(cash_buffer))
-    if cash is not None and cash - cash_buffer < available - 0.005:
+    if cash is not None and not c.get("allow_margin") and cash - cash_buffer < available - 0.005:
+        # LOKALNA POPRAWKA: przy dzwigni (allow_margin) limitem jest sila nabywcza
+        # z "budget", a nie gotowka z portfolio.json - inaczej pozycja nigdy nie
+        # przekroczy gotowki i dzwignia nie dziala. Bez dzwigni: jak bylo.
         available = cash - cash_buffer
         cash_note = "cash %s in trader/portfolio.json minus the %s buffer" % (money(cash), money(cash_buffer))
     available = max(round(available, 2), 0.0)

@@ -29,16 +29,51 @@ def _clock_args(now=None) -> list[str]:
     return ["--now", stamp] if stamp else []
 
 
+def _wolny_depozyt(extra_usd: float) -> tuple[bool, dict]:
+    """Czy po tej transakcji zostanie dość wolnego depozytu (dźwignia).
+
+    Przy dźwigni pozycja może być warta więcej niż gotówka — resztę pokrywa
+    pożyczka od brokera. Broker nie daje jej bez limitu: zastaw (depozyt) to
+    wartość pozycji podzielona przez dźwignię, a wolny depozyt to kapitał minus
+    zastaw. Wymagamy zapasu, żeby jedna zła transakcja nie zjadła konta.
+    """
+    cfg = book.load_cfg()
+    mg = cfg.get("margin") or {}
+    lev = max(float(mg.get("leverage") or 1.0), 1.0)
+    if lev <= 1.0:
+        return True, {}
+    zapas = float(mg.get("min_free_margin_pct") or 0)
+    ceny = (store.read_json(store.PRICES) or {}).get("prices") or {}
+    zajete = 0.0
+    for sym, qty in (book.holdings() or {}).items():
+        px = float(ceny.get(sym) or book.cost_basis(sym) or 0)
+        zajete += float(qty) * px
+    kapital = book.cash_usd() + zajete
+    pozycja = zajete + float(extra_usd)
+    zastaw = pozycja / lev
+    wolne = kapital - zastaw
+    ile = round(100.0 * wolne / kapital, 1) if kapital > 0 else 0.0
+    liczby = {"dźwignia": "%s:1" % int(lev), "zastaw": round(zastaw, 2),
+              "wolny depozyt": "%s%%" % ("%.1f" % ile).replace(".", ","),
+              "wymagane": "%s%%" % int(zapas)}
+    return (kapital > 0 and ile >= zapas), liczby
+
+
 def build_risk_config(sim: dict, equity_usd: float) -> dict:
     """Wygeneruj trader/config.json (limity skilla) proporcjonalnie do kapitału."""
     cfg = book.load_cfg()
     rf = cfg["risk_from_equity"]
+    mg = cfg.get("margin") or {}
+    lev = max(float(mg.get("leverage") or 1.0), 1.0)
     eq = max(float(equity_usd), 50.0)
+    # Z dzwignia pozycja MOZE byc warta wiecej niz gotowka. Bufor gotowki skilla
+    # wylaczamy (0), bo inaczej blokowalby kazda pozyczke - pilnujemy tego
+    # wlasnym limitem wolnego depozytu (patrz _depozyt).
     c = {
-        "budget": round(eq, 2),
-        "cash_buffer_pct": rf["cash_buffer_pct"],
-        "max_position_pct": rf["max_position_pct"],
-        "max_order_usd": round(eq * rf["max_position_pct"] / 100.0, 2),
+        "budget": round(eq * lev, 2),
+        "cash_buffer_pct": 0.0 if lev > 1.0 else rf["cash_buffer_pct"],
+        "max_position_pct": round(lev * 100.0, 2) if lev > 1.0 else rf["max_position_pct"],
+        "max_order_usd": round(eq * (lev * 100.0 if lev > 1.0 else rf["max_position_pct"]) / 100.0, 2),
         "min_order_usd": 5,
         "max_loss_per_trade_usd": round(eq * rf["max_loss_per_trade_pct"] / 100.0, 2),
         "max_daily_loss_usd": round(eq * rf["max_daily_loss_pct"] / 100.0, 2),
@@ -54,7 +89,7 @@ def build_risk_config(sim: dict, equity_usd: float) -> dict:
         "paper": True,
         "blocked": [],
         "allow_options": False,
-        "allow_margin": False,
+        "allow_margin": lev > 1.0,
         "allow_short": False,
         "pdt_guard": False,
         "sec_user_agent": os.environ.get("SEC_USER_AGENT", "xtb-daytrader-sim contact@example.com"),
@@ -435,6 +470,15 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     plan["risk_per_share"] = round(fill - stop_lvl, 4) if stop_lvl else plan.get("risk_per_share")
 
     notional = qty * fill
+
+    # 6. Depozyt: przy dźwigni pożyczka ma swój limit.
+    ok_dep, liczby_dep = _wolny_depozyt(notional)
+    if not ok_dep:
+        book.decide(sim, "block", symbol=sym, code="depozyt",
+                    title="%s: brak wolnego depozytu" % sym,
+                    why=plain.meaning_for("depozyt"), numbers=liczby_dep)
+        return None
+
     fee = xtb.commission_usd(notional, comm, comm_min)
     ts = store.ny_stamp(now_dt)
     skilltools.run("ticket", ["approve", "--index", 1, "--reply", "yes", "--now", ts], timeout=60)

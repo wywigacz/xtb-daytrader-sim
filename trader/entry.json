@@ -1,6 +1,6 @@
 {
   "created_by": "trader-entry",
-  "symbol": "JPM",
+  "symbol": "XOM",
   "setup": "orb",
   "side": "buy",
   "date": "2026-10-26",
@@ -8,15 +8,15 @@
   "time": "9:50 AM",
   "bar_start": "09:45",
   "bar_index": 3,
-  "price": 335.96,
-  "level": 335.39,
+  "price": 183.39,
+  "level": 183.18,
   "interval": "5m",
   "opening_range": {
-    "high": 335.39,
-    "low": 333.16,
+    "high": 183.18,
+    "low": 181.52,
     "minutes": 15
   },
   "source": "yahoo",
-  "checked_at": "2026-10-26T16:15:00Z",
+  "checked_at": "2026-10-26T16:58:00Z",
   "reason": "the 9:45 bar closed above the range high"
 }

@@ -544,10 +544,16 @@ def check(orders, cfg, portfolio=None, prices=None, state=None, today=None, now=
         buffer_usd = total * float(c.get("cash_buffer_pct") or 0) / 100.0
         if value is not None and side == "buy" and kind == "entry":
             after_cash = cash - value
-            if after_cash < -CENT and not c.get("allow_margin"):
+            # LOKALNA POPRAWKA: flaga allow_margin byla martwa - gdy zakup siegal
+            # po pozyczke, i tak blokowala go regula bufora gotowki (elif ponizej),
+            # wiec z dzwignia nie dalo sie kupic NIC. Przy allow_margin pomijamy
+            # oba warunki gotowkowe; limit pozyczki pilnuje sim (_wolny_depozyt)
+            # oraz limit wielkosci pozycji (max_position_pct).
+            marg = bool(c.get("allow_margin"))
+            if after_cash < -CENT and not marg:
                 later.append("cash: needs %s but only %s cash; that would be margin (borrowed money)"
                              % (money(value), money(cash)))
-            elif after_cash < buffer_usd - CENT:
+            elif not marg and after_cash < buffer_usd - CENT:
                 later.append("cash: leaves %s cash, under your %s%% buffer of %s"
                              % (money(max(after_cash, 0)), _pct(c["cash_buffer_pct"]), money(buffer_usd)))
             pos_after = held_value + value
