@@ -473,7 +473,11 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
         numbers={
             "qty": int(qty), "entry": round(fill, 2), "stop": plan.get("stop"),
             "target": plan.get("target"), "risk_share": plan.get("risk_per_share"),
-            "max_loss": passed.get("max_loss"), "rr": passed.get("reward_risk"),
+            # max stratę i relację zysku do ryzyka liczymy od FAKTYCZNEJ ceny kupna,
+            # nie od ceny sygnału: inaczej panel podaje ryzyko, ktorego nie ma.
+            "max_loss": (round(qty * (fill - stop_lvl), 2) if stop_lvl else passed.get("max_loss")),
+            "rr": (round((target_lvl - fill) / (fill - stop_lvl), 2)
+                   if stop_lvl and fill > stop_lvl and target_lvl else passed.get("reward_risk")),
             "range_high": rng.get("high"), "range_low": rng.get("low"),
             "trigger": entry_doc.get("time"), "news": gate.get("count") or 0,
             "badanie": bad.get("liczby") or {},
