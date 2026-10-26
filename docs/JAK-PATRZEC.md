@@ -11,6 +11,16 @@ Podgląd wypełnionego panelu (z przebiegu testowego) jest w
 
 ---
 
+## Czerwone ostrzeżenie na górze
+
+Jeżeli pojawi się czerwony pasek, że **„ten dzień nie ma ani jednego
+sprawdzenia rynku"**, to znaczy, że automat nie uruchomił się w porze sesji
+(GitHub nie gwarantuje uruchomień z harmonogramu). Taki dzień jest **niepełny** —
+nie porównuj go z innymi.
+
+Dopchnąć sesję można ręcznie: repozytorium → **Actions** → „tick (sesja USA)" →
+**Run workflow**.
+
 ## Co jest w panelu (od góry)
 
 Pasek na samej górze pozwala przeskoczyć do wybranej sekcji.
