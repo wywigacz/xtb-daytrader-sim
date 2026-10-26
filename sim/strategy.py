@@ -29,6 +29,16 @@ def _clock_args(now=None) -> list[str]:
     return ["--now", stamp] if stamp else []
 
 
+def wiek_sygnalu(t_sig, now_dt=None) -> int:
+    """Ile minut mineło od sygnału (0, gdy czasu nie da się odczytać)."""
+    try:
+        t = datetime.strptime(str(t_sig).strip(), "%I:%M %p")
+        teraz = ses.now_ny(now_dt)
+        return (teraz.hour * 60 + teraz.minute) - (t.hour * 60 + t.minute)
+    except (ValueError, TypeError):
+        return 0
+
+
 def _wolny_depozyt(extra_usd: float) -> tuple[bool, dict]:
     """Czy po tej transakcji zostanie dość wolnego depozytu (dźwignia).
 
@@ -377,12 +387,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     # 2a. Sygnal musi byc SWIEZY. Metoda wchodzi na przebiciu, nie godziny pozniej.
     # Bez tego fill wypadal tuz nad stopem (albo pod nim), a wielkosc pozycji
     # przestawala miec cokolwiek wspolnego z planem.
-    try:
-        t_sig = datetime.strptime(str(entry_doc.get("time") or "").strip(), "%I:%M %p")
-        now_ny = ses.now_ny(now_dt)
-        wiek = (now_ny.hour * 60 + now_ny.minute) - (t_sig.hour * 60 + t_sig.minute)
-    except (ValueError, TypeError):
-        wiek = 0
+    wiek = wiek_sygnalu(entry_doc.get("time"), now_dt)
     limit = int((book.load_cfg().get("entry") or {}).get("max_signal_age_min") or 30)
     if wiek > limit:
         book.decide(sim, "skip", symbol=sym, code="spozniony",
