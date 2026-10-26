@@ -40,5 +40,9 @@
     "max_revenue_drop_pct": -15.0,
     "max_symbols": 3,
     "opis": "Przed kazdym kupnem sprawdzam raporty spolki (SEC): przychody, marze, zysk, zysk na akcje. Nie kupuje spolki ze strata w ostatnim kwartale ani takiej, ktorej przychody spadly o wiecej niz 15% r/r."
+  },
+  "entry": {
+    "max_signal_age_min": 30,
+    "opis": "Wchodzę zaraz po przebiciu porannego szczytu. Jeśli od sygnału minęło więcej niż 30 minut, odpuszczam - późne wejście wypacza stop i wielkość pozycji."
   }
 }

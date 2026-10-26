@@ -83,6 +83,30 @@ repozytorium. Uwaga: SEC odrzuca domenę `users.noreply.github.com`.
 Jeżeli SEC nie odpowiada, badanie jest pomijane, a symulacja działa dalej —
 nie udajemy, że coś sprawdziliśmy.
 
+## 2b. Dlaczego pozycje są małe i co robi reszta pieniędzy
+
+Wielkością pozycji rządzą dwie liczby:
+
+* **ryzyko na transakcję: 1% kapitału** (~25 USD przy wpłacie 10 000 zł),
+* **maksymalny udział jednej spółki: 30% kapitału** (~760 USD).
+
+Stop w tej metodzie leży blisko ceny wejścia — to środek zakresu pierwszych
+15 minut, zwykle 0,5–1% pod ceną. Żeby zaryzykować **1% kapitału** przy stopie
+**0,5% pod ceną**, pozycja musiałaby być warta **2× całe konto**. Bez dźwigni
+to niemożliwe, więc zawsze wygrywa limit 30% i pozycja wychodzi mała.
+
+Przykład z 26.10.2026 (JPM): stop wypadł tylko **0,09% pod ceną wejścia**.
+„1% ryzyka" wymagałoby wtedy 84 akcji (~28 000 USD) przy koncie 2 534 USD.
+Limit 30% kupił **2 akcje**. Faktyczne ryzyko: **0,02% konta**.
+
+Mówię to wprost: **przy koncie tej wielkości metoda nie jest w stanie
+zaryzykować 1%.** Jej transakcje to ruchy rzędu 0,1% konta, więc wynik dnia
+jest mały z arytmetyki, nie z awarii.
+
+Reszta pieniędzy leży w gotówce, bo tak działa ta metoda — czeka na sygnał,
+a regulaminowo trzyma jeszcze **20% bufora**. Gotówka **nie procentuje**;
+leży w dolarach, więc zmienia się tylko jej wartość w złotówkach po kursie.
+
 ## 3. Podatek — tak, jak na polskim rachunku maklerskim
 
 Podatku **nie płaci się od każdej transakcji**. Zasady są takie jak w PIT-38:

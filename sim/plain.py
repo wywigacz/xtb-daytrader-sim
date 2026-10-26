@@ -128,6 +128,8 @@ CODE_ONLY: list[tuple[str, str, str]] = [
      "Zlecenie przeszło kontrole, ale zapis się nie udał."),
     ("dane", "Brak ceny",
      "Nie było ceny, której mogłem zaufać."),
+    ("spozniony", "Sygnał był za stary",
+     "Przebicie było dawno temu. Wejście teraz to gonienie ceny, nie metoda."),
     ("badanie", "Badanie spółki wypadło słabo",
      "Raporty spółki mnie odstraszyły: strata albo spadek przychodów."),
 ]

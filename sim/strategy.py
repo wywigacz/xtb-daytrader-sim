@@ -339,6 +339,24 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
                     status=status)
         return None
 
+    # 2a. Sygnal musi byc SWIEZY. Metoda wchodzi na przebiciu, nie godziny pozniej.
+    # Bez tego fill wypadal tuz nad stopem (albo pod nim), a wielkosc pozycji
+    # przestawala miec cokolwiek wspolnego z planem.
+    try:
+        t_sig = datetime.strptime(str(entry_doc.get("time") or "").strip(), "%I:%M %p")
+        now_ny = ses.now_ny(now_dt)
+        wiek = (now_ny.hour * 60 + now_ny.minute) - (t_sig.hour * 60 + t_sig.minute)
+    except (ValueError, TypeError):
+        wiek = 0
+    limit = int((book.load_cfg().get("entry") or {}).get("max_signal_age_min") or 30)
+    if wiek > limit:
+        book.decide(sim, "skip", symbol=sym, code="spozniony",
+                    title="%s: sygnał był za stary" % sym,
+                    why=("Przebicie było %d minut temu. Wejście teraz to gonienie ceny — "
+                         "stop wypada tuż pod ceną i ryzyko przestaje mieć sens." % wiek),
+                    numbers={"minut po sygnale": wiek, "limit": limit})
+        return None
+
     # 3. Exit Planner: stop = srodek zakresu, target 1R.
     rc, out, err = skilltools.run("exit", ["plan", "--stop", "or-mid", "--target", "1R", "--write"] + _clock_args(now_dt), timeout=120)
     if rc != 0:
