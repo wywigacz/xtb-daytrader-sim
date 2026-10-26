@@ -2,3 +2,5 @@ ts_ny,event,symbol,qty,price_usd,notional_usd,fee_usd,cash_usd_after,equity_usd,
 2026-10-26 09:00,DEPOSIT,,,,2527.18,12.7,2527.18,,wpłata 10000 PLN @ 3.9372 -> 2527.18 USD
 2027-07-20 16:20,TAX_DUE,,,,29.05,,2400.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
 2027-07-20 16:20,TAX_PAID,,,,29.05,,2370.81,,zaplacony podatek za 2026: 118 PLN
+2027-07-20 16:20,TAX_DUE,,,,29.05,,2400.0,,"rozliczenie roku 2026: wynik 619 PLN, podatek 118 PLN (zaplace do 2027-04-30)"
+2027-07-20 16:20,TAX_PAID,,,,29.05,,2370.81,,zaplacony podatek za 2026: 118 PLN

@@ -692,19 +692,19 @@ def _decisions(decisions: list[dict]) -> str:
     day = store.ny_stamp()[:10]
     td = [d for d in decisions if str(d.get("ts_ny", "")).startswith(day)]
     picks = [d for d in td if d.get("decision") in ("open", "close", "deposit")]
+    # "dlaczego NIC nie kupilem" bywa wazniejsze niz "dlaczego kupilem" - dlatego
+    # odrzucenia wchodza takze wtedy, gdy tego dnia nie bylo zadnej transakcji.
+    odrzucone = [d for d in td if (d.get("decision") in ("skip", "block") and d.get("symbol"))]
+    # dopiero potem bledy: konkretna odrzucona spolka jest wazniejsza niz awaria
+    odrzucone += [d for d in td if d.get("decision") == "error"]
     if not picks:
-        picks = [d for d in td if d.get("decision") == "block"][:2]
+        picks = odrzucone[:3]
+    elif odrzucone:
+        picks = picks[:3] + odrzucone[:1]     # max 4 karty razem
     if not picks:
         picks = [d for d in reversed(decisions) if d.get("decision") in ("open", "close", "deposit")][:2]
     if not picks:
         return '<div class="empty">Jeszcze nic tu nie ma.</div>'
-    # obok kupna pokazujemy tez dzisiejsze odrzucenie: "dlaczego NIE kupilem"
-    # bywa wazniejsze niz "dlaczego kupilem".
-    odrzucone = [d for d in td if (d.get("decision") in ("skip", "block") and d.get("symbol"))]
-    # dopiero potem bledy: konkretna odrzucona spolka jest wazniejsza niz awaria
-    odrzucone += [d for d in td if d.get("decision") == "error"]
-    if odrzucone:
-        picks = picks[:3] + odrzucone[:1]   # max 4 karty razem
     return "".join(c for c in (_decision_card(d) for d in picks[:4]) if c)
 
 
