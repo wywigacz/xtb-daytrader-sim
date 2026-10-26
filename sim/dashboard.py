@@ -237,6 +237,9 @@ td.r,th.r{text-align:right;padding-right:0;padding-left:18px}
 .costs span{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
 .costs b{display:block;font-size:16px;font-weight:600;margin-top:3px;color:var(--ink2)}
 .fine{font-size:14px;color:var(--muted);margin:6px 0 0;max-width:64ch}
+.uwaga{margin:0 0 20px;padding:12px 14px;border-radius:10px;font-size:14px;
+background:rgba(240,101,149,.12);border:1px solid rgba(240,101,149,.42);color:#FBD9E5;
+max-width:64ch}
 footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
   font-size:14px;color:var(--muted);line-height:1.65}
 code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:14px;color:var(--ink2)}
@@ -497,6 +500,29 @@ def _timeline(actions: list[dict], limit: int = 3) -> str:
         more = ('<div class="empty" style="margin-top:8px">…i %d więcej poniżej.</div>'
                 % (len(actions) - limit))
     return '<ul class="tl">' + "".join(li) + "</ul>" + more
+
+
+def _ostrzezenie_o_automacie(decisions: list[dict]) -> str:
+    """Jesli danego dnia automat nie sprawdzil rynku, powiedz to wprost.
+
+    GitHub potrafi pominac uruchomienia z harmonogramu. Dzien bez sprawdzen
+    daje niepelny wynik i nie moze wygladac jak normalny.
+    """
+    day = store.ny_stamp()[:10]
+    today = [d for d in decisions if str(d.get("ts_ny", "")).startswith(day)]
+    sprawdzenia = [d for d in today if d.get("decision") == "scan"]
+    if sprawdzenia:
+        return ""
+    try:
+        if ses.is_open(ses.now_ny()):
+            return ""            # sesja trwa - jeszcze moze sprawdzic
+        if ses.now_ny().weekday() >= 5:
+            return ""            # weekend, gielda zamknieta
+    except Exception:  # noqa: BLE001
+        return ""
+    return ('<div class="uwaga">Ten dzień nie ma ani jednego sprawdzenia rynku &mdash; '
+            'automat nie uruchomił się w porze sesji. Wynik tego dnia jest niepełny '
+            'i nie należy go porównywać z pozostałymi.</div>')
 
 
 def _summary(sim: dict, cfg: dict, equity: list[dict], trades: list[dict],
@@ -881,7 +907,8 @@ def build(sim: dict, cfg: dict) -> str:
     decisions = _load_decisions()
     dep = _f(sim.get("deposits_pln_total"))
 
-    body = [_masthead(sim, cfg, equity), _summary(sim, cfg, equity, trades, decisions)]
+    body = [_masthead(sim, cfg, equity), _ostrzezenie_o_automacie(decisions),
+            _summary(sim, cfg, equity, trades, decisions)]
     if not dep and not trades:
         body.append(_empty_intro(cfg))
 

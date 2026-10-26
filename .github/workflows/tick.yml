@@ -3,14 +3,18 @@ name: tick (sesja USA)
 # Skrypt sam sprawdza, czy giełda jest naprawdę otwarta (czas Nowego Jorku,
 # święta, DST) - poza sesja kończy się w kilkanascie sekund, nic nie robiac.
 #
-# Dwa harmonogramy, bo metoda działa najswiezej zaraz po otwarciu:
-#   * 13:00-16:50 UTC co 10 minut - to okno 9:45-11:30 czasu Nowego Jorku
-#     (w obu wariantach czasu letniego/zimowego),
-#   * 17:00-21:50 UTC co 30 minut - reszta sesji.
+# UWAGA o niezawodnosci: GitHub NIE gwarantuje uruchomien z harmonogramu -
+# przy gęstych cronach potrafi je opoznic albo pominac (tak przepadl dzien
+# 2026-10-26, mimo 20 zaplanowanych uruchomien). Dlatego:
+#   * cron jest gesty (co 5 minut w sesji), zeby zwiekszyc szanse,
+#   * panel pokazuje ostrzezenie, gdy danego dnia nie bylo ZADNEGO sprawdzenia
+#     rynku - zeby niepełny dzien nie wygladal jak normalny,
+#   * `workflow_dispatch` pozwala dopchnąć sesje ręcznie.
+# 13:00-20:55 UTC = okno 9:00-16:55 czasu Nowego Jorku (lato i zima).
 on:
   schedule:
-    - cron: "*/10 13-16 * * 1-5"
-    - cron: "*/30 17-21 * * 1-5"
+    - cron: "*/5 13-20 * * 1-5"
+    - cron: "3,13,23,33,43,53 21 * * 1-5"
   workflow_dispatch:
 
 permissions:

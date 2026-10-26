@@ -19,6 +19,12 @@ na spółkę i tylko przy świeżym sygnale. Symulator nie goni ceny, która ju�
 odjechała. W sekcji *Lejek decyzji* widać dokładnie, ile okazji odrzucono
 i z jakiego powodu.
 
+### Co znaczy czerwone ostrzeżenie w panelu?
+Że danego dnia **automat ani razu nie sprawdził rynku**. GitHub nie gwarantuje
+uruchomień z harmonogramu — przy gęstym cronie potrafi je opóźnić albo pominąć.
+Wynik takiego dnia jest niepełny, więc panel mówi to wprost, zamiast pokazywać
+go jak normalny. Można wtedy dopchnąć sesję ręcznie (`workflow_dispatch`).
+
 ### Co się dzieje, jeśli GitHub Actions się nie uruchomi?
 Stan jest zapisany w repo — nic nie przepada. Następne uruchomienie dociągnie
 zaległe świece i domknie pozycję. Cron GitHuba bywa spóźniony o kilka minut,
