@@ -1,0 +1,46 @@
+{
+  "orders": [
+    {
+      "at": "2026-10-26T12:15:00-04:00",
+      "date": "2026-10-26",
+      "index": 1,
+      "fingerprint": "12733c3e07008f20",
+      "symbol": "JPM",
+      "side": "buy",
+      "qty": "2",
+      "kind": "entry",
+      "max_loss": 3.38,
+      "stop": 334.27,
+      "plain": "BUY 2 JPM, market, good for today / stop-loss 334.27 / take-profit 337.65 / max loss about $3.38 if the stop fills at 334.27 (it can fill worse in a fast market)",
+      "status": "approved",
+      "reply": "yes",
+      "paper": true,
+      "broker": "xtb"
+    },
+    {
+      "at": "2026-10-26T12:15:00-04:00",
+      "date": "2026-10-26",
+      "index": 1,
+      "fingerprint": "12733c3e07008f20",
+      "symbol": "JPM",
+      "side": "buy",
+      "plain": "BUY 2 JPM, market, good for today / stop-loss 334.27 / take-profit 337.65 / max loss about $3.38 if the stop fills at 334.27 (it can fill worse in a fast market)",
+      "status": "placed",
+      "qty": "2",
+      "kind": "entry",
+      "max_loss": 3.38,
+      "stop": 334.27,
+      "broker_order_id": "SIM-1793031365"
+    },
+    {
+      "at": "2026-10-26T12:15:00-04:00",
+      "date": "2026-10-26",
+      "status": "filled",
+      "symbol": "JPM",
+      "side": "buy",
+      "qty": "2",
+      "price": 334.5672,
+      "plain": "BUY 2 JPM at 334.57"
+    }
+  ]
+}

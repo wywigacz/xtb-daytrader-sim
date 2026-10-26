@@ -100,10 +100,131 @@
           "risk": false,
           "risk_tags": [],
           "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Will JPMorgan's Nigeria Expansion Bolster Its Growth Prospects?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T14:40:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgans-nigeria-expansion-bolster-growth-144000060.html?.tsrc=rss",
+          "tags": "regulacje",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "JPMorgan (JPM) Stock Could Be 33% Undervalued Following JPM Coin Expansion",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T14:08:11+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-jpm-stock-could-33-140811654.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "He Sat On 745,575 Chase Points For Years, Waiting For The Perfect Trip. When His Second Kid Was Born He Decided To Do Something Totally Different",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T14:06:49+00:00",
+          "link": "https://247wallst.com/personal-finance/2026/10/26/he-sat-on-745575-chase-points-for-years-waiting-for-the-perfect-trip-when-his-second-kid-was-born-he-decided-to-do-something-totally-different/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Can French stocks rebound despite persistent political risks? JPM weighs in",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T11:21:34+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/french-stocks-rebound-despite-persistent-112134881.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T11:00:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000729.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Telefonica shares drop 7% after J.P. Morgan warns of debt risks at VMO2",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T10:55:29+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/telefonica-shares-drop-7-j-105529352.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Should JPMorgan BetaBuilders U.S. Mid Cap Equity ETF (BBMC) Be on Your Investing Radar?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T09:20:02+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-betabuilders-u-mid-cap-092002197.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Which Crypto Could Be the Second to Reach a $1 Trillion Market Value?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-25T22:30:54+00:00",
+          "link": "https://247wallst.com/investing/cryptocurrency/2026/10/25/which-crypto-could-be-the-second-to-reach-a-1-trillion-market-value/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "What Will 10 Ethereum (ETH) Be Worth by 2030?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-25T21:30:20+00:00",
+          "link": "https://247wallst.com/investing/cryptocurrency/2026/10/25/what-will-10-ethereum-eth-be-worth-by-2030/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "Will Solana Ever Hit $1,000? What It Would Take From $100",
+          "source": "Yahoo Finance",
+          "time": "2026-10-25T20:30:29+00:00",
+          "link": "https://247wallst.com/investing/cryptocurrency/2026/10/25/will-solana-ever-hit-1000-what-it-would-take-from-100/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "JPM",
+          "title": "JPMorgan Has Nearly $900 Million in Tokenized Funds on Ethereum and Solana. Which Chain Benefits More?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-25T18:30:43+00:00",
+          "link": "https://247wallst.com/investing/cryptocurrency/2026/10/25/jpmorgan-has-nearly-900-million-in-tokenized-funds-on-ethereum-and-solana-which-chain-benefits-more/?.tsrc=rss",
+          "tags": "transakcja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
         }
       ],
-      "runs": 1,
-      "read": 9,
+      "runs": 3,
+      "read": 20,
       "blocked": 0
     }
   }
