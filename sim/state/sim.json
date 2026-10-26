@@ -19,14 +19,15 @@
   "tax_paid_pln": 0.0,
   "loss_carry_pln": 0.0,
   "fx": {
-    "rate": 3.9261,
-    "as_of": "2026-10-26 09:00"
+    "rate": 3.9378,
+    "as_of": "2026-10-26 12:11"
   },
-  "day_count": 0,
+  "day_count": 1,
   "deposits_pln_total": 10000.0,
   "benchmark": {
     "symbol": "^GSPC",
     "units": 0.332427,
     "spent_usd": 2534.32
-  }
+  },
+  "last_day": "2026-10-26"
 }
