@@ -17,7 +17,7 @@ import os
 import time
 from datetime import datetime
 
-from . import book, market, news, research, session as ses, skilltools, store, xtb
+from . import book, market, news, plain, research, session as ses, skilltools, store, xtb
 
 # Badania spółek trzymamy w pamięci jednego uruchomienia - SEC jest wolne.
 _RESEARCH_CACHE: dict[str, dict] = {}

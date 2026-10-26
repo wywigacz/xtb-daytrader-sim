@@ -653,7 +653,8 @@ def _decisions(decisions: list[dict]) -> str:
         return '<div class="empty">Jeszcze nic tu nie ma.</div>'
     # obok kupna pokazujemy tez dzisiejsze odrzucenie: "dlaczego NIE kupilem"
     # bywa wazniejsze niz "dlaczego kupilem".
-    odrzucone = [d for d in td if d.get("decision") in ("skip", "block") and d.get("symbol")]
+    odrzucone = [d for d in td if (d.get("decision") in ("skip", "block") and d.get("symbol"))
+                 or d.get("decision") == "error"]
     if odrzucone:
         picks = picks[:3] + odrzucone[:1]   # max 4 karty razem
     return "".join(c for c in (_decision_card(d) for d in picks[:4]) if c)

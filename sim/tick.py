@@ -75,12 +75,25 @@ def main() -> int:
         opened = strategy.try_enter(sim, now)
     except Exception as e:  # noqa: BLE001
         opened = None
-        print("  (szukanie wejsc przerwane: %s: %s)" % (type(e).__name__, e))
-        book.decide(sim, "error",
-                    title="Nie udało się sprawdzić rynku",
-                    why="Yahoo albo feed wiadomości nie odpowiedzial. Nic nie kupiłem; "
-                        "sprobuje przy następnym uruchomieniu (za kilka minut).",
-                    error="%s: %s" % (type(e).__name__, str(e)[:180]))
+        kind = type(e).__name__
+        print("  (szukanie wejsc przerwane: %s: %s)" % (kind, e))
+        # Nie zwalamy kazdego bledu na siec. Blad w kodzie (np. NameError)
+        # musi byc widoczny jako blad w kodzie - inaczej szukamy winy w Yahoo,
+        # a symulacja milczy. Tak wlasnie przepadl dzien 2026-10-26.
+        sieciowe = ("urlerror", "httperror", "timeout", "connection", "socket",
+                    "skillerror", "remotedisconnected", "jsondecode")
+        net = any(w in kind.lower() or w in str(e).lower()[:150] for w in sieciowe)
+        if net:
+            tytul = "Brak danych z rynku"
+            why = ("Yahoo albo feed wiadomości nie odpowiedział. Nic nie kupiłem; "
+                   "spróbuję przy następnym uruchomieniu.")
+        else:
+            tytul = "Błąd w programie symulacji"
+            why = ("Nie kupiłem, bo program zgłosił błąd i nie ufam takiemu wynikowi. "
+                   "To błąd w kodzie, nie w danych z rynku.")
+        book.decide(sim, "error", title=tytul, why=why,
+                    error="%s: %s" % (kind, str(e)[:180]),
+                    numbers={"rodzaj": "sieć" if net else "błąd programu"})
     if opened:
         p = opened["plan"]
         print("  OTWARTE %s %s @ %s | stop %s | target %s | ryzyko/akcja %s" % (
