@@ -74,7 +74,12 @@ def main() -> int:
     store.EQUITY = os.path.join(store.STATE, "equity.csv")
     store.TRADES = os.path.join(store.STATE, "trades.csv")
     store.NEWS_STATE = os.path.join(store.STATE, "news.json")
+    store.LEDGER = os.path.join(store.STATE, "ledger.csv")     # tego brakowalo!
     store.PORTFOLIO = os.path.join(out_dir, "trader", "portfolio.json")
+    store.PLAN = os.path.join(out_dir, "trader", "plan.json")
+    store.ENTRY = os.path.join(out_dir, "trader", "entry.json")
+    store.ORDERS = os.path.join(out_dir, "trader", "orders.json")
+    store.PRICES = os.path.join(out_dir, "trader", "prices.json")
     store.UNIVERSE = os.path.join(out_dir, "universe.txt")
     store.SPOLKI = os.path.join(out_dir, "data", "spolki.csv")
     shutil.copyfile(os.path.join(SRC, "data", "spolki.csv"), store.SPOLKI)

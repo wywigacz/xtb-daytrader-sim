@@ -27,8 +27,18 @@ def ensure_init(sim: dict, cfg: dict) -> dict:
     sc = cfg["simulation"]
     if not sim.get("start_date"):
         sim["start_date"] = sc["start_date"]
-        sim["end_date"] = (datetime.strptime(sc["start_date"], "%Y-%m-%d")
-                           + timedelta(days=int(sc["days"]))).strftime("%Y-%m-%d")
+        # Data konca = dzien, w ktorym licznik dojdzie do "days" DNI SESYJNYCH.
+        # Wczesniej bylo "+300 dni kalendarzowych", a licznik liczy dni sesyjne -
+        # czyli symulacja konczylaby sie w polowie (ok. 210 z 300) i panel nigdy
+        # nie dobrowalby do konca.
+        d = datetime.strptime(sc["start_date"], "%Y-%m-%d").date()
+        n, ostatni = 0, d
+        while n < int(sc["days"]):
+            if ses.is_trading_day(d):
+                n += 1
+                ostatni = d
+            d += timedelta(days=1)
+        sim["end_date"] = ostatni.isoformat()
         sim["open"] = {}
         sim["deposits"] = []
         sim["realized_pnl_usd"] = 0.0
