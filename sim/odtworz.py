@@ -109,17 +109,28 @@ def odtworz(sim: dict, cfg: dict, now=None) -> dict:
     granica = int((cfg["risk_from_equity"].get("max_trades_per_day") or 3))
 
     # 1. Sygnały z całego dnia (świece 5-minutowe).
+    #    UWAGA: Yahoo zwraca OSTATNIĄ sesję, niekoniecznie nasz dzień. Gdyby
+    #    pobrać dane przed sesją, zaksięgowalibyśmy poniedziałek jako wtorek.
+    #    Dlatego bierzemy tylko świece z właściwą datą i bez nich nie ruszamy.
     kandydaci = []
+    danych_dnia = 0
     for sym in store.spolki_universe():
         try:
             bary = market.bars(sym, "1d", "5m")
         except Exception:  # noqa: BLE001
             continue
+        bary = [b for b in bary if str(b.get("ny") or "")[:10] == dzien.isoformat()]
+        if not bary:
+            continue
+        danych_dnia += 1
         s = sygnal(bary, okno[0], okno[1])
         if s:
             kandydaci.append((sym, s))
     kandydaci.sort(key=lambda x: -x[1]["nad_szczytem"])
-    wynik["sprawdzone"] = len(store.spolki_universe())
+    wynik["sprawdzone"] = danych_dnia
+    if danych_dnia < 5:
+        wynik["stan"] = "brak danych dnia"
+        return wynik          # NIE oznaczamy dnia jako odtworzonego
 
     if not kandydaci:
         book.decide(sim, "scan",
