@@ -248,6 +248,376 @@
       "runs": 4,
       "read": 22,
       "blocked": 4
+    },
+    "2026-10-27": {
+      "items": [
+        {
+          "ticker": "GM",
+          "title": "GM to offer hybrid versions of top-selling SUV models - report",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T18:01:01+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/gm-offer-hybrid-versions-top-180101667.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "Why GM is still an automaker despite its move to the Nasdaq",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T17:54:11+00:00",
+          "link": "https://finance.yahoo.com/video/why-gm-is-still-an-automaker-despite-its-move-to-the-nasdaq-175411900.html?.tsrc=rss",
+          "tags": "zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "Tesla’s Profit Fell 43% and the Stock Held Up. Here’s Why",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:33:08+00:00",
+          "link": "https://247wallst.com/investing/2026/10/27/teslas-profit-fell-43-and-the-stock-held-up-heres-why/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM to Leave NYSE for Stock Listing on Tech-Focused Nasdaq",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:29:02+00:00",
+          "link": "https://finance.yahoo.com/video/gm-leave-nyse-stock-listing-162902107.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM's new move aims to put its stock in the company of Amazon and Apple",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:06:22+00:00",
+          "link": "https://www.freep.com/story/money/cars/general-motors/2026/10/27/gm-remove-stock-nyse-nasdaq/92458855007/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "What GM’s Move to the Nasdaq Means for the Stock",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:47:00+00:00",
+          "link": "https://finance.yahoo.com/m/5f1b2531-fd81-326a-aafa-824671023a45/what-gm%E2%80%99s-move-to-the-nasdaq.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "General Motors to Transfer Stock Listing to Nasdaq on November 17, 2026; Shares Rise 2.4%",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:30:47+00:00",
+          "link": "https://investorshub.advfn.com/market-news/article/38662/general-motors-to-transfer-stock-listing-to-nasdaq-on-november-17-2026-shares-rise-2-4?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "Brampton sale, tariffs loom over Stellantis-Unifor labor talks",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:00:00+00:00",
+          "link": "https://www.wardsauto.com/news/brampton-sale-tariffs-loom-over-stellantis-unifor-labor-talks/833897/?.tsrc=rss",
+          "tags": "makro",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM just switched to the Nasdaq, but does that really make it a tech company?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:24:48+00:00",
+          "link": "https://finance.yahoo.com/video/gm-just-switched-to-the-nasdaq-but-does-that-really-make-it-a-tech-company-132448093.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "Is Tesla Stock Safer Or Riskier Than A Year Ago?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T12:54:23+00:00",
+          "link": "https://www.trefis.com/stock/tsla/articles/620791/is-tesla-stock-safer-or-riskier-than-a-year-ago/2026-10-27?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "The Zacks Analyst Blog Highlights Ford, General Motors and Toyota",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T12:06:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-analyst-blog-highlights-ford-120600470.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Should You Wait Before Buying Lululemon Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T17:22:22+00:00",
+          "link": "https://www.trefis.com/stock/lulu/articles/620797/should-you-wait-before-buying-lululemon-stock/2026-10-27?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Can NIKE's Pace Transformation Reshape Its Cost Structure?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T17:15:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/nikes-pace-transformation-reshape-cost-171500211.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "You Can Do Better Than Nike. Buy This High-Yield Dividend Stock Instead.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:50:00+00:00",
+          "link": "https://www.fool.com/investing/2026/10/27/you-can-do-better-than-nike-buy-this-high-yield/?.tsrc=rss",
+          "tags": "finansowanie",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Should You Forget Nike Stock Near a 52-Week Low?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T01:40:45+00:00",
+          "link": "https://www.fool.com/investing/2026/10/26/should-you-forget-nike-stock-near-a-52-week-low/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Amer Sports Leads Athletic Footwear This Holiday Season as Others Struggle, Bank of America Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-26T18:57:21+00:00",
+          "link": "https://wwd.com/footwear-news/shoe-industry-news/nike-lululemon-athletic-footwear-holiday-off-price-salomon-1239385565/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Technologies, Inc. Q3 2026 Earnings Call Summary",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T17:54:23+00:00",
+          "link": "https://app.moby.co/home/research/tools/earningsCalendar/earnings-sofi-technologies-inc-q3-2026-earnings-call-summary?utm_source=yahoo_finance&utm_medium=rss&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "Stock Market Midday, Oct. 27: Tech Stocks Drive Momentum and SoFi Surges 15%",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:40:38+00:00",
+          "link": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-midday-oct-27-tech-stocks-lead-as-nasdaq-climbs-on-market-momentum/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Says It Had an ‘Exceptional’ Quarter. The Stock Is Surging",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:31:28+00:00",
+          "link": "https://www.investopedia.com/market-update-sofi-says-it-had-an-exceptional-quarter-the-stock-is-surging-12196524?.tsrc=rss",
+          "tags": "wyniki zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SOFI Stock On Track To Post Best Day This Quarter After Record Results Beat Estimates",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:29:35+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/sofi-stock-on-track-to-post-best-day-this-quarter-after-record-results-beat-estimates/cZUegeeRBCl?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi (SOFI) Q3 2026 Earnings Call Transcript",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:59:21+00:00",
+          "link": "https://www.fool.com/earnings/call-transcripts/2026/10/27/sofi-sofi-q3-2026-earnings-call-transcript/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Technologies May Finally Have Silenced Its Skeptics",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:13:00+00:00",
+          "link": "https://finance.yahoo.com/m/5149c0d7-2342-3bbe-ba12-87d4874f6fdd/sofi-technologies-may-finally.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Technologies Q3 Earnings Call Highlights",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:05:06+00:00",
+          "link": "https://www.marketbeat.com/instant-alerts/transcript-sofi-technologies-q3-earnings-call-highlights-2026-10-27/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Posts Record Third-Quarter Revenue of $1.4 Billion, Raises Full-Year Guidance",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:02:00+00:00",
+          "link": "https://www.cryptoprowl.com/releases/sofi-posts-record-third-quarter-revenue-of-14-billion-raises-full-year-guidance-7485?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi's Customer Boom Has a $90 Question for Investors",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T15:00:23+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/sofis-customer-boom-90-investors-150023915.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "BC-Most Active Stocks",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:30:16+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/bc-most-active-stocks-143016210.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi raises 2026 forecast after record third-quarter revenue",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:12:00+00:00",
+          "link": "https://www.proactiveinvestors.com/companies/news/1100765/sofi-raises-2026-forecast-after-record-third-quarter-revenue-1100765.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi’s Net Crypto Revenue Jumps 38% QoQ to $1.63M in Q3 2026",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:03:35+00:00",
+          "link": "https://coingape.com/block-of-fame/pulse/sofis-net-crypto-revenue-jumps-38-qoq-to-1-63m-in-q3-2026/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "Tech rises for second day in a row as chip stocks gain: AlphaCheck",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:45:31+00:00",
+          "link": "https://finance.yahoo.com/markets/article/tech-rises-for-2nd-day-in-a-row-as-chip-stocks-gain-alphacheck-134531476.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi shares ascend after beating Q3 estimates",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:37:33+00:00",
+          "link": "https://finance.yahoo.com/video/sofi-shares-ascend-after-beating-q3-estimates-133733934.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Expects to Earn 48% More in 2027. Is the Stock a Buy?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:17:01+00:00",
+          "link": "https://www.fool.com/investing/2026/10/27/sofi-expects-to-earn-48-more-in-2027-is-the-stock-a-buy/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Jumps 11% as Lending Boom Drives Earnings Beat and Raised Outlook; Robinhood and Affirm Edge Higher",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:15:25+00:00",
+          "link": "https://247wallst.com/investing/2026/10/27/sofi-jumps-11-as-lending-boom-drives-earnings-beat-and-raised-outlook-robinhood-and-affirm-edge-higher/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "SOFI",
+          "title": "SoFi Earnings Top Views. Fintech Hikes 2026 Revenue Guidance.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:10:07+00:00",
+          "link": "https://finance.yahoo.com/m/a0cead13-19b4-3fb7-a4c2-3d3f798f3095/sofi-earnings-top-views..html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        }
+      ],
+      "runs": 3,
+      "read": 33,
+      "blocked": 3
     }
   }
 }
