@@ -43,7 +43,11 @@
   },
   "entry": {
     "max_signal_age_min": 30,
-    "opis": "Wchodzę zaraz po przebiciu porannego szczytu. Jeśli od sygnału minęło więcej niż 30 minut, odpuszczam - późne wejście wypacza stop i wielkość pozycji."
+    "opis": "Okno wejść metody: od 9:45 (po pierwszych 15 minutach) do 11:30 czasu Nowego Jorku. Po sesji automat odtwarza z danych te same sygnały, jeśli ticki nie sprawdziły tego okna.",
+    "okno_wejsc": [
+      "09:45",
+      "11:30"
+    ]
   },
   "margin": {
     "leverage": 5.0,

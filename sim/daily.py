@@ -13,7 +13,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from sim import book, dashboard, engine, session as ses, store, strategy  # noqa: E402
+from sim import book, dashboard, engine, market, odtworz, session as ses, store, strategy
 
 
 def _cli_now():
@@ -48,6 +48,26 @@ def main() -> int:
     if sim.get("last_day") != str(today):
         sim["day_count"] = int(sim.get("day_count") or 0) + 1
         sim["last_day"] = str(today)
+
+    # 0b. ODTWORZENIE DNIA — ratunek, gdy ticki nie sprawdzily okna wejsc.
+    #     GitHub gubi uruchomienia z harmonogramu (2026-10-26: zero tickow w oknie),
+    #     a metoda wchodzi rano. Tutaj szukamy tych samych sygnalow w danych z calego
+    #     dnia. Musi byc PRZED krokiem 1: odtworzone pozycje domknie ten krok,
+    #     na tych samych swiecach i ta sama logika wyjsc co na zywo.
+    try:
+        rec = odtworz.odtworz(sim, cfg, now)
+        if rec.get("kupione"):
+            print("  ODTWORZONE: kupione %s | sprawdzonych %d | odrzucone %s"
+                  % (", ".join(rec["kupione"]), rec.get("sprawdzone") or 0,
+                     ", ".join(rec["odrzucone"]) or "brak"))
+        else:
+            print("  Odtworzenie dnia: %s (sprawdzonych %d)"
+                  % (rec.get("stan"), rec.get("sprawdzone") or 0))
+    except Exception as e:  # noqa: BLE001
+        print("  (odtwarzanie dnia przerwane: %s: %s)" % (type(e).__name__, e))
+        book.decide(sim, "error", title="Nie udało się odtworzyć dnia",
+                    why="Po sesji nie udało się policzyć sygnałów z danych. Nic nie kupiłem.",
+                    error="%s: %s" % (type(e).__name__, str(e)[:180]))
 
     # 1. Domkniecie resztek (blad feedu nie moze przerwac rozliczenia dnia)
     try:

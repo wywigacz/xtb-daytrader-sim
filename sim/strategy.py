@@ -39,7 +39,31 @@ def wiek_sygnalu(t_sig, now_dt=None) -> int:
         return 0
 
 
-def _wolny_depozyt(extra_usd: float) -> tuple[bool, dict]:
+def _pozycje_usd(sim: dict | None = None) -> float:
+    """Wartość otwartych pozycji w USD.
+
+    Pozycje bierzemy z zapisu symulacji (sim["open"]), a nie z portfolio.json:
+    symulacja zapisuje tam tylko gotówkę, więc `holdings()` zawsze zwracał zero
+    i kapitał spadał do samej gotówki (po dwóch kupnach: 4,97 USD) — kolejne
+    pozycje wychodziły „za małe" i zakupy się blokowały.
+
+    Cena: ostatnia znana z trader/prices.json, a gdy jej nie ma — cena kupna.
+    """
+    ceny = (store.read_json(store.PRICES) or {}).get("prices") or {}
+    suma = 0.0
+    for sym, op in ((sim or {}).get("open") or {}).items():
+        qty = float(op.get("qty") or 0)
+        px = ceny.get(str(sym).upper()) or op.get("entry")
+        suma += qty * float(px or 0)
+    return suma
+
+
+def _kapital(sim: dict) -> float:
+    """Kapitał konta w USD: gotówka + wartość pozycji."""
+    return book.cash_usd() + _pozycje_usd(sim)
+
+
+def _wolny_depozyt(extra_usd: float, sim: dict | None = None) -> tuple[bool, dict]:
     """Czy po tej transakcji zostanie dość wolnego depozytu (dźwignia).
 
     Przy dźwigni pozycja może być warta więcej niż gotówka — resztę pokrywa
@@ -53,11 +77,7 @@ def _wolny_depozyt(extra_usd: float) -> tuple[bool, dict]:
     if lev <= 1.0:
         return True, {}
     zapas = float(mg.get("min_free_margin_pct") or 0)
-    ceny = (store.read_json(store.PRICES) or {}).get("prices") or {}
-    zajete = 0.0
-    for sym, qty in (book.holdings() or {}).items():
-        px = float(ceny.get(sym) or book.cost_basis(sym) or 0)
-        zajete += float(qty) * px
+    zajete = _pozycje_usd(sim)
     kapital = book.cash_usd() + zajete
     pozycja = zajete + float(extra_usd)
     zastaw = pozycja / lev
@@ -477,7 +497,7 @@ def _attempt(sim: dict, sym: str, now_dt, costs: dict) -> dict | None:
     notional = qty * fill
 
     # 6. Depozyt: przy dźwigni pożyczka ma swój limit.
-    ok_dep, liczby_dep = _wolny_depozyt(notional)
+    ok_dep, liczby_dep = _wolny_depozyt(notional, sim)
     if not ok_dep:
         book.decide(sim, "block", symbol=sym, code="depozyt",
                     title="%s: brak wolnego depozytu" % sym,

@@ -114,6 +114,11 @@ def _cash_add(usd: float) -> None:
 
 
 # --------------------------------------------------------------- podatek (PL)
+def cash_move(usd: float) -> None:
+    """Ruch gotówki w USD: dodatni = wpływ, ujemny = kupno/wypłata."""
+    _cash_add(usd)
+
+
 def tax_state(sim: dict) -> dict:
     """Stan podatku po polsku: zaplacony, do zaplaty, naliczony, strata do odliczenia."""
     pct = float(load_cfg()["costs"]["tax_on_gains_pct"])

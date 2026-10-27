@@ -94,6 +94,19 @@ RISK_STATE = p(TRADER, "state", "risk.json")
 BROKER_STATE = p(TRADER, "state", "broker.json")
 SIM_CONFIG = p(ROOT, "sim", "config.json")
 UNIVERSE = p(ROOT, "universe.txt")
+
+
+def spolki_universe() -> list[str]:
+    """Lista obserwowanych spółek z universe.txt (bez komentarzy i pustych linii)."""
+    if not os.path.exists(UNIVERSE):
+        return []
+    out = []
+    with open(UNIVERSE, encoding="utf-8") as f:
+        for linia in f:
+            kod = linia.split("#")[0].strip().upper()
+            if kod:
+                out.append(kod)
+    return out
 SPOLKI = p(ROOT, "data", "spolki.csv")          # katalog: nazwa i kategoria
 
 LEDGER_COLS = [
