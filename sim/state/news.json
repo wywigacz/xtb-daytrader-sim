@@ -613,11 +613,198 @@
           "risk": false,
           "risk_tags": [],
           "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "General Motors (GM) shares skyrocket, what you need to know",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T22:06:47+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/general-motors-gm-shares-skyrocket-220647515.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM is embracing hybrids now",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T21:47:02+00:00",
+          "link": "https://finance.yahoo.com/energy/articles/gm-embracing-hybrids-now-214702237.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM Stock Jumps 6% On Hybrid SUV Plans And Nasdaq Switch",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T19:58:38+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/gm-stock-jumps-6-on-hybrid-suv-plans-and-nasdaq-switch/cZUeSrxRBCx?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T19:46:12+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-194612946.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GM",
+          "title": "GM Ditches NYSE After 115 Years for the Tech Bros",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T19:11:43+00:00",
+          "link": "https://app.moby.co/home/news/news-gm-ditches-nyse-after-115-years-for-the-tech-bros?utm_source=yahoo_finance&utm_medium=rss&.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "Earnings from Google and Microsoft and a Fed rate decision: What to Watch",
+          "source": "Yahoo Finance",
+          "time": "2026-10-28T00:00:00+00:00",
+          "link": "https://finance.yahoo.com/video/earnings-google-microsoft-fed-rate-000000143.html?.tsrc=rss",
+          "tags": "makro wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "Vehlo’s Total Customer Connect AI Receptionist Named a Preferred Partner by Ford Motor Company",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:46:00+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/vehlo-total-customer-connect-ai-164600165.html?.tsrc=rss",
+          "tags": "zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "Ford's Maverick Hybrid Sales Just Surged 60%. Here's Exactly Why Investors Should Care.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T16:05:00+00:00",
+          "link": "https://www.fool.com/investing/2026/10/27/fords-maverick-hybrid-sales-just-surged-60-heres/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "WCC students partner with Ford Motor Company to build Ford Bronco live at SEMA 2026",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:35:00+00:00",
+          "link": "https://finance.yahoo.com/small-business/articles/wcc-students-partner-ford-motor-143500171.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "JFrog and Industry Judges Recognize Global Brands Bringing Trust to the Software Supply Chain in the AI Era",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:15:00+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/jfrog-industry-judges-recognize-global-131500204.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "What to expect from Ford’s (F) Q3 earnings",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T11:26:47+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/expect-ford-f-q3-earnings-112647516.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "Jim Farley finds a new chief of staff from Canada. What we know",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T11:03:00+00:00",
+          "link": "https://www.freep.com/story/money/cars/ford/2026/10/27/jim-farley-names-ford-of-canada-ceo-as-chief-of-staff-what-this-means/92445888007/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "F",
+          "title": "Why Did Tesla Stock Jump?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T10:26:46+00:00",
+          "link": "https://www.trefis.com/stock/tsla/articles/620840/why-did-tesla-stock-jump/2026-10-27?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "CCL",
+          "title": "Princess Cruises Sets the Stage for Extraordinary Discovery Down Under in 2028-29",
+          "source": "Yahoo Finance",
+          "time": "2026-10-28T00:00:00+00:00",
+          "link": "https://finance.yahoo.com/media-advertising/articles/princess-cruises-sets-stage-extraordinary-000000315.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "CCL",
+          "title": "Royal Caribbean Surges 8% as Earnings Beat Lifts Full-Year Outlook; Norwegian Climbs 3%, Carnival Edges Higher",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T14:02:38+00:00",
+          "link": "https://247wallst.com/investing/2026/10/27/royal-caribbean-surges-8-as-earnings-beat-lifts-full-year-outlook-norwegian-climbs-3-carnival-edges-higher/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "CCL",
+          "title": "Royal Caribbean Stock Jumps After Better-Than-Expected Earnings, Raised Outlook",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:57:21+00:00",
+          "link": "https://www.investopedia.com/market-update-royal-caribbean-stock-jumps-after-better-than-expected-earnings-raised-outlook-rcl-12196308?.tsrc=rss",
+          "tags": "wyniki zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "CCL",
+          "title": "What Royal Caribbean Earnings Tell Us About the Run-Up in Fuel Costs",
+          "source": "Yahoo Finance",
+          "time": "2026-10-27T13:23:00+00:00",
+          "link": "https://finance.yahoo.com/m/3c6f0030-2081-3f1b-8f47-72fd2cd6dd6b/what-royal-caribbean-earnings.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
         }
       ],
-      "runs": 3,
-      "read": 33,
-      "blocked": 3
+      "runs": 6,
+      "read": 50,
+      "blocked": 6
     }
   }
 }

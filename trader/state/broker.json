@@ -41,6 +41,66 @@
       "qty": "2",
       "price": 334.5672,
       "plain": "BUY 2 JPM at 334.57"
+    },
+    {
+      "at": "2026-10-27T09:45:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "GM",
+      "side": "buy",
+      "qty": "24",
+      "price": 80.14,
+      "plain": "BUY 24 GM at 80.14"
+    },
+    {
+      "at": "2026-10-27T10:45:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "F",
+      "side": "buy",
+      "qty": "231",
+      "price": 11.7758,
+      "plain": "BUY 231 F at 11.78"
+    },
+    {
+      "at": "2026-10-27T11:00:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "CCL",
+      "side": "buy",
+      "qty": "101",
+      "price": 27.7689,
+      "plain": "BUY 101 CCL at 27.77"
+    },
+    {
+      "at": "2026-10-27T20:26:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "GM",
+      "side": "sell",
+      "qty": "24",
+      "price": 81.15,
+      "plain": "SELL 24 GM at 81.15"
+    },
+    {
+      "at": "2026-10-27T20:26:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "F",
+      "side": "sell",
+      "qty": "231",
+      "price": 11.66,
+      "plain": "SELL 231 F at 11.66"
+    },
+    {
+      "at": "2026-10-27T20:26:00-04:00",
+      "date": "2026-10-27",
+      "status": "filled",
+      "symbol": "CCL",
+      "side": "sell",
+      "qty": "101",
+      "price": 28.0049,
+      "plain": "SELL 101 CCL at 28.00"
     }
   ]
 }

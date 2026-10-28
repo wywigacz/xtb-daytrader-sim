@@ -12,15 +12,17 @@
       "benchmark_level": 7673.98
     }
   ],
-  "realized_pnl_usd": 0.0,
+  "realized_pnl_usd": 21.33,
   "tax_reserve_pln": 0.0,
-  "year_result_pln": {},
+  "year_result_pln": {
+    "2026": 84.3
+  },
   "tax_settled": [],
   "tax_paid_pln": 0.0,
   "loss_carry_pln": 0.0,
   "fx": {
-    "rate": 3.9516,
-    "as_of": "2026-10-27 20:25"
+    "rate": 3.952,
+    "as_of": "2026-10-27 20:26"
   },
   "day_count": 2,
   "deposits_pln_total": 10000.0,
@@ -29,5 +31,8 @@
     "units": 0.329318,
     "spent_usd": 2527.18
   },
-  "last_day": "2026-10-27"
+  "last_day": "2026-10-27",
+  "odtworzone_dni": [
+    "2026-10-27"
+  ]
 }
