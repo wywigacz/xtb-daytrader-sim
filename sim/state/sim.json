@@ -21,8 +21,8 @@
   "tax_paid_pln": 0.0,
   "loss_carry_pln": 0.0,
   "fx": {
-    "rate": 3.9418,
-    "as_of": "2026-10-28 14:44"
+    "rate": 3.946,
+    "as_of": "2026-10-28 18:54"
   },
   "day_count": 3,
   "deposits_pln_total": 10000.0,
