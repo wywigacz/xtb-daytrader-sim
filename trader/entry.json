@@ -1,22 +1,22 @@
 {
   "created_by": "trader-entry",
-  "symbol": "SOFI",
+  "symbol": "CRM",
   "setup": "orb",
   "side": "buy",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "status": "triggered",
   "time": "9:55 AM",
   "bar_start": "09:50",
   "bar_index": 4,
-  "price": 16.18,
-  "level": 16.17,
+  "price": 244.11,
+  "level": 243.42,
   "interval": "5m",
   "opening_range": {
-    "high": 16.17,
-    "low": 15.67,
+    "high": 243.42,
+    "low": 237.01,
     "minutes": 15
   },
   "source": "yahoo",
-  "checked_at": "2026-10-27T18:37:00Z",
+  "checked_at": "2026-10-28T18:44:00Z",
   "reason": "the 9:50 bar closed above the range high"
 }
