@@ -101,6 +101,66 @@
       "qty": "101",
       "price": 28.0049,
       "plain": "SELL 101 CCL at 28.00"
+    },
+    {
+      "at": "2026-10-28T09:50:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "CRM",
+      "side": "buy",
+      "qty": "6",
+      "price": 244.2321,
+      "plain": "BUY 6 CRM at 244.23"
+    },
+    {
+      "at": "2026-10-28T10:10:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "XOM",
+      "side": "buy",
+      "qty": "23",
+      "price": 181.8359,
+      "plain": "BUY 23 XOM at 181.84"
+    },
+    {
+      "at": "2026-10-28T10:35:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "ADBE",
+      "side": "buy",
+      "qty": "7",
+      "price": 250.4151,
+      "plain": "BUY 7 ADBE at 250.42"
+    },
+    {
+      "at": "2026-10-28T20:49:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "CRM",
+      "side": "sell",
+      "qty": "6",
+      "price": 240.215,
+      "plain": "SELL 6 CRM at 240.22"
+    },
+    {
+      "at": "2026-10-28T20:49:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "XOM",
+      "side": "sell",
+      "qty": "23",
+      "price": 182.805,
+      "plain": "SELL 23 XOM at 182.81"
+    },
+    {
+      "at": "2026-10-28T20:49:00-04:00",
+      "date": "2026-10-28",
+      "status": "filled",
+      "symbol": "ADBE",
+      "side": "sell",
+      "qty": "7",
+      "price": 247.061,
+      "plain": "SELL 7 ADBE at 247.06"
     }
   ]
 }
