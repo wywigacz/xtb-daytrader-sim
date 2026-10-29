@@ -1263,6 +1263,156 @@
       "runs": 5,
       "read": 41,
       "blocked": 5
+    },
+    "2026-10-29": {
+      "items": [
+        {
+          "ticker": "DIS",
+          "title": "The Battle That May Matter Most for Netflix Stock Isn't Against Disney",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T14:35:00+00:00",
+          "link": "https://www.fool.com/investing/2026/10/29/the-battle-that-may-matter-most-for-netflix-stock/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "DIS",
+          "title": "Disney plans TikTok Shop holiday experience with over 20 brands",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T13:00:00+00:00",
+          "link": "https://www.marketingdive.com/news/disney-plans-tiktok-shop-holiday-experience-with-over-20-brands/873072/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "DIS",
+          "title": "What Mattered Most In Comcast's Latest Quarter?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T11:44:10+00:00",
+          "link": "https://www.trefis.com/stock/cmcsa/articles/621296/what-mattered-most-in-comcasts-latest-quarter/2026-10-29?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "DIS",
+          "title": "Walt Disney (DIS) Stock Drops Despite Market Gains: Important Facts to Note",
+          "source": "Yahoo Finance",
+          "time": "2026-10-28T20:45:03+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/walt-disney-dis-stock-drops-204503466.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "DIS",
+          "title": "Disney's theme parks division lays off at least 100 employees",
+          "source": "Yahoo Finance",
+          "time": "2026-10-28T19:38:30+00:00",
+          "link": "https://finance.yahoo.com/media-advertising/articles/disneys-theme-parks-division-lays-193830926.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Crocs Stock Spikes 25%. Its Biggest Headache Just Became an Asset.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T17:55:00+00:00",
+          "link": "https://finance.yahoo.com/m/aeffe22a-3f33-366e-81d9-6b3a82d9291b/crocs-stock-spikes-25%25.-its.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Deckers Outdoor (DECK) vs. ONON and NKE: Can UGG and HOKA Growth Drive a Major Re-Rating?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T17:19:32+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/deckers-outdoor-deck-vs-onon-171932067.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "What Nike’s Jordan pullback means for Foot Locker",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T15:10:00+00:00",
+          "link": "https://www.retaildive.com/news/nike-jordan-retro-pullback-foot-locker-impact/873154/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Is Lululemon Stock Worth More Than Its Competitors?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T14:24:04+00:00",
+          "link": "https://www.trefis.com/stock/lulu/articles/621273/is-lululemon-stock-worth-more-than-its-competitors/2026-10-29?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Hot takes on hot wings, the state of the running shoe market, and Microsoft's recent quarter",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T14:15:12+00:00",
+          "link": "https://finance.yahoo.com/video/hot-takes-on-hot-wings-the-state-of-the-running-shoe-market-and-microsofts-recent-quarter-141512057.html?.tsrc=rss",
+          "tags": "wyniki zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "From the marathon to the mile, innovation is still Brooks Running's biggest growth driver",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T14:14:42+00:00",
+          "link": "https://finance.yahoo.com/video/from-the-marathon-to-the-mile-innovation-is-still-brooks-runnings-biggest-growth-driver-141442568.html?.tsrc=rss",
+          "tags": "zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "Nike (NKE): Prolonged Turnaround Timelines Prompt Portfolio Realignment",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T13:59:28+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/nike-nke-prolonged-turnaround-timelines-135928168.html?.tsrc=rss",
+          "tags": "makro",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "NKE",
+          "title": "NKE Stock Ticks Higher Overnight: Nike Unveils 'Vegam Run' For The World's Largest Population Amid China Sales Slump",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T07:56:02+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/nke-stock-ticks-higher-overnight-nike-unveils-vegam-run-for-the-world-s-largest-population-amid-china-sales-slump/cZUQWsoR9bg?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        }
+      ],
+      "runs": 2,
+      "read": 13,
+      "blocked": 2
     }
   }
 }
