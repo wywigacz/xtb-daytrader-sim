@@ -161,6 +161,66 @@
       "qty": "7",
       "price": 247.061,
       "plain": "SELL 7 ADBE at 247.06"
+    },
+    {
+      "at": "2026-10-29T10:15:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "F",
+      "side": "buy",
+      "qty": "96",
+      "price": 12.19,
+      "plain": "BUY 96 F at 12.19"
+    },
+    {
+      "at": "2026-10-29T10:40:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "UBER",
+      "side": "buy",
+      "qty": "31",
+      "price": 65.4827,
+      "plain": "BUY 31 UBER at 65.48"
+    },
+    {
+      "at": "2026-10-29T09:45:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "SHOP",
+      "side": "buy",
+      "qty": "11",
+      "price": 166.6472,
+      "plain": "BUY 11 SHOP at 166.65"
+    },
+    {
+      "at": "2026-10-29T20:50:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "F",
+      "side": "sell",
+      "qty": "96",
+      "price": 12.4453,
+      "plain": "SELL 96 F at 12.45"
+    },
+    {
+      "at": "2026-10-29T20:50:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "UBER",
+      "side": "sell",
+      "qty": "31",
+      "price": 65.5022,
+      "plain": "SELL 31 UBER at 65.50"
+    },
+    {
+      "at": "2026-10-29T20:50:00-04:00",
+      "date": "2026-10-29",
+      "status": "filled",
+      "symbol": "SHOP",
+      "side": "sell",
+      "qty": "11",
+      "price": 166.4917,
+      "plain": "SELL 11 SHOP at 166.49"
     }
   ]
 }
