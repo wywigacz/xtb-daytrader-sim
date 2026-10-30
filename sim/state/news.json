@@ -2479,6 +2479,514 @@
       "runs": 8,
       "read": 109,
       "blocked": 8
+    },
+    "2026-10-30": {
+      "items": [
+        {
+          "ticker": "AMZN",
+          "title": "Alphabet's October wipeout hits $766 billion, its worst month ever",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:14:07+00:00",
+          "link": "https://finance.yahoo.com/markets/article/alphabets-october-wipeout-hits-766-billion-its-worst-month-ever-181407937.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Tech stocks crushed as Nasdaq tumbles more than 800 points",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:11:22+00:00",
+          "link": "https://www.cbsnews.com/news/nasdaq-futures-tumble-tech-earnings-ai/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": true,
+          "risk_tags": [
+            "tumbles"
+          ],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Update: Equities Tumble Intraday Amid Tech Sell-Off Following Amazon, Intel Earnings",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:00:55+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/equities-tumble-intraday-amid-tech-180055421.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "META, AMZN, ORCL, GOOGL In Focus: Big Tech Bonds Offer Better Opportunity Than Stocks, BofA Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:55:14+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/meta-amzn-orcl-googl-in-focus-big-tech-bonds-offer-better-opportunity-than-stocks-bof-a-says/cZULGUIR9cG?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon earnings fall short amid tech sell-off, and Anthropic becomes SpaceX's top partner",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:40:24+00:00",
+          "link": "https://finance.yahoo.com/video/amazon-earnings-fall-short-amid-tech-sell-off-and-anthropic-becomes-spacexs-top-partner-174024326.html?.tsrc=rss",
+          "tags": "makro wyniki zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Stock Market Today: Nasdaq Slumps On Weak Intel Report; These Two Biopharmas Break Out (Live Coverage)",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:37:48+00:00",
+          "link": "https://finance.yahoo.com/m/3cdf61c3-8737-3183-b5ff-f3bf8fc03ece/stock-market-today%3A-nasdaq.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": true,
+          "risk_tags": [
+            "slumps"
+          ],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Stock Market: Google, Amazon, Intel, ServiceNow Trigger Tech Wreck, But Other Sectors Solid: Weekly Review",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:33:48+00:00",
+          "link": "https://finance.yahoo.com/m/c973bd42-cf7d-3348-8775-1be2b557b758/stock-market%3A-google%2C-amazon%2C.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon sets up $80 billion supplier financing for AI hardware",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:23:00+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/amazon-sets-80-billion-supplier-172300209.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Wall Street analysts like Amazon's AWS outlook",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:20:30+00:00",
+          "link": "https://finance.yahoo.com/technology/article/wall-street-analysts-like-amazons-aws-outlook-172030532.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Big Tech Stocks Have Never Looked Cheaper. Is the Magnificent Seven a Screaming Buy?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:20:03+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/big-tech-stocks-have-never-looked-cheaper-is-the-magnificent-seven-a-screaming-buy/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Bessemer Trust CEO: Constructive on Markets",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:18:06+00:00",
+          "link": "https://finance.yahoo.com/video/bessemer-trust-ceo-constructive-markets-171806021.html?.tsrc=rss",
+          "tags": "wyniki zarzad",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon Web Services Set for Strong Performance Ahead Despite 'Disappointing' Third-Quarter Growth, Morgan Stanley Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:17:57+00:00",
+          "link": "https://finance.yahoo.com/technology/articles/amazon-services-set-strong-performance-171757942.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Learn Why The Bull Case For Amazon.com (AMZN) Could Change Following Earnings Miss",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:16:09+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/learn-why-bull-case-amazon-171609467.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Markets lashed by tech rout as earnings fan AI fears",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:06:29+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/tech-firms-fresh-hit-earnings-024928854.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon's AI Spending Spooks Investors",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:06:05+00:00",
+          "link": "https://finance.yahoo.com/video/amazons-ai-spending-spooks-investors-170605386.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon shares recover some ground after AWS growth disappoints investors",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:05:00+00:00",
+          "link": "https://www.proactiveinvestors.com/companies/news/1101020/amazon-shares-recover-some-ground-after-aws-growth-disappoints-investors-1101020.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Wall Street sell-off deepens as investors question returns on ‘monster AI splurge’",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:00:50+00:00",
+          "link": "https://www.cnn.com/2026/10/30/investing/us-stocks-ai-investment?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Should Palantir Stock Be in Your Portfolio Before Q3 Earnings?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:53:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-portfolio-q3-earnings-165300648.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Oracle Just Told Investors What Many Already Knew",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:45:17+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/oracle-just-told-investors-what-many-already-knew/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Amazon Needs AWS Growth Acceleration to Offset Rising Capital Spending, RBC Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:37:10+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/amazon-needs-aws-growth-acceleration-153710716.html?.tsrc=rss",
+          "tags": "analitycy",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "'Banks Have Gotten Drunk' on AI Megadeals, USD.AI Co-Founder Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:15:07+00:00",
+          "link": "https://www.benzinga.com/markets/prediction-markets/26/10/62744870/ai-megadeal-financing?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Microsoft and Amazon ‘Won’ With Cloud But Other Hyperscalers Should Celebrate",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:45:55+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/microsoft-and-amazon-won-with-cloud-but-other-hyperscalers-should-celebrate/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "3 Great Growth Stocks To Own In October 2026",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:14:47+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/3-great-growth-stocks-own-141447623.html?.tsrc=rss",
+          "tags": "ryzyko",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Prediction: This Could Be the AI Comeback Story of the Decade",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:33:23+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/prediction-this-could-be-the-ai-comeback-story-of-the-decade/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Should You Buy Adobe Stock For Its Cash?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T12:59:20+00:00",
+          "link": "https://www.trefis.com/stock/adbe/articles/621518/should-you-buy-adobe-stock-for-its-cash-2/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Oracle Is Down 53% in a Year and Trades at 15 Times Earnings. Wall Street Still Sees $230+",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T12:47:34+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/oracle-is-down-53-in-a-year-and-trades-at-15-times-earnings-wall-street-still-sees-230/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Microsoft Is Borrowing $25 Billion for AI, Its First Bond Sale Since 2017",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T12:12:25+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/microsoft-is-borrowing-25-billion-for-ai-its-first-bond-sale-since-2017/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Satya Nadella Just Took a Shot at Oracle and CoreWeave",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T11:47:06+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/satya-nadella-just-took-a-shot-at-oracle-and-coreweave/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "Cerebras Fell After Culper Research Issued a Short Call. What This Means for CBRS Stock.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T11:30:03+00:00",
+          "link": "https://www.barchart.com/story/news/8551033/cerebras-fell-after-culper-research-issued-a-short-call-what-this-means-for-cbrs-stock?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "ORCL",
+          "title": "What Could Lift IBM Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T11:16:04+00:00",
+          "link": "https://www.trefis.com/stock/ibm/articles/621534/what-could-lift-ibm-stock/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "CAT",
+          "title": "2026 SoCal ORBIE Awards Celebrate Top Technology and Security Executives",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:55:00+00:00",
+          "link": "https://finance.yahoo.com/technology/articles/2026-socal-orbie-awards-celebrate-155500059.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "GE Vernova vs. Caterpillar: Wall Street Splinters on the AI Power Trade",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:46:00+00:00",
+          "link": "https://finance.yahoo.com/m/73a7ff36-ff13-3d6b-a4fc-c5501fa6fb32/ge-vernova-vs.-caterpillar%3A.html?.tsrc=rss",
+          "tags": "analitycy",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Caterpillar's Strong Earnings Power Remains Intact, BofA Securities Says",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:46:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/caterpillar-apos-strong-earnings-power-144600572.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Earnings Calendar and Analysis for This Week",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:21:58+00:00",
+          "link": "https://www.kiplinger.com/investing/stocks/17494/next-week-earnings-calendar-stocks?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Amazon and Intel earnings lead to a tech sell-off, and Binance is hacked for $6.3B",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:41:00+00:00",
+          "link": "https://finance.yahoo.com/video/amazon-and-intel-earnings-lead-to-a-tech-sell-off-and-binance-is-hacked-for-63b-134100370.html?.tsrc=rss",
+          "tags": "ryzyko wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "4 Stocks Where Rising Yields Come From Bigger Dividend Checks, Not Falling Prices",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:17:23+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/4-stocks-where-rising-yields-come-from-bigger-dividend-checks-not-falling-prices/?.tsrc=rss",
+          "tags": "finansowanie",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Boeing vs Caterpillar: Which Is Better for a Retirement Portfolio Now?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T12:50:59+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/boeing-vs-caterpillar-which-is-better-for-a-retirement-portfolio-now/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Why Did Caterpillar Stock Fall?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T11:15:56+00:00",
+          "link": "https://www.trefis.com/stock/cat/articles/621581/why-did-caterpillar-stock-fall/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Caterpillar Fell Nearly 25% Over 3 Months But These Two Wall Street Firms Say It’s Going to Appreciate by Nearly 80%",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T11:15:46+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/caterpillar-fell-nearly-25-over-3-months-but-these-two-wall-street-firms-say-its-going-to-appreciate-by-nearly-80/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Caterpillar Q3 Earnings Call Highlights",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T06:14:11+00:00",
+          "link": "https://www.marketbeat.com/instant-alerts/transcript-caterpillar-q3-earnings-call-highlights-2026-10-30/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Caterpillar Inc. Q3 2026 Earnings Call Summary",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T21:41:36+00:00",
+          "link": "https://app.moby.co/home/research/tools/earningsCalendar/earnings-caterpillar-inc-q3-2026-earnings-call-summary?utm_source=yahoo_finance&utm_medium=rss&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Alphabet, Marvell, ServiceNow, Fortinet, Caterpillar, Lilly, and More Stocks That Explain Today’s Market",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T21:21:00+00:00",
+          "link": "https://finance.yahoo.com/m/08395f4a-75cb-3ebd-a312-7385b765b680/alphabet%2C-marvell%2C.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Stocks Close Lower as Alphabet Disappoints and Chip Stocks Fall",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T20:45:21+00:00",
+          "link": "https://www.barchart.com/story/news/8539407/stocks-close-lower-as-alphabet-disappoints-and-chip-stocks-fall?.tsrc=rss",
+          "tags": "makro",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Nasdaq Drops 365 Points on Alphabet's Rare Double Miss: Stock Market Today",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T20:08:22+00:00",
+          "link": "https://www.kiplinger.com/investing/stocks/nasdaq-drops-365-points-on-big-alphabet-miss-stock-market-today?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "CAT",
+          "title": "Nasdaq Poised to Plunge as AI Stock Wipeout Follows Hot Inflation Data",
+          "source": "Yahoo Finance",
+          "time": "2026-10-29T19:51:04+00:00",
+          "link": "https://247wallst.com/videos/nasdaq-poised-to-plunge-as-ai-stock-wipeout-follows-hot-inflation-data/?.tsrc=rss",
+          "tags": "makro wyniki",
+          "risk": true,
+          "risk_tags": [
+            "plunge"
+          ],
+          "impact": "wstrzymał zakup"
+        }
+      ],
+      "runs": 3,
+      "read": 45,
+      "blocked": 3
     }
   }
 }
