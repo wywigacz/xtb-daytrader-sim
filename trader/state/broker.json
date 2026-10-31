@@ -221,6 +221,66 @@
       "qty": "11",
       "price": 166.4917,
       "plain": "SELL 11 SHOP at 166.49"
+    },
+    {
+      "at": "2026-10-30T11:05:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "GOOGL",
+      "side": "buy",
+      "qty": "12",
+      "price": 282.6312,
+      "plain": "BUY 12 GOOGL at 282.63"
+    },
+    {
+      "at": "2026-10-30T09:50:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "TSLA",
+      "side": "buy",
+      "qty": "7",
+      "price": 394.3171,
+      "plain": "BUY 7 TSLA at 394.32"
+    },
+    {
+      "at": "2026-10-30T09:55:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "META",
+      "side": "buy",
+      "qty": "4",
+      "price": 620.4651,
+      "plain": "BUY 4 META at 620.47"
+    },
+    {
+      "at": "2026-10-30T20:42:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "GOOGL",
+      "side": "sell",
+      "qty": "12",
+      "price": 280.4949,
+      "plain": "SELL 12 GOOGL at 280.49"
+    },
+    {
+      "at": "2026-10-30T20:42:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "TSLA",
+      "side": "sell",
+      "qty": "7",
+      "price": 397.751,
+      "plain": "SELL 7 TSLA at 397.75"
+    },
+    {
+      "at": "2026-10-30T20:42:00-04:00",
+      "date": "2026-10-30",
+      "status": "filled",
+      "symbol": "META",
+      "side": "sell",
+      "qty": "4",
+      "price": 625.6042,
+      "plain": "SELL 4 META at 625.60"
     }
   ]
 }

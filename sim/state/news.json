@@ -2982,11 +2982,644 @@
             "plunge"
           ],
           "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "‘Big Short’ trader says Anthropic slowdown tests AI boom",
+          "source": "Yahoo Finance",
+          "time": "2026-10-31T00:37:00+00:00",
+          "link": "https://www.thestreet.com/investing/big-short-trader-says-anthropic-slowdown-tests-ai-boom?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "S&P 500, Nasdaq End Third Straight Week Lower As Investors Move Away From Tech, AI —  AMZN, INTC, LLY, RBLX In Focus",
+          "source": "Yahoo Finance",
+          "time": "2026-10-31T00:05:39+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-end-third-straight-week-lower-as-investors-move-away-from-tech-ai-amzn-intc-lly-rblx-in-focus/cZUKKlTR9cJ?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Review & Preview: Ending on a Down Note",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T23:55:00+00:00",
+          "link": "https://finance.yahoo.com/m/b0499f52-933b-3c3a-a9fe-a4d478f02828/review-%26-preview%3A-ending-on-a.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Amazon Just Lost $42 Billion in Free Cash Flow. Is It a Red Flag for Investors?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T23:50:01+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/amazon-just-lost-usd42-billion-in-free-cash-flow-is-it-a-red-flag-for-investors/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Learn Why The Bull Case For Verizon Communications (VZ) Could Change Following Raised Outlook",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T22:13:05+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/learn-why-bull-case-verizon-221305487.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Apple overtakes Nvidia to become world’s most valuable company amid tech selloff",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:47:53+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/apple-overtakes-nvidia-become-world-214753575.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Stock Market Today, Oct. 30: Amazon Misses Revenue and Earnings Expectations",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:35:02+00:00",
+          "link": "https://www.fool.com/coverage/stock-market-today/2026/10/30/stock-market-today-oct-30-amazon-misses-revenue-and-earnings-expectations/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Cracks are emerging in the AI spending boom",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:17:40+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/cracks-emerging-ai-spending-boom-211740864.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Gene Munster 'More Concerned' About Amazon and Alphabet — Says AI Bots Mean Shopping Edge 'Will Increasingly Be Under Attack'",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:10:12+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/gene-munster-more-concerned-amazon-211012721.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Anthropic turns profitable but could go back into losses: Seaport analyst",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:09:40+00:00",
+          "link": "https://finance.yahoo.com/video/anthropic-turns-profitable-but-could-go-back-into-losses-seaport-analyst-210940618.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Update: Nasdaq Composite Marks Worst Month Since March 2025 as AI Spending Fears Rise",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:56:53+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/nasdaq-composite-marks-worst-month-205653774.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Dow Jones Futures: Stock Market Sells Off As Apple, Palantir, Midterm Elections Loom; What To Do",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:51:56+00:00",
+          "link": "https://finance.yahoo.com/m/d0bc23d0-115b-314d-8989-07ca797bebfa/dow-jones-futures%3A-stock.html?.tsrc=rss",
+          "tags": "makro",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "US Equity Indexes Drop This Week as Disappointing Hyperscaler Results Offset Gains From Anthropic's IPO Boost",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:40:54+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/us-equity-indexes-drop-week-204054955.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "AMZN",
+          "title": "Intel, Amazon, Nvidia, ExxonMobil, Sandisk, FedEx Freight, and More Stocks That Explain Today’s Market",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:37:00+00:00",
+          "link": "https://finance.yahoo.com/m/6fa63ea7-4dda-36ab-92fc-9135d98e250e/intel%2C-amazon%2C-nvidia%2C.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Strong Growth Momentum and Rising Revisions Fuel Bright Earnings Outlook",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T22:14:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/strong-growth-momentum-rising-revisions-221400708.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "2 AI Stocks Poised to Surge on the Halloween Effect",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:00:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/2-ai-stocks-poised-surge-180000078.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "If AI Spending Slows in 2027, These Semiconductor Stocks Could Hold Up Best",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:58:03+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/if-ai-spending-slows-in-2027-these-semiconductor-stocks-could-hold-up-best/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Why Intel Is Down Today",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:09:02+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/why-intel-is-down-today/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Micron Became One of the 10 Biggest Holdings in S&P 500 Index Funds. What Does That Mean for the Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:01:01+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/micron-became-one-of-the-10-biggest-holdings-in-s-and-p-500-index-funds-what-does-that-mean-for-the-stock/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Sandisk Sinks 12% Despite Earnings Beat and 8-for-1 Split as Memory Stocks Slide: “It’s Absurd”",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:47:25+00:00",
+          "link": "https://www.tikr.com/blog/sandisk-sinks-12-despite-earnings-beat-and-8-for-1-split-as-memory-stocks-slide-its-absurd?ref=yahoofinance&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Micron Peer Enthusiasm Entices Me To Buy Again",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:45:43+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/micron-peer-enthusiasm-entices-me-to-buy-again/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "SanDisk stock tumbles as Kioxia warns on NAND price surge",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:18:34+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/sandisk-stock-tumbles-kioxia-warns-161834544.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": true,
+          "risk_tags": [
+            "tumbles"
+          ],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Why Micron Stock Dove Today",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:56:48+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/why-micron-stock-dove-today/?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "SK Hynix Just Delivered Fantastic News for Micron",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:10:16+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/sk-hynix-just-delivered-fantastic-news-for-micron/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Micron Stock Drops Again. Surging Memory Prices Aren’t All Good News.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:02:00+00:00",
+          "link": "https://finance.yahoo.com/m/ba434a04-b9f3-30fa-b5dc-59a429bd5add/micron-stock-drops-again..html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Why Is Micron (MU) Down 14.9% Since Last Earnings Report?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:30:02+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/why-micron-mu-down-14-143002989.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "What Could Lift Western Digital Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T14:02:07+00:00",
+          "link": "https://www.trefis.com/stock/wdc/articles/621539/what-could-lift-western-digital-stock/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Amazon and Intel Plunge After Disappointing Results, Fueling Wall Street's Nerves About AI Spending",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:43:26+00:00",
+          "link": "https://www.ibtimes.com/amazon-intel-shares-fall-ai-spending-pc-market-3809185?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": true,
+          "risk_tags": [
+            "plunge"
+          ],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Sandisk shares slide 8% despite earnings beat as investors weigh valuation",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:42:00+00:00",
+          "link": "https://www.proactiveinvestors.com/companies/news/1101008/sandisk-shares-slide-8-despite-earnings-beat-as-investors-weigh-valuation-1101008.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Intel Sinks 29% as Weak Outlook Shows It’s “Still PC Dependent”",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:39:44+00:00",
+          "link": "https://www.tikr.com/blog/intel-sinks-29-as-weak-outlook-shows-its-still-pc-dependent?ref=yahoofinance&.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "MU",
+          "title": "Sandisk Sinks 9% Despite Earnings Beat, Raised Guidance and 8-for-1 Split; Western Digital Tumbles 8%, Seagate Slides 7%, Micron Falls 6%",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T13:17:24+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/sandisk-sinks-9-despite-earnings-beat-raised-guidance-and-8-for-1-split-western-digital-tumbles-8-seagate-slides-7-micron-falls-6/?.tsrc=rss",
+          "tags": "finansowanie wyniki",
+          "risk": true,
+          "risk_tags": [
+            "tumbles"
+          ],
+          "impact": "wstrzymał zakup"
+        },
+        {
+          "ticker": "GOOGL",
+          "title": "Veteran fund manager revamps Alphabet stock price target after brutal sell-off",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T22:25:51+00:00",
+          "link": "https://www.thestreet.com/investing/stocks/veteran-fund-manager-revamps-alphabet-stock-price-target-after-brutal-selloff-googl?.tsrc=rss",
+          "tags": "analitycy wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GOOGL",
+          "title": "Did The Market Read AppLovin Stock Right?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:41:17+00:00",
+          "link": "https://www.trefis.com/stock/app/articles/621520/did-the-market-read-applovin-stock-right/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "GOOGL",
+          "title": "Evercose ISI downgrades Reddit, says monetization may not offset traffic weakness",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:53:39+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/evercose-isi-downgrades-reddit-says-205339666.html?.tsrc=rss",
+          "tags": "analitycy wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Stocktwits Zero To Sixty: Rivian Raises Delivery Guidance On R2 Demand, Tesla Expands Robotaxi Fleet,  And Ford Advances Low-Cost EV Plans",
+          "source": "Yahoo Finance",
+          "time": "2026-10-31T00:10:18+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-zero-to-sixty-rivian-beats-q3-estimates-on-r2-strength-and-raises-guidance-tesla-expands-robotaxi-fleet-and-ford-advances-low-cost-ev-plans/cZUKK8sR9cB?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "See how Tesla stocks performed for week ending Oct. 30",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T22:15:19+00:00",
+          "link": "https://finance.yahoo.com/video/see-tesla-stocks-performed-week-221519114.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Elon Musk vs. Tesla? His Midterm Money Could Work Against His Own Cars",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:02:23+00:00",
+          "link": "https://finance.yahoo.com/economy/policy/articles/elon-musk-vs-tesla-midterm-210223226.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Nasdaq Falls Another 747 Points as Intel Is Way Outside: Stock Market Today",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:25:16+00:00",
+          "link": "https://www.kiplinger.com/investing/stocks/nasdaq-falls-another-747-points-as-intel-is-way-outside-stock-market-today?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "In A Bad Week For The AI Trade, This One Mag Seven Stock Holds Strong",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:04:31+00:00",
+          "link": "https://finance.yahoo.com/m/c6ea6dfa-fdb1-342d-acc1-568d7e2d17a5/in-a-bad-week-for-the-ai.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Tesla and 113 other companies paid no current federal income tax, but they still aren’t the biggest threats to the federal deficit, think tank warns",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:38:06+00:00",
+          "link": "https://finance.yahoo.com/economy/policy/articles/tesla-113-other-companies-paid-183806266.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Tesla-SpaceX Merger Could Face The Biggest Regulatory Risk In China, BofA Warns",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:58:59+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/tesla-spacex-merger-could-face-the-biggest-regulatory-risk-in-china-bof-a-warns/cZULbGrR9cb?.tsrc=rss",
+          "tags": "transakcja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Tesla Could Be About to Unlock a Brand-New Revenue Stream. Time to Buy the Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T17:09:01+00:00",
+          "link": "https://www.fool.com/investing/2026/10/30/tesla-could-be-about-to-unlock-a-brand-new-revenue-stream-time-to-buy-the-stock/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "What Just Happened To Alnylam Stock?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:51:31+00:00",
+          "link": "https://www.trefis.com/stock/alny/articles/621578/what-just-happened-to-alnylam-stock/2026-10-30?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Tesla Stock Could Rebound as These 3 Growth Drivers Take Center Stage",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:33:27+00:00",
+          "link": "https://247wallst.com/investing/2026/10/30/tesla-stock-could-rebound-as-these-3-growth-drivers-take-center-stage/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Jim Cramer has a new way of thinking about the biggest tech stocks",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:17:00+00:00",
+          "link": "https://www.thestreet.com/investing/stocks/jim-cramer-has-a-new-way-of-thinking-about-the-biggest-tech-stocks?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Can Elon Musk’s $119 Billion Terafab Chip Plant Pay Off Without Outside Customers?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T16:00:00+00:00",
+          "link": "https://beincrypto.com/terafab-lightning-speed-elon-musk-chip/?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "TSLA",
+          "title": "Rivian’s R2 Could Fill A ‘Relatively Unique Position And Product Void’ Between Tesla And Ford, Says Jefferies – Sees 45% Upside Potential",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T15:34:54+00:00",
+          "link": "https://stocktwits.com/news-articles/markets/equity/rivian-r2-could-fill-relatively-unique-position-and-product-void-between-tesla-and-ford-says-jefferies/cZUhU4WR9Tr?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Meta’s Credit Rating Outlook Downgraded to Negative by S&P",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:56:00+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/meta-credit-rating-outlook-downgraded-215600853.html?.tsrc=rss",
+          "tags": "analitycy",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "S&P cuts Meta outlook to negative amid capex concerns",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T21:39:40+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/p-cuts-meta-outlook-negative-213940742.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Tech Earnings Send SpaceX Stock Below IPO Price. No Other Companies Met Elon Musk’s High Bar.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:31:00+00:00",
+          "link": "https://finance.yahoo.com/m/b5aeecce-1d32-3744-aa96-e36fea749124/tech-earnings-send-spacex.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Apple Overtakes Nvidia to Become World’s Most Valuable Company",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:28:39+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/apple-overtakes-nvidia-become-world-202839510.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "The real question we should all be asking about AI",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:25:44+00:00",
+          "link": "https://www.cnn.com/2026/10/30/business/ai-stocks-bonds-debt?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Pinterest Sinks 7% on Revenue Miss and Weak Q4 Guide: “We Are Not Happy With That Result”",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T20:20:24+00:00",
+          "link": "https://www.tikr.com/blog/pinterest-sinks-7-on-revenue-miss-and-weak-q4-guide-we-are-not-happy-with-that-result?ref=yahoofinance&tlnk=yf-261030-5v22ph3j&.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Big Tech Holds $3 Trillion in Spending Commitments for AI Boom",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T19:25:31+00:00",
+          "link": "https://finance.yahoo.com/technology/ai/articles/big-tech-holds-3-trillion-192531716.html?.tsrc=rss",
+          "tags": "informacja",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Alphabet Convertible Preferred Now Yields Over 7.5%. There’s a Catch.",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T19:25:00+00:00",
+          "link": "https://finance.yahoo.com/m/e0cf48bd-7801-340b-b1ba-a1d773171f6f/alphabet-convertible.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Top 3 Founder Led Stocks With Revenue Growth Over 17% To Watch",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T19:08:48+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/top-3-founder-led-stocks-190848885.html?.tsrc=rss",
+          "tags": "ryzyko",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
+        },
+        {
+          "ticker": "META",
+          "title": "Amazon (AMZN) Stock After Q3 Earnings: Buy the Dip, Sell, or Hold?",
+          "source": "Yahoo Finance",
+          "time": "2026-10-30T18:23:00+00:00",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/amazon-amzn-stock-q3-earnings-182300807.html?.tsrc=rss",
+          "tags": "wyniki",
+          "risk": false,
+          "risk_tags": [],
+          "impact": "nie zmienil decyzji"
         }
       ],
-      "runs": 3,
-      "read": 45,
-      "blocked": 3
+      "runs": 8,
+      "read": 102,
+      "blocked": 8
     }
   }
 }
